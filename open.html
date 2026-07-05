@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PocketPanchangam</title>
+<style>
+  body{margin:0;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;background:#171009;color:#FAF6ED;
+       display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px}
+  .sun{font-size:52px;line-height:1}
+  h1{font-size:20px;letter-spacing:3px;margin:14px 0 4px;color:#E8A020}
+  p{color:#CBB99A;font-size:15px;line-height:1.6;max-width:320px}
+  a.btn{display:inline-block;margin-top:18px;padding:13px 28px;border-radius:999px;background:#E8A020;color:#2A1208;
+        font-weight:700;text-decoration:none;font-size:15px}
+  a.sub{display:block;margin-top:14px;color:#8d7c60;font-size:13px;text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="sun">☀️</div>
+<h1>POCKET PANCHANGAM</h1>
+<p id="msg">యాప్ తెరుస్తున్నాం… Opening the app…</p>
+<a class="btn" id="open" href="#">యాప్ తెరవండి · Open app</a>
+<a class="sub" id="store" href="https://apps.apple.com/app/id6787660096">App Store లో చూడండి · Get the app</a>
+<script>
+(function(){
+  // ?to=tab/panchangam or ?to=gita/2/47 → pocketpanchangam://<to>
+  var raw = new URLSearchParams(location.search).get("to") || "tab/panchangam";
+  var to = /^[a-zA-Z0-9/_.-]+$/.test(raw) ? raw : "tab/panchangam";
+  var deep = "pocketpanchangam://" + to;
+  var ua = navigator.userAgent || "";
+  var store = /Android/i.test(ua)
+    ? "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app"
+    : "https://apps.apple.com/app/id6787660096";
+  document.getElementById("open").href = deep;
+  document.getElementById("store").href = store;
+  // Try the app immediately; if nothing grabs the scheme, offer the store.
+  var t = setTimeout(function(){
+    document.getElementById("msg").textContent =
+      "యాప్ ఇంకా లేదా? దిగువ నుంచి డౌన్‌లోడ్ చేయండి · Don't have the app yet?";
+  }, 1600);
+  window.addEventListener("pagehide", function(){ clearTimeout(t); });
+  location.href = deep;
+})();
+</script>
+</body>
+</html>
