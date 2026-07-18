@@ -65,20 +65,14 @@
       window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
     });
   } else if (isIOS) {
-    // NEVER auto-fire the scheme on load: without the app installed, iOS
-    // Safari throws a modal "address is invalid" alert (real-user report,
-    // 2026-07-18). Tap-initiated attempt; App Store forward if the app
-    // doesn't take over.
-    open.href = deep;
-    open.addEventListener("click", function(){
-      var t = setTimeout(function(){
-        if (document.visibilityState === "visible") location.href = APPSTORE;
-      }, 1600);
-      window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
-      document.addEventListener("visibilitychange", function(){
-        if (document.visibilityState !== "visible") clearTimeout(t);
-      }, { once: true });
-    });
+    // iOS has NO error-free way to attempt a custom scheme when the app is
+    // missing (Safari alerts "address is invalid" and the modal swallows any
+    // fallback redirect — two real-user reports, 2026-07-18). So the button
+    // goes to the App Store product page: the store itself shows "Open" when
+    // the app is installed and "Get" when it isn't — zero failure modes.
+    // App-havers stop landing here at all once the Universal-Links build
+    // (1.1.0) is out: iOS opens the app directly from the shared link.
+    open.href = APPSTORE;
   } else {
     // Desktop / unknown: nothing to open here — point to the phone stores.
     open.hidden = true;
