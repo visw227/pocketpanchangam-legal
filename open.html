@@ -21,6 +21,7 @@
 <p id="msg">యాప్‌లో చూడటానికి క్రింది బటన్ నొక్కండి · Tap below to open in the app</p>
 <a class="btn" id="open" href="#">యాప్ తెరవండి · Open app</a>
 <a class="sub" id="store" href="https://apps.apple.com/app/id6787660096">App Store లో చూడండి · Get the app</a>
+<a class="sub" id="store2" href="https://play.google.com/store/apps/details?id=com.pocketpanchangam.app" hidden>Play Store లో చూడండి · Get it on Android</a>
 <script>
 (function(){
   // ?to=tab/panchangam or ?to=gita/2/47 → pocketpanchangam://<to>
@@ -28,24 +29,56 @@
   var to = /^[a-zA-Z0-9/_.-]+$/.test(raw) ? raw : "tab/panchangam";
   var deep = "pocketpanchangam://" + to;
   var ua = navigator.userAgent || "";
-  var store = /Android/i.test(ua)
-    ? "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app"
-    : "https://apps.apple.com/app/id6787660096";
-  document.getElementById("open").href = deep;
-  document.getElementById("store").href = store;
-  // NEVER auto-fire the custom scheme: without the app installed, iOS Safari
-  // throws a modal "address is invalid" alert on page load (real-user report,
-  // 2026-07-18). The attempt must be user-initiated. If the app doesn't take
-  // over shortly after the tap, forward to the store instead.
-  document.getElementById("open").addEventListener("click", function(){
-    var t = setTimeout(function(){
-      if (document.visibilityState === "visible") location.href = store;
-    }, 1600);
-    window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
-    document.addEventListener("visibilitychange", function(){
-      if (document.visibilityState !== "visible") clearTimeout(t);
-    }, { once: true });
-  });
+  var isAndroid = /Android/i.test(ua);
+  // iPadOS 13+ masquerades as macOS — the touch check catches it.
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) ||
+              (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var APPSTORE = "https://apps.apple.com/app/id6787660096";
+  var PLAY = "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app";
+  var open = document.getElementById("open");
+  var store = document.getElementById("store");
+  var store2 = document.getElementById("store2");
+
+  if (isAndroid) {
+    // Android's native pattern: an intent:// URL opens the app if installed
+    // and falls back to the Play listing itself — no error dialog possible.
+    open.href = "intent://" + to +
+      "#Intent;scheme=pocketpanchangam;package=com.pocketpanchangam.app;" +
+      "S.browser_fallback_url=" + encodeURIComponent(PLAY) + ";end";
+    store.href = PLAY;
+    store.textContent = "Play Store లో చూడండి · Get the app";
+    // Non-Chrome Android browsers ignore intent URLs — keep a timer fallback.
+    open.addEventListener("click", function(){
+      var t = setTimeout(function(){
+        if (document.visibilityState === "visible") location.href = PLAY;
+      }, 1600);
+      window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
+    });
+  } else if (isIOS) {
+    // NEVER auto-fire the custom scheme: without the app installed, iOS Safari
+    // throws a modal "address is invalid" alert on page load (real-user
+    // report, 2026-07-18). The attempt must be user-initiated; if the app
+    // doesn't take over shortly after the tap, forward to the App Store.
+    open.href = deep;
+    store.href = APPSTORE;
+    open.addEventListener("click", function(){
+      var t = setTimeout(function(){
+        if (document.visibilityState === "visible") location.href = APPSTORE;
+      }, 1600);
+      window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
+      document.addEventListener("visibilitychange", function(){
+        if (document.visibilityState !== "visible") clearTimeout(t);
+      }, { once: true });
+    });
+  } else {
+    // Desktop / unknown: no app to open — show both store badges instead.
+    open.hidden = true;
+    document.getElementById("msg").textContent =
+      "ఫోన్‌లో డౌన్‌లోడ్ చేయండి · Get PocketPanchangam on your phone";
+    store.href = APPSTORE;
+    store.textContent = "App Store (iPhone) · Get the app";
+    store2.hidden = false;
+  }
 })();
 </script>
 </body>
