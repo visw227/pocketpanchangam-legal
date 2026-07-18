@@ -42,6 +42,8 @@
   else if (/^tab\/calendar/.test(to)) label = "తెలుగు క్యాలెండర్";
   else if (/^tab\/festivals/.test(to)) label = "పండుగల జాబితా";
   else if (/^tab\/gita/.test(to)) label = "నేటి శ్లోకం";
+  else if (/^rasi$/.test(to)) label = "రాశి ఫలాలు";
+  else if (/^periods$/.test(to)) label = "కాలదర్శిని";
   document.getElementById("ctx").textContent = "మీ కోసం షేర్ చేశారు: " + label;
 
   var ua = navigator.userAgent || "";
@@ -50,6 +52,14 @@
   var isIOS = /iPhone|iPad|iPod/i.test(ua) ||
               (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   var open = document.getElementById("open");
+  // Failed open → clear guidance instead of surprise redirects/prompts.
+  function showInstall(storeUrl){
+    document.getElementById("ctx").textContent = "యాప్ ఇంకా ఇన్‌స్టాల్ అవ్వలేదు · App not installed yet";
+    open.textContent = "ఉచితంగా డౌన్‌లోడ్ చేయండి · Get the app";
+    open.href = storeUrl;
+    document.getElementById("note").textContent =
+      "డౌన్‌లోడ్ అయ్యాక ఈ లింక్ మళ్ళీ నొక్కితే నేరుగా తెరుచుకుంటుంది · After installing, tap the shared link again and it opens directly.";
+  }
 
   if (isAndroid) {
     // Android's native pattern: intent:// opens the app if installed and
@@ -57,29 +67,29 @@
     open.href = "intent://" + to +
       "#Intent;scheme=pocketpanchangam;package=com.pocketpanchangam.app;" +
       "S.browser_fallback_url=" + encodeURIComponent(PLAY) + ";end";
-    // Non-Chrome Android browsers ignore intent URLs — timer fallback.
+    // Non-Chrome Android browsers ignore intent URLs — transform to the
+    // download state instead of a surprise redirect (same UX as iOS).
     open.addEventListener("click", function(){
       var t = setTimeout(function(){
-        if (document.visibilityState === "visible") location.href = PLAY;
-      }, 1600);
+        if (document.visibilityState === "visible") showInstall(PLAY);
+      }, 1800);
       window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
     });
   } else if (isIOS) {
-    // App installed → the scheme opens it and the page hides (no store hop).
-    // App missing → iOS unavoidably shows ONE "address is invalid" alert; a
-    // single timed fallback gets swallowed by that modal (real-user report),
-    // so we RETRY the App Store redirect every 300ms — the first attempt
-    // after the user taps OK lands. Universal Links (1.1.0 build) will let
-    // installed users skip this page entirely.
+    // App installed → the scheme opens it and the page hides. App missing →
+    // iOS unavoidably shows ONE "address is invalid" alert; auto-redirecting
+    // afterwards fired Safari's SECOND "open in App Store?" prompt (real-user
+    // report). So: no auto-redirect. After a failed attempt we TRANSFORM the
+    // page into a clear download state — one obvious button, tapped by the
+    // user, opens the App Store with no extra prompts. Universal Links
+    // (1.1.0 build) will let installed users skip this page entirely.
     open.href = deep;
     open.addEventListener("click", function(){
-      var t0 = Date.now();
-      var iv = setInterval(function(){
-        if (document.visibilityState !== "visible") { clearInterval(iv); return; } // app took over
-        if (Date.now() - t0 > 1600) location.href = APPSTORE; // retries until it lands
-      }, 300);
-      window.addEventListener("pagehide", function(){ clearInterval(iv); }, { once: true });
-      setTimeout(function(){ clearInterval(iv); }, 15000); // safety stop
+      var t = setTimeout(function(){
+        if (document.visibilityState !== "visible") return; // app took over
+        showInstall(APPSTORE);
+      }, 1800);
+      window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
     });
   } else {
     // Desktop / unknown: nothing to open here — point to the phone stores.
