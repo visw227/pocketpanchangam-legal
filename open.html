@@ -8,46 +8,56 @@
   body{margin:0;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;background:#171009;color:#FAF6ED;
        display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px}
   .sun{font-size:52px;line-height:1}
-  h1{font-size:20px;letter-spacing:3px;margin:14px 0 4px;color:#E8A020}
-  p{color:#CBB99A;font-size:15px;line-height:1.6;max-width:320px}
-  a.btn{display:inline-block;margin-top:18px;padding:13px 28px;border-radius:999px;background:#E8A020;color:#2A1208;
-        font-weight:700;text-decoration:none;font-size:15px}
-  a.sub{display:block;margin-top:14px;color:#8d7c60;font-size:13px;text-decoration:underline}
+  h1{font-size:18px;letter-spacing:3px;margin:14px 0 4px;color:#E8A020}
+  .ctx{color:#FAF6ED;font-size:17px;line-height:1.5;margin:18px 0 2px;font-weight:700}
+  p.note{color:#CBB99A;font-size:13.5px;line-height:1.6;max-width:320px;margin:8px 0 0}
+  a.btn{display:inline-block;margin-top:22px;padding:16px 44px;border-radius:999px;background:#E8A020;color:#2A1208;
+        font-weight:800;text-decoration:none;font-size:17px;animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,160,32,.45)}
+                   50%{transform:scale(1.04);box-shadow:0 0 0 12px rgba(232,160,32,0)}}
+  a.sub{display:block;margin-top:16px;color:#8d7c60;font-size:12.5px;text-decoration:underline}
 </style>
 </head>
 <body>
 <div class="sun">☀️</div>
 <h1>POCKET PANCHANGAM</h1>
-<p id="msg">యాప్‌లో చూడటానికి క్రింది బటన్ నొక్కండి · Tap below to open in the app</p>
-<a class="btn" id="open" href="#">యాప్ తెరవండి · Open app</a>
-<a class="sub" id="store" href="https://apps.apple.com/app/id6787660096">App Store లో చూడండి · Get the app</a>
-<a class="sub" id="store2" href="https://play.google.com/store/apps/details?id=com.pocketpanchangam.app" hidden>Play Store లో చూడండి · Get it on Android</a>
+<p class="ctx" id="ctx">మీ కోసం షేర్ చేశారు</p>
+<a class="btn" id="open" href="#">తెరవండి · Open</a>
+<p class="note" id="note">యాప్ ఉంటే నేరుగా తెరుచుకుంటుంది · లేకుంటే ఉచిత డౌన్‌లోడ్ పేజీ తెరుచుకుంటుంది<br>Opens the app if you have it — otherwise the free download.</p>
+<a class="sub" id="store" href="https://apps.apple.com/app/id6787660096" hidden>App Store · iPhone</a>
+<a class="sub" id="store2" href="https://play.google.com/store/apps/details?id=com.pocketpanchangam.app" hidden>Play Store · Android</a>
 <script>
 (function(){
   // ?to=tab/panchangam or ?to=gita/2/47 → pocketpanchangam://<to>
   var raw = new URLSearchParams(location.search).get("to") || "tab/panchangam";
   var to = /^[a-zA-Z0-9/_.-]+$/.test(raw) ? raw : "tab/panchangam";
   var deep = "pocketpanchangam://" + to;
+  var APPSTORE = "https://apps.apple.com/app/id6787660096";
+  var PLAY = "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app";
+
+  // Tell the visitor WHAT was shared — a purposeful tap, not a mystery button.
+  var m, label = "ఈరోజు పంచాంగం";
+  if ((m = to.match(/^gita\/(\d+)\/(\d+)$/))) label = "భగవద్గీత శ్లోకం " + m[1] + "." + m[2];
+  else if ((m = to.match(/^date\/(\d+)\/(\d+)\/(\d+)$/))) label = m[3] + "-" + m[2] + "-" + m[1] + " పంచాంగం";
+  else if (/^tab\/calendar/.test(to)) label = "తెలుగు క్యాలెండర్";
+  else if (/^tab\/festivals/.test(to)) label = "పండుగల జాబితా";
+  else if (/^tab\/gita/.test(to)) label = "నేటి శ్లోకం";
+  document.getElementById("ctx").textContent = "మీ కోసం షేర్ చేశారు: " + label;
+
   var ua = navigator.userAgent || "";
   var isAndroid = /Android/i.test(ua);
   // iPadOS 13+ masquerades as macOS — the touch check catches it.
   var isIOS = /iPhone|iPad|iPod/i.test(ua) ||
               (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  var APPSTORE = "https://apps.apple.com/app/id6787660096";
-  var PLAY = "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app";
   var open = document.getElementById("open");
-  var store = document.getElementById("store");
-  var store2 = document.getElementById("store2");
 
   if (isAndroid) {
-    // Android's native pattern: an intent:// URL opens the app if installed
-    // and falls back to the Play listing itself — no error dialog possible.
+    // Android's native pattern: intent:// opens the app if installed and
+    // falls back to the Play listing itself — no error dialog possible.
     open.href = "intent://" + to +
       "#Intent;scheme=pocketpanchangam;package=com.pocketpanchangam.app;" +
       "S.browser_fallback_url=" + encodeURIComponent(PLAY) + ";end";
-    store.href = PLAY;
-    store.textContent = "Play Store లో చూడండి · Get the app";
-    // Non-Chrome Android browsers ignore intent URLs — keep a timer fallback.
+    // Non-Chrome Android browsers ignore intent URLs — timer fallback.
     open.addEventListener("click", function(){
       var t = setTimeout(function(){
         if (document.visibilityState === "visible") location.href = PLAY;
@@ -55,12 +65,11 @@
       window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
     });
   } else if (isIOS) {
-    // NEVER auto-fire the custom scheme: without the app installed, iOS Safari
-    // throws a modal "address is invalid" alert on page load (real-user
-    // report, 2026-07-18). The attempt must be user-initiated; if the app
-    // doesn't take over shortly after the tap, forward to the App Store.
+    // NEVER auto-fire the scheme on load: without the app installed, iOS
+    // Safari throws a modal "address is invalid" alert (real-user report,
+    // 2026-07-18). Tap-initiated attempt; App Store forward if the app
+    // doesn't take over.
     open.href = deep;
-    store.href = APPSTORE;
     open.addEventListener("click", function(){
       var t = setTimeout(function(){
         if (document.visibilityState === "visible") location.href = APPSTORE;
@@ -71,13 +80,12 @@
       }, { once: true });
     });
   } else {
-    // Desktop / unknown: no app to open — show both store badges instead.
+    // Desktop / unknown: nothing to open here — point to the phone stores.
     open.hidden = true;
-    document.getElementById("msg").textContent =
-      "ఫోన్‌లో డౌన్‌లోడ్ చేయండి · Get PocketPanchangam on your phone";
-    store.href = APPSTORE;
-    store.textContent = "App Store (iPhone) · Get the app";
-    store2.hidden = false;
+    document.getElementById("note").innerHTML =
+      "ఫోన్‌లో ఉచితంగా డౌన్‌లోడ్ చేయండి · Get PocketPanchangam free on your phone";
+    document.getElementById("store").hidden = false;
+    document.getElementById("store2").hidden = false;
   }
 })();
 </script>
