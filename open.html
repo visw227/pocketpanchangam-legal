@@ -65,14 +65,22 @@
       window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
     });
   } else if (isIOS) {
-    // iOS has NO error-free way to attempt a custom scheme when the app is
-    // missing (Safari alerts "address is invalid" and the modal swallows any
-    // fallback redirect — two real-user reports, 2026-07-18). So the button
-    // goes to the App Store product page: the store itself shows "Open" when
-    // the app is installed and "Get" when it isn't — zero failure modes.
-    // App-havers stop landing here at all once the Universal-Links build
-    // (1.1.0) is out: iOS opens the app directly from the shared link.
-    open.href = APPSTORE;
+    // App installed → the scheme opens it and the page hides (no store hop).
+    // App missing → iOS unavoidably shows ONE "address is invalid" alert; a
+    // single timed fallback gets swallowed by that modal (real-user report),
+    // so we RETRY the App Store redirect every 300ms — the first attempt
+    // after the user taps OK lands. Universal Links (1.1.0 build) will let
+    // installed users skip this page entirely.
+    open.href = deep;
+    open.addEventListener("click", function(){
+      var t0 = Date.now();
+      var iv = setInterval(function(){
+        if (document.visibilityState !== "visible") { clearInterval(iv); return; } // app took over
+        if (Date.now() - t0 > 1600) location.href = APPSTORE; // retries until it lands
+      }, 300);
+      window.addEventListener("pagehide", function(){ clearInterval(iv); }, { once: true });
+      setTimeout(function(){ clearInterval(iv); }, 15000); // safety stop
+    });
   } else {
     // Desktop / unknown: nothing to open here — point to the phone stores.
     open.hidden = true;
