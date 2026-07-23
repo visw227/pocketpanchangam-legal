@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>మన Mission Control · Pocket Panchangam</title>
+<link rel="icon" href="/icon.png">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#FAF6ED;--card:#FFFFFF;--ink:#26190F;--soft:#6E5C4B;--faint:#8F7F6B;
+        --kum:#9E2233;--gold:#B07D10;--line:#E8DFCC;--green:#2E7D4F}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);padding:20px 16px 60px}
+  .wrap{max-width:1080px;margin:0 auto}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+  header img{width:44px;height:44px;border-radius:10px;border:1px solid var(--line)}
+  h1{font-size:15px;letter-spacing:2px;color:var(--gold);margin:0;font-weight:800}
+  .sub{font-size:12px;color:var(--faint);margin:2px 0 0}
+  .updated{margin-left:auto;font-size:11px;color:var(--faint);text-align:right}
+  .live{display:inline-block;width:8px;height:8px;border-radius:4px;background:var(--green);margin-right:5px;animation:blink 2s infinite}
+  @keyframes blink{50%{opacity:.35}}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:18px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .card .k{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--soft);text-transform:uppercase}
+  .card .v{font-size:30px;font-weight:800;font-family:Georgia,serif;margin-top:4px}
+  .card .v small{font-size:13px;color:var(--faint);font-weight:600}
+  .card.hero .v{color:var(--kum)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:12px}
+  .panel h2{font-size:12px;letter-spacing:1.5px;color:var(--gold);margin:0 0 10px;font-weight:800;text-transform:uppercase}
+  .note{font-size:12px;color:var(--faint);margin-top:8px}
+  canvas{max-height:260px}
+  .rows{font-size:13px}
+  .rows div{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--line)}
+  .rows b{font-family:Georgia,serif}
+  footer{text-align:center;font-size:11px;color:var(--faint);letter-spacing:1.5px;margin-top:28px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="/icon.png" alt="">
+    <div>
+      <h1>మన MISSION CONTROL</h1>
+      <p class="sub">Pocket Panchangam · installs, pulse &amp; where the family is growing</p>
+    </div>
+    <div class="updated"><span class="live"></span><span id="upd">loading…</span><br><span id="auto">auto-refresh 60s</span></div>
+  </header>
+
+  <div class="cards">
+    <div class="card hero"><div class="k">Installs (all time)</div><div class="v" id="total">–</div></div>
+    <div class="card hero"><div class="k">New today</div><div class="v" id="today">–</div></div>
+    <div class="card"><div class="k">Active right now</div><div class="v" id="now">–</div></div>
+    <div class="card"><div class="k">DAU</div><div class="v" id="dau">–</div></div>
+    <div class="card"><div class="k">WAU</div><div class="v" id="wau">–</div></div>
+    <div class="card"><div class="k">MAU</div><div class="v" id="mau">–</div></div>
+    <div class="card"><div class="k">India · NRI</div><div class="v" id="split">–</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel"><h2>Installs by day</h2><canvas id="cInstalls"></canvas></div>
+    <div class="panel"><h2>DAU / WAU trend</h2><canvas id="cTrend"></canvas><p class="note" id="trendNote"></p></div>
+    <div class="panel"><h2>Where — by country</h2><canvas id="cCountry"></canvas></div>
+    <div class="panel"><h2>Versions &amp; platforms</h2><canvas id="cVersion"></canvas><div class="rows" id="plat"></div></div>
+  </div>
+
+  <div class="panel"><h2>Timezone bands (push planning)</h2><canvas id="cBand"></canvas>
+    <p class="note">p330 = India · n300/n360 = US East/Central · p0/p60 = UK/EU · p480 = SG/HK</p></div>
+
+  <div class="panel"><h2>🍎 App Store downloads (official, T+2)</h2><div class="rows" id="asc"><div><span>Waiting for Apple's first report delivery (~48h after setup)…</span></div></div></div>
+
+  <footer>🕉️ POCKETPANCHANGAM.COM · counts only, no personal data</footer>
+</div>
+<script>
+(async function () {
+  if (localStorage.getItem("dk") !== "srivari") {
+    const p = prompt("passphrase?");
+    if (p !== "srivari") { document.body.innerHTML = ""; return; }
+    localStorage.setItem("dk", "srivari");
+  }
+  const gold = "#B07D10", kum = "#9E2233", soft = "#D8C9A8";
+  const charts = {};
+  function bar(id, labels, data, color, type) {
+    if (charts[id]) { charts[id].data.labels = labels; charts[id].data.datasets[0].data = data; charts[id].update(); return; }
+    charts[id] = new Chart(document.getElementById(id), {
+      type: type || "bar",
+      data: { labels, datasets: [{ data, backgroundColor: color, borderColor: color, borderWidth: type === "line" ? 2 : 0, tension: 0.3, fill: false, pointRadius: 2 }] },
+      options: { plugins: { legend: { display: false } }, scales: type === "doughnut" ? {} : { y: { beginAtZero: true, ticks: { precision: 0 } } } },
+    });
+  }
+  async function load() {
+    try {
+      const s = await (await fetch("stats.json?cb=" + Date.now())).json();
+      document.getElementById("upd").textContent = new Date(s.updated).toLocaleTimeString();
+      const set = (id, v) => (document.getElementById(id).textContent = v);
+      set("total", s.installsTotal); set("today", s.installsToday); set("now", s.activeNow);
+      set("dau", s.dau); set("wau", s.wau); set("mau", s.mau);
+      set("split", s.indiaShare + "% · " + (100 - s.indiaShare) + "%");
+      const days = Object.keys(s.installsByDay).sort().slice(-30);
+      bar("cInstalls", days.map((d) => d.slice(5)), days.map((d) => s.installsByDay[d]), gold);
+      const cn = Object.entries(s.byCountry).slice(0, 12);
+      bar("cCountry", cn.map(([k]) => k), cn.map(([, v]) => v), kum);
+      const vs = Object.entries(s.byVersion);
+      bar("cVersion", vs.map(([k]) => k), vs.map(([, v]) => v), [gold, kum, soft, "#7A5C43", "#2E7D4F"], "doughnut");
+      document.getElementById("plat").innerHTML = Object.entries(s.byPlatform)
+        .map(([k, v]) => `<div><span>${k === "ios" ? "🍎 iOS" : "🤖 Android"}</span><b>${v}</b></div>`).join("");
+      const bd = Object.entries(s.byBand).slice(0, 10);
+      bar("cBand", bd.map(([k]) => k), bd.map(([, v]) => v), soft);
+    } catch (e) {}
+    try {
+      const h = await (await fetch("history.json?cb=" + Date.now())).json();
+      if (h.length) {
+        bar("cTrend", h.slice(-30).map((x) => x.date.slice(5)), h.slice(-30).map((x) => x.dau), kum, "line");
+        document.getElementById("trendNote").textContent = h.length + " days of history collected";
+      } else document.getElementById("trendNote").textContent = "trend builds up day by day from today";
+    } catch (e) {}
+    try {
+      const a = await (await fetch("appstore.json?cb=" + Date.now())).json();
+      const days = Object.keys(a.days || {}).sort().slice(-14);
+      if (days.length) {
+        document.getElementById("asc").innerHTML = days.map((d) => {
+          const t = Object.entries(a.days[d].byTerritory).slice(0, 4).map(([k, v]) => `${k} ${v}`).join(" · ");
+          return `<div><span>${d} — ${t}</span><b>${a.days[d].total}</b></div>`;
+        }).join("");
+      }
+    } catch (e) {}
+  }
+  load();
+  setInterval(load, 60000);
+})();
+</script>
+</body>
+</html>
