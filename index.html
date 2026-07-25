@@ -32,7 +32,14 @@
   .btn{display:inline-flex;align-items:center;gap:8px;background:var(--kum);color:#FFF;
        text-decoration:none;font-weight:800;font-size:15px;padding:13px 22px;border-radius:999px}
   .btn.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
-  .free{font-size:13px;color:var(--faint);margin:0 0 34px}
+  .free{font-size:13px;color:var(--faint);margin:0 0 8px}
+  .langs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 6px}
+  .lang{background:var(--goldsoft);border:1px solid var(--line);border-radius:999px;
+        padding:7px 15px;font-size:14px;font-weight:800}
+  .lang small{display:block;font-size:10.5px;font-weight:600;color:var(--faint);letter-spacing:.6px}
+  .soon{font-size:12.5px;color:var(--faint);margin:0 0 30px}
+  .quote{font-family:Georgia,serif;font-size:19px;line-height:1.55;color:var(--ink);
+         border-left:3px solid var(--gold);padding-left:18px;margin:34px 0 8px;text-wrap:balance}
   h2{font-family:Georgia,serif;font-size:20px;margin:36px 0 12px}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   @media(max-width:620px){.grid{grid-template-columns:1fr}}
@@ -52,15 +59,22 @@
     <img src="/icon.png" alt="Pocket Panchangam">
     <div>
       <p class="tag">🕉️ Pocket Panchangam</p>
-      <h1>పంచాంగం in your pocket</h1>
+      <h1>పంచాంగం · पंचांग · in your pocket</h1>
     </div>
   </header>
 
   <p class="lede">
-    The daily panchangam that matches the <b>TTD Srivari calendar exactly</b> — plus the
-    festivals with their stories, your rasi phalalu, a shloka a day, and a morning deepam
-    to start with. In Telugu, English and Hindi.
+    Most calendars tell you <i>what</i> today is. This one tells you <b>why</b> —
+    and gets the timings right to the minute, matching the <b>TTD Srivari</b> print
+    in the South and <b>DrikPanchang</b> in the North.
   </p>
+
+  <div class="langs">
+    <div class="lang">తెలుగు<small>TTD · AMANTA</small></div>
+    <div class="lang">हिंदी<small>DRIK · PURNIMANTA</small></div>
+    <div class="lang">English<small>PICK EITHER CALENDAR</small></div>
+  </div>
+  <p class="soon">ಕನ್ನಡ and தமிழ் are next.</p>
 
   <div class="cta">
     <a class="btn" href="/go?r=web">Get the app</a>
@@ -78,10 +92,17 @@
     <div class="f"><b>🌍 Built for families abroad</b><span>Every reminder arrives at your own local time, on your own tithi day — not India's.</span></div>
   </div>
 
+  <p class="quote">
+    We built the panchangam our own families could trust — no ads, no account,
+    and nobody on the other end selling you a remedy.
+  </p>
+
   <div class="note">
-    <b>Why we made it.</b> We wanted the panchangam our families actually trust — without ads,
-    upsells, or an astrologer selling a remedy. Built and curated by two of us,
-    Keerthi &amp; Vamsi ❤️
+    <b>Free, and staying that way.</b> The daily panchangam, festivals, rasi phalalu,
+    Gita and the deepam are free for everyone — that's the promise. Later we'll add
+    deeper tools for people who want them, like personal muhurtham guidance. The
+    everyday panchangam your family opens each morning will never sit behind a paywall.
+    <br><br>Made with care by <b>Keerthi &amp; Vamsi</b> ❤️
   </div>
 
   <footer>
