@@ -3,59 +3,93 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privacy Policy — PocketPanchangam</title>
+<title>Pocket Panchangam — పంచాంగం in your pocket</title>
+<meta name="description" content="Telugu panchangam that matches the TTD Srivari calendar exactly. Festivals with their stories, daily rasi phalalu, Bhagavad Gita, and a morning deepam ritual. Free, no ads, no account.">
+<meta property="og:title" content="Pocket Panchangam — పంచాంగం in your pocket">
+<meta property="og:description" content="TTD-exact panchangam, festivals with their stories, rasi phalalu and a morning deepam ritual. Free, no ads, no account.">
+<meta property="og:image" content="https://pocketpanchangam.com/icon.png">
+<meta property="og:url" content="https://pocketpanchangam.com">
+<link rel="icon" href="/icon.png">
 <style>
-  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; color: #26190F; line-height: 1.65; }
-  h1 { color: #8E1F2F; } h2 { color: #8E1F2F; margin-top: 2em; }
-  table { border-collapse: collapse; width: 100%; } td, th { border: 1px solid #ddd; padding: 8px; text-align: left; }
-  .updated { color: #6E5C4B; font-size: 0.9em; }
+  :root{
+    --bg:#FAF6ED; --card:#FFFFFF; --ink:#26190F; --soft:#6E5C4B; --faint:#8F7F6B;
+    --gold:#B07D10; --kum:#9E2233; --line:#E8DFCC; --goldsoft:#F5EAD0;
+  }
+  @media (prefers-color-scheme: dark){:root{
+    --bg:#171009; --card:#221812; --ink:#F2E8D8; --soft:#C4B49E; --faint:#93836D;
+    --gold:#D8A63C; --kum:#E58090; --line:#3A2C1E; --goldsoft:#2E2314;
+  }}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;
+       font-family:-apple-system,"Segoe UI",Roboto,sans-serif;}
+  .wrap{max-width:760px;margin:0 auto;padding:44px 20px 70px}
+  header{display:flex;align-items:center;gap:14px}
+  header img{width:62px;height:62px;border-radius:14px;border:1px solid var(--line)}
+  h1{font-family:Georgia,serif;font-size:31px;line-height:1.2;margin:0;text-wrap:balance}
+  .tag{color:var(--gold);font-weight:800;letter-spacing:1.5px;font-size:12px;text-transform:uppercase;margin:0 0 4px}
+  .lede{font-size:17px;color:var(--soft);margin:22px 0 26px;max-width:62ch}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--kum);color:#FFF;
+       text-decoration:none;font-weight:800;font-size:15px;padding:13px 22px;border-radius:999px}
+  .btn.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .free{font-size:13px;color:var(--faint);margin:0 0 34px}
+  h2{font-family:Georgia,serif;font-size:20px;margin:36px 0 12px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  .f{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .f b{display:block;font-size:15px;margin-bottom:3px}
+  .f span{font-size:13.5px;color:var(--soft)}
+  .note{background:var(--goldsoft);border:1px solid var(--line);border-radius:14px;
+        padding:16px 20px;font-size:14.5px;margin-top:26px}
+  footer{margin-top:42px;padding-top:20px;border-top:1px solid var(--line);
+         font-size:13px;color:var(--faint);display:flex;gap:16px;flex-wrap:wrap}
+  footer a{color:var(--soft)}
 </style>
 </head>
 <body>
-<h1>Privacy Policy — PocketPanchangam (పాకెట్ పంచాంగం)</h1>
-<p class="updated">Effective date: July 5, 2026</p>
+<div class="wrap">
+  <header>
+    <img src="/icon.png" alt="Pocket Panchangam">
+    <div>
+      <p class="tag">🕉️ Pocket Panchangam</p>
+      <h1>పంచాంగం in your pocket</h1>
+    </div>
+  </header>
 
-<p>PocketPanchangam ("the app") is a Telugu panchangam, festival calendar, and Bhagavad&nbsp;Gita app. This policy explains what information the app handles and why. Summary: <strong>no account, no sign-in, and your location never leaves your device.</strong></p>
+  <p class="lede">
+    The daily panchangam that matches the <b>TTD Srivari calendar exactly</b> — plus the
+    festivals with their stories, your rasi phalalu, a shloka a day, and a morning deepam
+    to start with. In Telugu, English and Hindi.
+  </p>
 
-<h2>Information we collect</h2>
-<table>
-  <tr><th>Data</th><th>Purpose</th><th>Where it goes</th></tr>
-  <tr><td>Approximate / precise location (optional)</td><td>Computing sunrise, sunset, and panchangam timings for your place</td><td><strong>Processed on your device only.</strong> Never transmitted to us or anyone else.</td></tr>
-  <tr><td>App usage events (screens viewed, sessions), device model, OS version</td><td>Understanding how the app is used, improving features (Google Analytics for Firebase)</td><td>Google (Firebase Analytics)</td></tr>
-  <tr><td>Push token / topic subscription</td><td>Delivering festival greetings and app announcements you can disable in system settings</td><td>Google (Firebase Cloud Messaging)</td></tr>
-  <tr><td>Advertising identifier (IDFA/AAID), coarse ad signals</td><td>Showing one banner-style ad per screen (Google AdMob). On iOS we ask permission via App Tracking Transparency; if you decline, ads are non-personalized.</td><td>Google (AdMob)</td></tr>
-</table>
+  <div class="cta">
+    <a class="btn" href="/go?r=web">Get the app</a>
+    <a class="btn alt" href="https://www.instagram.com/pocketpanchangam">Follow on Instagram</a>
+  </div>
+  <p class="free">Free. No ads. No account. Nobody sells you remedies.</p>
 
-<h2>What we do NOT collect</h2>
-<ul>
-  <li>No name, email, phone number, or account of any kind</li>
-  <li>No contacts, photos, files, or messages</li>
-  <li>No location history — location is read transiently to compute timings and is not stored or sent</li>
-</ul>
+  <h2>What you get</h2>
+  <div class="grid">
+    <div class="f"><b>🗓️ Exact daily panchangam</b><span>Tithi, nakshatram, yogam, karanam, rahu kalam, varjyam, durmuhurtam — matching the TTD print, and drik-computed wherever you live abroad.</span></div>
+    <div class="f"><b>🎉 Festivals with their why</b><span>Every పండుగ and వ్రతం with the story behind it, how it's observed, a reminder the evening before, and greeting cards to send family.</span></div>
+    <div class="f"><b>🔮 Rasi phalalu, daily</b><span>Your rasi first, in the tone you like — traditional, straight, or a little spicy. Read it or listen.</span></div>
+    <div class="f"><b>📖 Bhagavad Gita</b><span>A verse each day with its meaning and proper Sanskrit chanting audio.</span></div>
+    <div class="f"><b>🪔 మానస పూజ</b><span>Light twin deepams with a match, offer dhupam, naivedyam and harathi — one calm minute before the day starts.</span></div>
+    <div class="f"><b>🌍 Built for families abroad</b><span>Every reminder arrives at your own local time, on your own tithi day — not India's.</span></div>
+  </div>
 
-<h2>Notifications</h2>
-<p>Daily shloka, Rahu&nbsp;Kalam alerts, and festival reminders are scheduled locally on your device. Optional broadcast messages (e.g., festival greetings) are delivered through Firebase Cloud Messaging. You can disable all of these in the app's Settings or your device settings at any time.</p>
+  <div class="note">
+    <b>Why we made it.</b> We wanted the panchangam our families actually trust — without ads,
+    upsells, or an astrologer selling a remedy. Built and curated by two of us,
+    Keerthi &amp; Vamsi ❤️
+  </div>
 
-<h2>Third-party services</h2>
-<p>The app uses Google services whose handling of data is governed by their own policies: <a href="https://policies.google.com/privacy">Google Privacy Policy</a>, <a href="https://firebase.google.com/support/privacy">Firebase Privacy</a>, and <a href="https://support.google.com/admob/answer/6128543">AdMob</a>.</p>
-
-<h2>Data retention &amp; your choices</h2>
-<ul>
-  <li>Analytics data is retained per Firebase's standard retention (14 months) and is aggregated/pseudonymous.</li>
-  <li>The current version of the app shows no ads and does not use the advertising ID.</li>
-  <li>Uninstalling the app removes all locally stored preferences and scheduled notifications.</li>
-</ul>
-
-<h2 id="delete-data">Data deletion</h2>
-<p>PocketPanchangam has no accounts and no sign-in. The only data that leaves your device is anonymous Firebase Analytics (a random install identifier and usage events — never your name, email, contacts, or precise location). To have this analytics data deleted, email <a href="mailto:vamsichikkala@gmail.com">vamsichikkala@gmail.com</a> with the subject "Delete my data" — we will delete the data associated with your app installation within 30 days. Uninstalling the app stops all collection and removes everything stored on your device.</p>
-
-<h2>Children</h2>
-<p>The app is a general-audience devotional/reference app and is not directed at children under 13. Ad content is restricted to Google's "G" (general audiences) rating.</p>
-
-<h2>Changes</h2>
-<p>We may update this policy as the app evolves (for example, if new features are added). The effective date above will change accordingly.</p>
-
-<h2>Contact</h2>
-<p>Questions or requests: <a href="mailto:vamsichikkala@gmail.com">vamsichikkala@gmail.com</a></p>
+  <footer>
+    <a href="/privacy.html">Privacy policy</a>
+    <a href="/go?r=web">Download</a>
+    <a href="https://www.instagram.com/pocketpanchangam">Instagram</a>
+    <span>© 2026 Viswa Chikkala</span>
+  </footer>
+</div>
 </body>
 </html>
