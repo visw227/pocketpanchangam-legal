@@ -69,6 +69,9 @@
   <div class="panel"><h2>Timezone bands (push planning)</h2><canvas id="cBand"></canvas>
     <p class="note">p330 = India · n300/n360 = US East/Central · p0/p60 = UK/EU · p480 = SG/HK</p></div>
 
+  <div class="panel"><h2>📣 Influencer links (/go?r=name)</h2><div class="rows" id="inf"><div><span>No link clicks yet — share pocketpanchangam.com/go?r=&lt;name&gt;</span></div></div>
+    <p class="note">Clicks = our beacon · installs per campaign appear in the App Store section (Apple ct=) and Play Console (utm_source) as stores report them</p></div>
+
   <div class="panel"><h2>🍎 App Store downloads (official, T+2)</h2><div class="rows" id="asc"><div><span>Waiting for Apple's first report delivery (~48h after setup)…</span></div></div></div>
 
   <footer>🕉️ POCKETPANCHANGAM.COM · counts only, no personal data</footer>
@@ -108,6 +111,13 @@
         .map(([k, v]) => `<div><span>${k === "ios" ? "🍎 iOS" : "🤖 Android"}</span><b>${v}</b></div>`).join("");
       const bd = Object.entries(s.byBand).slice(0, 10);
       bar("cBand", bd.map(([k]) => k), bd.map(([, v]) => v), soft);
+      const refs = Object.entries(s.clicksByRef || {}).sort((a, b) => b[1].total - a[1].total);
+      if (refs.length) {
+        document.getElementById("inf").innerHTML = refs.map(([k, v]) => {
+          const today = v.byDay[new Date().toISOString().slice(0, 10)] || 0;
+          return `<div><span>${k} — 🍎 ${v.ios} · 🤖 ${v.android} · today ${today}</span><b>${v.total}</b></div>`;
+        }).join("");
+      }
     } catch (e) {}
     try {
       const h = await (await fetch("history.json?cb=" + Date.now())).json();

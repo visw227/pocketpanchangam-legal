@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Pocket Panchangam</title>
+</head>
+<body style="background:#FAF6ED;margin:0;display:flex;align-items:center;justify-content:center;height:100vh;font-family:-apple-system,'Segoe UI',sans-serif">
+<p style="color:#6E5C4B;font-size:15px">🪔 Opening the store…</p>
+<script>
+(function () {
+  // Influencer link: pocketpanchangam.com/go?r=<name>
+  // Counts the click (anonymous, ref+platform only), then straight to the
+  // right store with the store's own campaign params attached.
+  var r = (new URLSearchParams(location.search).get("r") || "direct")
+    .toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 24) || "direct";
+  var ua = navigator.userAgent || "";
+  var p = /iPhone|iPad|iPod/i.test(ua) ? "ios" : /Android/i.test(ua) ? "android" : "web";
+  var id = r + "-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
+  try {
+    fetch("https://firestore.googleapis.com/v1/projects/pocketpanchangam/databases/(default)/documents/clicks/" + id + "?key=AIzaSyCCWnpXL5StCbipAkvNk1Hc9RlUM9bvl64", {
+      method: "PATCH",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ fields: { r: { stringValue: r }, p: { stringValue: p }, ts: { integerValue: String(Date.now()) } } }),
+      keepalive: true
+    }).catch(function () {});
+  } catch (e) {}
+  // Apple campaign token (pt) from App Analytics → paste once, installs-per-
+  // campaign start flowing into ASC analytics (and our dashboard's asc pull).
+  var APPLE_PT = "";
+  var ios = "https://apps.apple.com/in/app/id6787660096?mt=8&ct=" + r + (APPLE_PT ? "&pt=" + APPLE_PT : "");
+  var andr = "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app&referrer=" +
+    encodeURIComponent("utm_source=" + r + "&utm_medium=influencer&utm_campaign=" + r);
+  setTimeout(function () {
+    location.replace(p === "ios" ? ios : p === "android" ? andr : "/open.html");
+  }, 250);
+})();
+</script>
+</body>
+</html>
