@@ -57,6 +57,8 @@
     <div class="card"><div class="k">WAU</div><div class="v" id="wau">–</div></div>
     <div class="card"><div class="k">MAU</div><div class="v" id="mau">–</div></div>
     <div class="card"><div class="k">India · NRI</div><div class="v" id="split">–</div></div>
+    <div class="card"><div class="k">🍎 Installs (store)</div><div class="v" id="iosInst">–</div></div>
+    <div class="card"><div class="k">🤖 Installs (Play)</div><div class="v" id="andInst">–</div></div>
   </div>
 
   <div class="grid2">
@@ -72,7 +74,11 @@
   <div class="panel"><h2>📣 Influencer links (/go?r=name)</h2><div class="rows" id="inf"><div><span>No link clicks yet — share pocketpanchangam.com/go?r=&lt;name&gt;</span></div></div>
     <p class="note">Clicks = our beacon · installs per campaign appear in the App Store section (Apple ct=) and Play Console (utm_source) as stores report them</p></div>
 
-  <div class="panel"><h2>🍎 App Store downloads (official, T+2)</h2><div class="rows" id="asc"><div><span>Waiting for Apple's first report delivery (~48h after setup)…</span></div></div></div>
+  <div class="panel"><h2>📦 Store installs (official · Apple reports ~24–48h behind)</h2>
+    <div class="rows" id="asc"><div><span>Waiting for Apple's report delivery…</span></div></div>
+    <div class="rows" id="camp" style="margin-top:10px"></div>
+    <div class="rows" id="andRow" style="margin-top:10px"></div>
+    <p class="note">iOS = first-time downloads from App Store Connect analytics · campaign rows = ct= tag on the App Store link (janag)</p></div>
 
   <footer>🕉️ POCKETPANCHANGAM.COM · counts only, no personal data</footer>
 </div>
@@ -118,6 +124,37 @@
           return `<div><span>${k} — 🍎 ${v.ios} · 🤖 ${v.android} · today ${today}</span><b>${v.total}</b></div>`;
         }).join("");
       }
+      // ── official store installs ──
+      const ios = s.ios || {};
+      if (ios.latest) {
+        document.getElementById("iosInst").innerHTML = `${ios.latest.installs} <small>${ios.latest.date.slice(5)} · 7d ${ios.last7}</small>`;
+        const days = Object.keys(ios.days || {}).sort().slice(-14).reverse();
+        document.getElementById("asc").innerHTML = days.map((d) => {
+          const x = ios.days[d];
+          const t = Object.entries(x.terr || {}).map(([k, v]) => `${k} ${v}`).join(" · ") || "—";
+          return `<div><span>🍎 ${d.slice(5)} — ${t}${x.up ? ` <small style="color:var(--faint)">(+${x.up} updates)</small>` : ""}</span><b>${x.ft}</b></div>`;
+        }).join("");
+      } else {
+        document.getElementById("iosInst").innerHTML = `– <small>${ios.status || "warming up"}</small>`;
+      }
+      const camps = Object.entries(ios.byCampaign || {}).sort((a, b) => b[1].total - a[1].total);
+      document.getElementById("camp").innerHTML = camps.length
+        ? camps.map(([k, v]) => {
+            const dd = Object.keys(v.byDay).sort().slice(-3).map((d) => `${d.slice(5)}: ${v.byDay[d]}`).join(" · ");
+            return `<div><span>📣 ct=${k} — ${dd}</span><b>${v.total}</b></div>`;
+          }).join("")
+        : `<div><span>📣 campaigns — no ct-tagged installs reported yet (janag shows here once Apple attributes them)</span><b>0</b></div>`;
+      const and = s.android || {};
+      if (and.latest) {
+        document.getElementById("andInst").innerHTML = `${and.latest.installs} <small>${and.latest.date.slice(5)}${and.totalUserInstalls ? ` · total ${and.totalUserInstalls}` : ""}</small>`;
+        const adays = Object.keys(and.days || {}).sort().slice(-7).reverse();
+        document.getElementById("andRow").innerHTML =
+          adays.map((d) => `<div><span>🤖 ${d.slice(5)}</span><b>${and.days[d]}</b></div>`).join("") +
+          (and.utmNote ? `<div><span>🤖 UTM — ${and.utmNote}</span><b></b></div>` : "");
+      } else {
+        document.getElementById("andInst").innerHTML = `౼ <small>awaiting Play setup</small>`;
+        document.getElementById("andRow").innerHTML = `<div><span>🤖 Android — ${and.note || "awaiting Play service account (2-minute founder step)"}</span><b>౼</b></div>`;
+      }
     } catch (e) {}
     try {
       const h = await (await fetch("history.json?cb=" + Date.now())).json();
@@ -125,16 +162,6 @@
         bar("cTrend", h.slice(-30).map((x) => x.date.slice(5)), h.slice(-30).map((x) => x.dau), kum, "line");
         document.getElementById("trendNote").textContent = h.length + " days of history collected";
       } else document.getElementById("trendNote").textContent = "trend builds up day by day from today";
-    } catch (e) {}
-    try {
-      const a = await (await fetch("appstore.json?cb=" + Date.now())).json();
-      const days = Object.keys(a.days || {}).sort().slice(-14);
-      if (days.length) {
-        document.getElementById("asc").innerHTML = days.map((d) => {
-          const t = Object.entries(a.days[d].byTerritory).slice(0, 4).map(([k, v]) => `${k} ${v}`).join(" · ");
-          return `<div><span>${d} — ${t}</span><b>${a.days[d].total}</b></div>`;
-        }).join("");
-      }
     } catch (e) {}
   }
   load();
