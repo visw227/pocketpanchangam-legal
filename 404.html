@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Panchangam · పాకెట్ పంచాంగం</title>
+<meta name="description" content="తెలుగు పంచాంగం — తిథి, నక్షత్రం, రాహుకాలం, పండుగలు, రాశి ఫలాలు. ధర్మం వెనుక అసలైన అర్థం!">
+<meta name="theme-color" content="#FAF6ED">
+<link rel="icon" type="image/png" href="/icon.png">
+<link rel="apple-touch-icon" href="/icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pocket Panchangam">
+<meta property="og:title" content="Pocket Panchangam · పాకెట్ పంచాంగం">
+<meta property="og:description" content="ధర్మం వెనుక అసలైన అర్థం! · Understanding the 'why' behind Dharma">
+<meta property="og:image" content="https://pocketpanchangam.com/icon.png">
+<meta property="og:url" content="https://pocketpanchangam.com/">
+<meta name="twitter:card" content="summary">
+<style>
+  :root{--bg:#FAF6ED;--surface:#FFFFFF;--ink:#26190F;--ink-soft:#6E5C4B;--ink-faint:#8F7F6B;
+        --kumkuma:#9E2233;--kumkuma-deep:#7C1827;--pasupu:#B07D10;--line:#E8DFCC}
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  body{margin:0;font-family:-apple-system,'Segoe UI',Roboto,'Noto Sans Telugu',sans-serif;
+       background:var(--bg);color:var(--ink);min-height:100dvh;
+       display:flex;flex-direction:column;align-items:center;justify-content:center;
+       text-align:center;padding:32px 24px}
+  main{width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center}
+  .appicon{width:84px;height:84px;border-radius:20px;border:1px solid var(--line);
+           box-shadow:0 6px 24px rgba(38,25,15,.12);display:block}
+  h1{font-size:14px;letter-spacing:3px;margin:16px 0 0;color:var(--pasupu);font-weight:800}
+  .tagrow{display:flex;align-items:center;gap:10px;width:100%;margin:10px 0 26px}
+  .tagrow::before,.tagrow::after{content:"";flex:1;height:1px;
+       background:linear-gradient(90deg,transparent,var(--pasupu));opacity:.45}
+  .tagrow::after{background:linear-gradient(90deg,var(--pasupu),transparent)}
+  .tagline{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:13.5px;
+           color:var(--ink-soft);white-space:nowrap}
+  .ctx{font-size:18px;line-height:1.5;font-weight:700;color:var(--ink);margin:0}
+  a.btn{display:inline-block;margin-top:24px;padding:17px 48px;border-radius:999px;
+        background:var(--kumkuma);color:#FFF6E8;font-weight:800;text-decoration:none;
+        font-size:17.5px;min-height:44px;box-shadow:0 8px 22px rgba(158,34,51,.28);
+        transition:transform .15s ease;animation:pulse 2.4s ease-in-out infinite}
+  a.btn:active{transform:scale(.97);background:var(--kumkuma-deep)}
+  a.btn:focus-visible{outline:3px solid var(--pasupu);outline-offset:3px}
+  @keyframes pulse{0%,100%{box-shadow:0 8px 22px rgba(158,34,51,.28)}
+                   50%{box-shadow:0 8px 30px rgba(158,34,51,.45)}}
+  @media (prefers-reduced-motion:reduce){a.btn{animation:none}}
+  p.note{color:var(--ink-soft);font-size:14.5px;line-height:1.65;max-width:330px;margin:16px 0 0}
+  .badges{display:flex;gap:14px;align-items:center;justify-content:center;margin-top:26px;flex-wrap:wrap}
+  .badges a{display:inline-flex;align-items:center;height:52px;overflow:hidden;border-radius:9px}
+  .badges a:focus-visible{outline:3px solid var(--pasupu);outline-offset:2px}
+  .badges img.as{height:52px}
+  .badges img.gp{height:78px;margin:-13px 0}
+  footer{margin-top:40px;width:100%;max-width:420px}
+  .rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin-bottom:14px}
+  .made{font-size:12.5px;color:var(--ink-faint);margin:0}
+  .dom{font-size:11px;letter-spacing:1.5px;color:var(--pasupu);font-weight:700;margin:6px 0 0}
+</style>
+</head>
+<body>
+<main>
+  <img class="appicon" src="/icon.png" alt="Pocket Panchangam యాప్ ఐకాన్" width="84" height="84">
+  <h1>POCKET PANCHANGAM</h1>
+  <div class="tagrow"><span class="tagline">ధర్మం వెనుక అసలైన అర్థం!</span></div>
+  <p class="ctx" id="ctx">మీ కోసం షేర్ చేశారు</p>
+  <a class="btn" id="open" href="#">తెరవండి · Open</a>
+  <p class="note" id="note">యాప్ ఉంటే నేరుగా తెరుచుకుంటుంది · లేకుంటే ఉచిత డౌన్‌లోడ్ పేజీ తెరుచుకుంటుంది<br>Opens the app if you have it — otherwise the free download.</p>
+  <div class="badges" id="badges">
+    <a id="badge-ios" href="https://apps.apple.com/app/id6787660096"><img class="as" alt="Download on the App Store" src="/badges/app-store.svg" width="156" height="52"></a>
+    <a id="badge-android" href="https://play.google.com/store/apps/details?id=com.pocketpanchangam.app"><img class="gp" alt="Get it on Google Play" src="/badges/google-play.png" width="202" height="78"></a>
+  </div>
+  <footer>
+    <div class="rule"></div>
+    <p class="made">Lovingly built and curated by Keerthi &amp; Vamsi ❤️</p>
+    <p class="dom">POCKETPANCHANGAM.COM</p>
+  </footer>
+</main>
+<script>
+(function(){
+  // GitHub Pages SPA router — CLEAN share links land here.
+  //   pocketpanchangam.com/gita/2/47?s=share-gita
+  //   pocketpanchangam.com/story/<id>   /festivals   /rasi   /periods
+  //   /date/2026/7/31   /today   /calendar   /festival/<id>
+  // No "open.html" ever appears in a user-visible URL. The old
+  // /open.html?to=… links redirect here and keep working forever.
+  var qs = new URLSearchParams(location.search);
+  var seg = location.pathname.replace(/^\/+|\/+$/g, "");
+
+  // Clean path → in-app route (the pocketpanchangam://<to> grammar).
+  var to = "", m;
+  if ((m = seg.match(/^gita\/(\d{1,2})\/(\d{1,3})$/))) to = "gita/" + m[1] + "/" + m[2];
+  else if (/^date\/\d{4}\/\d{1,2}\/\d{1,2}$/.test(seg)) to = seg;
+  else if (seg === "rasi") to = "rasi";
+  else if (seg === "periods") to = "periods";
+  else if ((m = seg.match(/^(?:story|bhakti)\/([a-zA-Z0-9_-]+)$/))) to = "bhakti/" + m[1];
+  else if (/^festivals?(\/[a-zA-Z0-9_-]+)?$/.test(seg)) to = "tab/festivals";
+  else if (seg === "today" || seg === "panchangam") to = "tab/panchangam";
+  else if (seg === "calendar") to = "tab/calendar";
+  else if (seg === "gita" || seg === "shloka" || seg === "verse") to = "tab/gita";
+  else if (/^tab\/(panchangam|calendar|festivals|gita|settings)$/.test(seg)) to = seg;
+  if (!to) {
+    // Legacy ?to= (redirected old links), else any sane dot-free path rides
+    // the scheme as-is (the app ignores unknown routes), else home.
+    var raw = qs.get("to") || "";
+    if (/^[a-zA-Z0-9/_.-]+$/.test(raw) && raw) to = raw;
+    else if (/^[a-zA-Z0-9/_-]+$/.test(seg) && seg) to = seg;
+    else to = "tab/panchangam";
+  }
+  var deep = "pocketpanchangam://" + to;
+
+  // ?s=share-<feature> (short; legacy ?src= accepted) — the ONE link in a
+  // share caption carries its own attribution. Landing here logs the click
+  // (same shape + sanitizer as go.html's beacon) and every store door below
+  // routes through /go?r=<s> so Apple ct= / Play utm_source keep the feature
+  // tag. No s → no beacon, store doors fall back to r=web.
+  var src = (qs.get("s") || qs.get("src") || "")
+    .toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 24);
+  var ref = src || "web";
+  // store: "ios" | "android" pins /go to that store even on desktop UAs
+  // (badge clicks) instead of /go bouncing right back to this page.
+  function go(store){ return "/go?r=" + ref + (store ? "&p=" + store : ""); }
+
+  var ua = navigator.userAgent || "";
+  var isAndroid = /Android/i.test(ua);
+  // iPadOS 13+ masquerades as macOS — the touch check catches it.
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) ||
+              (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  if (src) {
+    var id = src + "-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
+    try {
+      fetch("https://firestore.googleapis.com/v1/projects/pocketpanchangam/databases/(default)/documents/clicks/" + id + "?key=AIzaSyCCWnpXL5StCbipAkvNk1Hc9RlUM9bvl64", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ fields: { r: { stringValue: src }, p: { stringValue: isIOS ? "ios" : isAndroid ? "android" : "web" }, ts: { integerValue: String(Date.now()) } } }),
+        keepalive: true
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  // Tell the visitor WHAT was shared — a purposeful tap, not a mystery button.
+  var label = "ఈరోజు పంచాంగం";
+  if ((m = to.match(/^gita\/(\d+)\/(\d+)$/))) label = "భగవద్గీత శ్లోకం " + m[1] + "." + m[2];
+  else if ((m = to.match(/^date\/(\d+)\/(\d+)\/(\d+)$/))) label = m[3] + "-" + m[2] + "-" + m[1] + " పంచాంగం";
+  else if (/^tab\/calendar/.test(to)) label = "తెలుగు క్యాలెండర్";
+  else if (/^tab\/festivals/.test(to)) label = "పండుగల జాబితా";
+  else if (/^tab\/gita/.test(to)) label = "నేటి శ్లోకం";
+  else if (/^rasi$/.test(to)) label = "రాశి ఫలాలు";
+  else if (/^periods$/.test(to)) label = "కాలదర్శిని";
+  else if (/^bhakti\//.test(to)) label = "సనాతన సందేశం";
+  document.getElementById("ctx").textContent = "మీ కోసం షేర్ చేశారు: " + label;
+
+  // Store badges route through /go so the feature tag (or web) reaches
+  // Firestore + Apple ct= / Play utm_source attribution.
+  document.getElementById("badge-ios").href = go("ios");
+  document.getElementById("badge-android").href = go("android");
+
+  var open = document.getElementById("open");
+  // Failed open → clear guidance instead of surprise redirects/prompts.
+  function showInstall(store){ // "ios" | "android"
+    document.getElementById("ctx").textContent = "యాప్ ఇంకా ఇన్‌స్టాల్ అవ్వలేదు · App not installed yet";
+    open.textContent = "ఉచితంగా డౌన్‌లోడ్ చేయండి · Get the app";
+    open.href = go(store);
+    document.getElementById("note").textContent =
+      "డౌన్‌లోడ్ అయ్యాక ఈ లింక్ మళ్ళీ నొక్కితే నేరుగా తెరుచుకుంటుంది · After installing, tap the shared link again and it opens directly.";
+    document.getElementById("badge-ios").hidden = store !== "ios";
+    document.getElementById("badge-android").hidden = store !== "android";
+  }
+
+  if (isAndroid) {
+    // Android's native pattern: intent:// opens the app if installed and
+    // falls back to the store route — no error dialog possible. The fallback
+    // rides /go so the Play install referrer keeps the feature tag.
+    open.href = "intent://" + to +
+      "#Intent;scheme=pocketpanchangam;package=com.pocketpanchangam.app;" +
+      "S.browser_fallback_url=" + encodeURIComponent("https://pocketpanchangam.com" + go("android")) + ";end";
+    // Non-Chrome Android browsers ignore intent URLs — transform to the
+    // download state instead of a surprise redirect (same UX as iOS).
+    open.addEventListener("click", function(){
+      var t = setTimeout(function(){
+        if (document.visibilityState === "visible") showInstall("android");
+      }, 1800);
+      window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
+    });
+  } else if (isIOS) {
+    // App installed → the scheme opens it and the page hides. App missing →
+    // iOS unavoidably shows ONE "address is invalid" alert; auto-redirecting
+    // afterwards fired Safari's SECOND "open in App Store?" prompt (real-user
+    // report). So: no auto-redirect. After a failed attempt we TRANSFORM the
+    // page into a clear download state — one obvious button, tapped by the
+    // user, opens the App Store with no extra prompts. Universal Links
+    // (1.3.3 binary) let installed users skip this page entirely.
+    open.href = deep;
+    open.addEventListener("click", function(){
+      var t = setTimeout(function(){
+        if (document.visibilityState !== "visible") return; // app took over
+        showInstall("ios");
+      }, 1800);
+      window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
+    });
+  } else {
+    // Desktop / unknown: nothing to open here — point to the phone stores.
+    open.hidden = true;
+    document.getElementById("note").innerHTML =
+      "ఫోన్‌లో ఉచితంగా డౌన్‌లోడ్ చేయండి · Get PocketPanchangam free on your phone";
+  }
+})();
+</script>
+</body>
+</html>

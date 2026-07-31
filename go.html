@@ -13,10 +13,16 @@
   // Influencer link: pocketpanchangam.com/go?r=<name>
   // Counts the click (anonymous, ref+platform only), then straight to the
   // right store with the store's own campaign params attached.
-  var r = (new URLSearchParams(location.search).get("r") || "direct")
+  var q = new URLSearchParams(location.search);
+  var r = (q.get("r") || "direct")
     .toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 24) || "direct";
   var ua = navigator.userAgent || "";
   var p = /iPhone|iPad|iPod/i.test(ua) ? "ios" : /Android/i.test(ua) ? "android" : "web";
+  // open.html's store badges pass ?p=ios|android so a desktop click on the
+  // App Store / Play badge still reaches THAT store (with r attribution)
+  // instead of bouncing back to /open.html.
+  var pin = q.get("p");
+  if (pin === "ios" || pin === "android") p = pin;
   var id = r + "-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
   try {
     fetch("https://firestore.googleapis.com/v1/projects/pocketpanchangam/databases/(default)/documents/clicks/" + id + "?key=AIzaSyCCWnpXL5StCbipAkvNk1Hc9RlUM9bvl64", {

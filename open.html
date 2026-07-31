@@ -76,78 +76,20 @@
 </main>
 <script>
 (function(){
-  // ?to=tab/panchangam or ?to=gita/2/47 → pocketpanchangam://<to>
-  var raw = new URLSearchParams(location.search).get("to") || "tab/panchangam";
+  // LEGACY DOOR — old /open.html?to=… links live in the wild forever; they
+  // bounce to the CLEAN path (no "open.html" in anything users see now) and
+  // 404.html routes it: beacon, labels, app-open, attributed store doors.
+  // ?src= becomes the short ?s=. Crawlers (WhatsApp previews) don't run JS —
+  // they keep reading this page's OG tags at HTTP 200.
+  var qs = new URLSearchParams(location.search);
+  var raw = qs.get("to") || "tab/panchangam";
   var to = /^[a-zA-Z0-9/_.-]+$/.test(raw) ? raw : "tab/panchangam";
-  var deep = "pocketpanchangam://" + to;
-  var APPSTORE = "https://apps.apple.com/app/id6787660096";
-  var PLAY = "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app";
-
-  // Tell the visitor WHAT was shared — a purposeful tap, not a mystery button.
-  var m, label = "ఈరోజు పంచాంగం";
-  if ((m = to.match(/^gita\/(\d+)\/(\d+)$/))) label = "భగవద్గీత శ్లోకం " + m[1] + "." + m[2];
-  else if ((m = to.match(/^date\/(\d+)\/(\d+)\/(\d+)$/))) label = m[3] + "-" + m[2] + "-" + m[1] + " పంచాంగం";
-  else if (/^tab\/calendar/.test(to)) label = "తెలుగు క్యాలెండర్";
-  else if (/^tab\/festivals/.test(to)) label = "పండుగల జాబితా";
-  else if (/^tab\/gita/.test(to)) label = "నేటి శ్లోకం";
-  else if (/^rasi$/.test(to)) label = "రాశి ఫలాలు";
-  else if (/^periods$/.test(to)) label = "కాలదర్శిని";
-  else if (/^bhakti\//.test(to)) label = "సనాతన సందేశం";
-  document.getElementById("ctx").textContent = "మీ కోసం షేర్ చేశారు: " + label;
-
-  var ua = navigator.userAgent || "";
-  var isAndroid = /Android/i.test(ua);
-  // iPadOS 13+ masquerades as macOS — the touch check catches it.
-  var isIOS = /iPhone|iPad|iPod/i.test(ua) ||
-              (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  var open = document.getElementById("open");
-  // Failed open → clear guidance instead of surprise redirects/prompts.
-  function showInstall(storeUrl){
-    document.getElementById("ctx").textContent = "యాప్ ఇంకా ఇన్‌స్టాల్ అవ్వలేదు · App not installed yet";
-    open.textContent = "ఉచితంగా డౌన్‌లోడ్ చేయండి · Get the app";
-    open.href = storeUrl;
-    document.getElementById("note").textContent =
-      "డౌన్‌లోడ్ అయ్యాక ఈ లింక్ మళ్ళీ నొక్కితే నేరుగా తెరుచుకుంటుంది · After installing, tap the shared link again and it opens directly.";
-    document.getElementById("badge-ios").hidden = storeUrl.indexOf("apple") < 0;
-    document.getElementById("badge-android").hidden = storeUrl.indexOf("apple") >= 0;
-  }
-
-  if (isAndroid) {
-    // Android's native pattern: intent:// opens the app if installed and
-    // falls back to the Play listing itself — no error dialog possible.
-    open.href = "intent://" + to +
-      "#Intent;scheme=pocketpanchangam;package=com.pocketpanchangam.app;" +
-      "S.browser_fallback_url=" + encodeURIComponent(PLAY) + ";end";
-    // Non-Chrome Android browsers ignore intent URLs — transform to the
-    // download state instead of a surprise redirect (same UX as iOS).
-    open.addEventListener("click", function(){
-      var t = setTimeout(function(){
-        if (document.visibilityState === "visible") showInstall(PLAY);
-      }, 1800);
-      window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
-    });
-  } else if (isIOS) {
-    // App installed → the scheme opens it and the page hides. App missing →
-    // iOS unavoidably shows ONE "address is invalid" alert; auto-redirecting
-    // afterwards fired Safari's SECOND "open in App Store?" prompt (real-user
-    // report). So: no auto-redirect. After a failed attempt we TRANSFORM the
-    // page into a clear download state — one obvious button, tapped by the
-    // user, opens the App Store with no extra prompts. Universal Links
-    // (1.3.3 binary) let installed users skip this page entirely.
-    open.href = deep;
-    open.addEventListener("click", function(){
-      var t = setTimeout(function(){
-        if (document.visibilityState !== "visible") return; // app took over
-        showInstall(APPSTORE);
-      }, 1800);
-      window.addEventListener("pagehide", function(){ clearTimeout(t); }, { once: true });
-    });
-  } else {
-    // Desktop / unknown: nothing to open here — point to the phone stores.
-    open.hidden = true;
-    document.getElementById("note").innerHTML =
-      "ఫోన్‌లో ఉచితంగా డౌన్‌లోడ్ చేయండి · Get PocketPanchangam free on your phone";
-  }
+  var pretty = { "tab/panchangam": "today", "tab/calendar": "calendar",
+                 "tab/festivals": "festivals", "tab/gita": "shloka" };
+  var path = "/" + (pretty[to] || (to.indexOf("bhakti/") === 0 ? "story/" + to.slice(7) : to));
+  var src = (qs.get("src") || qs.get("s") || "")
+    .toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 24);
+  location.replace(path + (src ? "?s=" + src : ""));
 })();
 </script>
 </body>
