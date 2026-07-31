@@ -26,12 +26,15 @@
       keepalive: true
     }).catch(function () {});
   } catch (e) {}
-  // Apple campaign token (pt) from App Analytics → paste once, installs-per-
-  // campaign start flowing into ASC analytics (and our dashboard's asc pull).
+  // Apple campaign token (pt): ASC → App Analytics → Acquisition → Campaigns →
+  // Generate Campaign Link (any ct works, e.g. ct=janag) → copy the pt=NNNNNN
+  // number from the generated URL and paste it here. Until then ct= clicks
+  // reach the store but installs are NOT attributed in ASC App Analytics.
   var APPLE_PT = "";
-  var ios = "https://apps.apple.com/in/app/id6787660096?mt=8&ct=" + r + (APPLE_PT ? "&pt=" + APPLE_PT : "");
+  var ios = "https://apps.apple.com/app/apple-store/id6787660096?" +
+    (APPLE_PT ? "pt=" + APPLE_PT + "&" : "") + "ct=" + r + "&mt=8";
   var andr = "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app&referrer=" +
-    encodeURIComponent("utm_source=" + r + "&utm_medium=influencer&utm_campaign=" + r);
+    encodeURIComponent("utm_source=" + r + "&utm_medium=influencer&utm_campaign=" + r + "_launch");
   setTimeout(function () {
     location.replace(p === "ios" ? ios : p === "android" ? andr : "/open.html");
   }, 250);
