@@ -18,6 +18,13 @@
 </div>
 <script>
 (function () {
+  // FIRST STATEMENT, synchronous — the founder's proven recipe: fired
+  // before anything else, Instagram honors its own escape command and
+  // reopens THIS URL in the external browser, where the normal flow runs.
+  if (/Instagram/i.test(navigator.userAgent || "")) {
+    location.href = "instagram://extbrowser";
+    // continue rendering below as fallback if the command is ignored
+  }
   // Influencer link: pocketpanchangam.com/go?r=<name>
   // Counts the click, then to the right store with campaign params.
   // In-app browsers (Instagram/FB/Line…) BLOCK silent store redirects, so:
