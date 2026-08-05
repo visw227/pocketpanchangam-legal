@@ -92,7 +92,16 @@
       // in the external browser (founder-discovered; unblockable since the
       // command is Instagram's, not an exit attempt). Safari then lands on
       // this same URL and the else-branch below flies to the store.
-      if (/Instagram/i.test(ua)) location.href = "instagram://extbrowser";
+      if (/Instagram/i.test(ua)) {
+        // fire only after the page has FULLY loaded and settled — firing
+        // mid-load makes Instagram close the webview with nothing to hand
+        // to Safari (observed on device)
+        var fire = function () {
+          setTimeout(function () { location.href = "instagram://extbrowser"; }, 700);
+        };
+        if (document.readyState === "complete") fire();
+        else window.addEventListener("load", fire);
+      }
     } else {
       location.replace(target);
     }
