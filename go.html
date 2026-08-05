@@ -60,7 +60,9 @@
     // In-app browsers: the button ESCAPES to the real browser (Safari via
     // x-safari-https, Android via intent), where our own redirect flies to
     // the store unimpeded — the technique current bio-link tools use.
-    if (inApp && p === "ios") {
+    if (inApp && /Instagram/i.test(ua)) {
+      b.href = "instagram://extbrowser";
+    } else if (inApp && p === "ios") {
       b.href = "x-safari-https://pocketpanchangam.com/go?r=" + r + "&p=ios";
     } else if (inApp && p === "android") {
       b.href = "intent://pocketpanchangam.com/go?r=" + r + "&p=android#Intent;scheme=https;end";
@@ -86,8 +88,11 @@
   setTimeout(function () {
     if (p === "web") { location.replace(target); return; }
     if (inApp) {
-      // top-frame scheme nav blanks Instagram's webview — the button (with
-      // its iframe jump) is the real path; nudge nothing destructive here
+      // Instagram's OWN scheme: asks Instagram itself to reopen this page
+      // in the external browser (founder-discovered; unblockable since the
+      // command is Instagram's, not an exit attempt). Safari then lands on
+      // this same URL and the else-branch below flies to the store.
+      if (/Instagram/i.test(ua)) location.href = "instagram://extbrowser";
     } else {
       location.replace(target);
     }
