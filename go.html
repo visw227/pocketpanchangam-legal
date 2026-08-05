@@ -7,42 +7,61 @@
 <title>Pocket Panchangam</title>
 </head>
 <body style="background:#FAF6ED;margin:0;display:flex;align-items:center;justify-content:center;height:100vh;font-family:-apple-system,'Segoe UI',sans-serif">
-<p style="color:#6E5C4B;font-size:15px">🪔 Opening the store…</p>
+<div style="text-align:center;padding:0 28px">
+  <p id="msg" style="color:#6E5C4B;font-size:15px">🪔 Opening the store…</p>
+  <a id="btn" href="#" style="display:none;background:#9E2233;color:#FFF;text-decoration:none;font-weight:800;font-size:17px;padding:15px 30px;border-radius:999px;margin-top:6px">📲 Get Pocket Panchangam</a>
+  <p id="hint" style="display:none;color:#8F7F6B;font-size:12.5px;margin-top:12px">తెరవకపోతే పై బటన్ నొక్కండి</p>
+</div>
 <script>
 (function () {
   // Influencer link: pocketpanchangam.com/go?r=<name>
-  // Counts the click (anonymous, ref+platform only), then straight to the
-  // right store with the store's own campaign params attached.
+  // Counts the click, then to the right store with campaign params.
+  // In-app browsers (Instagram/FB/Line…) BLOCK silent store redirects, so:
+  // native-scheme escape first, and a real tappable button always appears —
+  // a user gesture is the one navigation no webview refuses.
   var q = new URLSearchParams(location.search);
   var r = (q.get("r") || "direct")
     .toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 24) || "direct";
   var ua = navigator.userAgent || "";
   var p = /iPhone|iPad|iPod/i.test(ua) ? "ios" : /Android/i.test(ua) ? "android" : "web";
-  // open.html's store badges pass ?p=ios|android so a desktop click on the
-  // App Store / Play badge still reaches THAT store (with r attribution)
-  // instead of bouncing back to /open.html.
   var pin = q.get("p");
   if (pin === "ios" || pin === "android") p = pin;
+  var inApp = /Instagram|FBAN|FBAV|FB_IAB|Line\/|MicroMessenger|Snapchat|Twitter/i.test(ua);
   var id = r + "-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8);
   try {
     fetch("https://firestore.googleapis.com/v1/projects/pocketpanchangam/databases/(default)/documents/clicks/" + id + "?key=AIzaSyCCWnpXL5StCbipAkvNk1Hc9RlUM9bvl64", {
       method: "PATCH",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ fields: { r: { stringValue: r }, p: { stringValue: p }, ts: { integerValue: String(Date.now()) } } }),
+      body: JSON.stringify({ fields: { r: { stringValue: r }, p: { stringValue: p }, ts: { integerValue: String(Date.now()) }, w: { stringValue: inApp ? "inapp" : "browser" } } }),
       keepalive: true
     }).catch(function () {});
   } catch (e) {}
-  // Apple campaign token (pt): ASC → App Analytics → Acquisition → Campaigns →
-  // Generate Campaign Link (any ct works, e.g. ct=janag) → copy the pt=NNNNNN
-  // number from the generated URL and paste it here. Until then ct= clicks
-  // reach the store but installs are NOT attributed in ASC App Analytics.
   var APPLE_PT = "121493369";
-  var ios = "https://apps.apple.com/app/apple-store/id6787660096?" +
-    (APPLE_PT ? "pt=" + APPLE_PT + "&" : "") + "ct=" + r + "&mt=8";
-  var andr = "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app&referrer=" +
-    encodeURIComponent("utm_source=" + r + "&utm_medium=influencer&utm_campaign=" + r + "_launch");
+  var iosQ = (APPLE_PT ? "pt=" + APPLE_PT + "&" : "") + "ct=" + r + "&mt=8";
+  var ios = "https://apps.apple.com/app/apple-store/id6787660096?" + iosQ;
+  var iosScheme = "itms-apps://apps.apple.com/app/apple-store/id6787660096?" + iosQ;
+  var ref = encodeURIComponent("utm_source=" + r + "&utm_medium=influencer&utm_campaign=" + r + "_launch");
+  var andr = "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app&referrer=" + ref;
+  var andrScheme = "market://details?id=com.pocketpanchangam.app&referrer=" + ref;
+  var target = p === "ios" ? ios : p === "android" ? andr : "/open.html";
+  // The visible button: a real anchor — a human tap always escapes the webview.
+  if (p !== "web") {
+    var b = document.getElementById("btn");
+    b.href = target;
+    setTimeout(function () {
+      b.style.display = "inline-block";
+      document.getElementById("hint").style.display = "block";
+      document.getElementById("msg").textContent = "🪔 ఒక్క నొక్కు — యాప్ మీది";
+    }, inApp ? 900 : 1800);
+  }
   setTimeout(function () {
-    location.replace(p === "ios" ? ios : p === "android" ? andr : "/open.html");
+    if (p === "web") { location.replace(target); return; }
+    if (inApp) {
+      // native scheme jumps OUT of the in-app webview to the store app
+      location.href = p === "ios" ? iosScheme : andrScheme;
+    } else {
+      location.replace(target);
+    }
   }, 250);
 })();
 </script>
