@@ -42,8 +42,10 @@
   } catch (e) {}
   var APPLE_PT = "121493369";
   var iosQ = (APPLE_PT ? "pt=" + APPLE_PT + "&" : "") + "ct=" + r + "&mt=8";
-  var ios = "https://apps.apple.com/app/apple-store/id6787660096?" + iosQ;
-  var iosScheme = "itms-apps://apps.apple.com/app/apple-store/id6787660096?" + iosQ;
+  // canonical product URL — the /app/apple-store/ redirector white-screens
+  // inside in-app webviews; the product page renders (and still carries pt/ct)
+  var ios = "https://apps.apple.com/in/app/pocket-panchangam/id6787660096?" + iosQ;
+  var iosScheme = "itms-apps://apps.apple.com/in/app/pocket-panchangam/id6787660096?" + iosQ;
   var ref = encodeURIComponent("utm_source=" + r + "&utm_medium=influencer&utm_campaign=" + r + "_launch");
   var andr = "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app&referrer=" + ref;
   var andrScheme = "market://details?id=com.pocketpanchangam.app&referrer=" + ref;
