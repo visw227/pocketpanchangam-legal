@@ -10,7 +10,7 @@
 <div style="text-align:center;padding:0 28px">
   <p id="msg" style="color:#6E5C4B;font-size:15px">🪔 Opening the store…</p>
   <a id="btn" href="#" style="display:none;background:#9E2233;color:#FFF;text-decoration:none;font-weight:800;font-size:17px;padding:15px 30px;border-radius:999px;margin-top:6px">📲 Get Pocket Panchangam</a>
-  <p id="hint" style="display:none;color:#8F7F6B;font-size:12.5px;margin-top:12px">తెరవకపోతే పై బటన్ నొక్కండి</p>
+  <p id="hint" style="display:none;color:#8F7F6B;font-size:12.5px;margin-top:12px">పై బటన్ నొక్కండి — 'Open in App Store?' వస్తే Open నొక్కండి</p>
   <div id="iab" style="display:none;background:#FFF;border:1px solid #E8DFCC;border-radius:14px;padding:14px 16px;margin-top:16px;text-align:left">
     <p style="margin:0;color:#26190F;font-size:14.5px;font-weight:700">యాప్ తెరవడం లేదా? ↗</p>
     <p style="margin:6px 0 0;color:#6E5C4B;font-size:13.5px;line-height:1.5">పైన కుడి మూలలో <b>⋯</b> నొక్కి, <b>"Open in external browser"</b> ఎంచుకోండి — వెంటనే స్టోర్ తెరుచుకుంటుంది.</p>
@@ -60,15 +60,10 @@
     // In-app browsers: the button ESCAPES to the real browser (Safari via
     // x-safari-https, Android via intent), where our own redirect flies to
     // the store unimpeded — the technique current bio-link tools use.
-    if (inApp && /Instagram/i.test(ua)) {
-      b.href = "instagram://extbrowser";
-    } else if (inApp && p === "ios") {
-      b.href = "x-safari-https://pocketpanchangam.com/go?r=" + r + "&p=ios";
-    } else if (inApp && p === "android") {
-      b.href = "intent://pocketpanchangam.com/go?r=" + r + "&p=android#Intent;scheme=https;end";
-    } else {
-      b.href = target;
-    }
+    // Gesture-bound STORE SCHEME: no browser can render itms-apps/market,
+    // so the OS must hand off to the store (Branch/AppsFlyer mechanism;
+    // one "Open in App Store?" confirm is expected and fine).
+    b.href = inApp ? scheme : target;
 
     // A PLAIN anchor tap is the one pattern in-app browsers recognize and
     // hand to the store themselves (how every bio-link tool works). Zero JS
@@ -92,16 +87,13 @@
       // in the external browser (founder-discovered; unblockable since the
       // command is Instagram's, not an exit attempt). Safari then lands on
       // this same URL and the else-branch below flies to the store.
-      if (/Instagram/i.test(ua)) {
-        // fire only after the page has FULLY loaded and settled — firing
-        // mid-load makes Instagram close the webview with nothing to hand
-        // to Safari (observed on device)
-        var fire = function () {
-          setTimeout(function () { location.href = "instagram://extbrowser"; }, 700);
-        };
-        if (document.readyState === "complete") fire();
-        else window.addEventListener("load", fire);
-      }
+      // opportunistic auto-attempt (AppsFlyer pattern): may be blocked as
+      // non-gesture — the user is still sitting on the button either way
+      try {
+        var f = document.createElement("iframe");
+        f.style.display = "none"; f.src = scheme;
+        document.body.appendChild(f);
+      } catch (err) {}
     } else {
       location.replace(target);
     }
