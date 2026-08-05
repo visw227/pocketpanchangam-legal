@@ -44,10 +44,21 @@
   var andr = "https://play.google.com/store/apps/details?id=com.pocketpanchangam.app&referrer=" + ref;
   var andrScheme = "market://details?id=com.pocketpanchangam.app&referrer=" + ref;
   var target = p === "ios" ? ios : p === "android" ? andr : "/open.html";
-  // The visible button: a real anchor — a human tap always escapes the webview.
+  // The visible button. In-app browsers can swallow even gesture-driven
+  // https navigation to the store — but a gesture-driven NATIVE SCHEME
+  // (itms-apps / market) jumps straight to the store app, and a _blank
+  // window is the backup escape. Both wired to the tap.
   if (p !== "web") {
+    var scheme = p === "ios" ? iosScheme : andrScheme;
     var b = document.getElementById("btn");
     b.href = target;
+    b.target = "_blank";
+    b.rel = "noopener";
+    b.addEventListener("click", function (e) {
+      e.preventDefault();
+      location.href = scheme;
+      setTimeout(function () { try { window.open(target, "_blank"); } catch (err) {} }, 900);
+    });
     setTimeout(function () {
       b.style.display = "inline-block";
       document.getElementById("hint").style.display = "block";
