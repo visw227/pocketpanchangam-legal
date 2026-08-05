@@ -58,28 +58,16 @@
     var scheme = p === "ios" ? iosScheme : andrScheme;
     var b = document.getElementById("btn");
     b.href = target;
-    b.target = "_blank";
-    b.rel = "noopener";
-    // scheme via hidden iframe: attempts the store jump WITHOUT unloading
-    // this page (a failed top-frame scheme nav blanks Instagram's webview)
-    var jump = function () {
-      try {
-        var f = document.createElement("iframe");
-        f.style.display = "none";
-        f.src = p === "ios" ? scheme.replace("itms-apps://", "itms-appss://") : scheme;
-        document.body.appendChild(f);
-        setTimeout(function () { try { f.remove(); } catch (err) {} }, 2000);
-      } catch (err) {}
-    };
-    b.addEventListener("click", function (e) {
-      e.preventDefault();
-      jump();
-      setTimeout(function () { try { window.open(target, "_blank"); } catch (err) {} }, 700);
-      // still here after both escapes → teach Instagram's own exit
+
+    // A PLAIN anchor tap is the one pattern in-app browsers recognize and
+    // hand to the store themselves (how every bio-link tool works). Zero JS
+    // on the tap path — our earlier interception was the breakage. If she
+    // is somehow still here seconds after tapping, teach Instagram's exit.
+    b.addEventListener("click", function () {
       setTimeout(function () {
         if (!document.hidden) document.getElementById("iab").style.display = "block";
-      }, 1800);
-    });
+      }, 2500);
+    }, { passive: true });
     setTimeout(function () {
       b.style.display = "inline-block";
       document.getElementById("hint").style.display = "block";
