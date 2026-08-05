@@ -57,7 +57,16 @@
   if (p !== "web") {
     var scheme = p === "ios" ? iosScheme : andrScheme;
     var b = document.getElementById("btn");
-    b.href = target;
+    // In-app browsers: the button ESCAPES to the real browser (Safari via
+    // x-safari-https, Android via intent), where our own redirect flies to
+    // the store unimpeded — the technique current bio-link tools use.
+    if (inApp && p === "ios") {
+      b.href = "x-safari-https://pocketpanchangam.com/go?r=" + r + "&p=ios";
+    } else if (inApp && p === "android") {
+      b.href = "intent://pocketpanchangam.com/go?r=" + r + "&p=android#Intent;scheme=https;end";
+    } else {
+      b.href = target;
+    }
 
     // A PLAIN anchor tap is the one pattern in-app browsers recognize and
     // hand to the store themselves (how every bio-link tool works). Zero JS
