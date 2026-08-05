@@ -11,6 +11,10 @@
   <p id="msg" style="color:#6E5C4B;font-size:15px">🪔 Opening the store…</p>
   <a id="btn" href="#" style="display:none;background:#9E2233;color:#FFF;text-decoration:none;font-weight:800;font-size:17px;padding:15px 30px;border-radius:999px;margin-top:6px">📲 Get Pocket Panchangam</a>
   <p id="hint" style="display:none;color:#8F7F6B;font-size:12.5px;margin-top:12px">తెరవకపోతే పై బటన్ నొక్కండి</p>
+  <div id="iab" style="display:none;background:#FFF;border:1px solid #E8DFCC;border-radius:14px;padding:14px 16px;margin-top:16px;text-align:left">
+    <p style="margin:0;color:#26190F;font-size:14.5px;font-weight:700">యాప్ తెరవడం లేదా? ↗</p>
+    <p style="margin:6px 0 0;color:#6E5C4B;font-size:13.5px;line-height:1.5">పైన కుడి మూలలో <b>⋯</b> నొక్కి, <b>"Open in external browser"</b> ఎంచుకోండి — వెంటనే స్టోర్ తెరుచుకుంటుంది.</p>
+  </div>
 </div>
 <script>
 (function () {
@@ -54,10 +58,25 @@
     b.href = target;
     b.target = "_blank";
     b.rel = "noopener";
+    // scheme via hidden iframe: attempts the store jump WITHOUT unloading
+    // this page (a failed top-frame scheme nav blanks Instagram's webview)
+    var jump = function () {
+      try {
+        var f = document.createElement("iframe");
+        f.style.display = "none";
+        f.src = p === "ios" ? scheme.replace("itms-apps://", "itms-appss://") : scheme;
+        document.body.appendChild(f);
+        setTimeout(function () { try { f.remove(); } catch (err) {} }, 2000);
+      } catch (err) {}
+    };
     b.addEventListener("click", function (e) {
       e.preventDefault();
-      location.href = scheme;
-      setTimeout(function () { try { window.open(target, "_blank"); } catch (err) {} }, 900);
+      jump();
+      setTimeout(function () { try { window.open(target, "_blank"); } catch (err) {} }, 700);
+      // still here after both escapes → teach Instagram's own exit
+      setTimeout(function () {
+        if (!document.hidden) document.getElementById("iab").style.display = "block";
+      }, 1800);
     });
     setTimeout(function () {
       b.style.display = "inline-block";
@@ -68,8 +87,8 @@
   setTimeout(function () {
     if (p === "web") { location.replace(target); return; }
     if (inApp) {
-      // native scheme jumps OUT of the in-app webview to the store app
-      location.href = p === "ios" ? iosScheme : andrScheme;
+      // top-frame scheme nav blanks Instagram's webview — the button (with
+      // its iframe jump) is the real path; nudge nothing destructive here
     } else {
       location.replace(target);
     }
