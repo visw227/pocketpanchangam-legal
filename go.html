@@ -32,7 +32,7 @@
     fetch("https://firestore.googleapis.com/v1/projects/pocketpanchangam/databases/(default)/documents/clicks/" + id + "?key=AIzaSyCCWnpXL5StCbipAkvNk1Hc9RlUM9bvl64", {
       method: "PATCH",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ fields: { r: { stringValue: r }, p: { stringValue: p }, ts: { integerValue: String(Date.now()) }, w: { stringValue: inApp ? "inapp" : "browser" } } }),
+      body: JSON.stringify({ fields: { r: { stringValue: r }, p: { stringValue: p }, ts: { integerValue: String(Date.now()) } } }),
       keepalive: true
     }).catch(function () {});
   } catch (e) {}
