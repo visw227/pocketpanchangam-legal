@@ -54,6 +54,7 @@
     <div class="card hero"><div class="k">New phones today</div><div class="v" id="today">–</div></div>
     <div class="card"><div class="k">Active right now</div><div class="v" id="now">–</div></div>
     <div class="card"><div class="k">DAU</div><div class="v" id="dau">–</div></div>
+    <div class="card"><div class="k">DAU 🇮🇳 · 🌏</div><div class="v" id="dauSplit">–</div></div>
     <div class="card"><div class="k">WAU</div><div class="v" id="wau">–</div></div>
     <div class="card"><div class="k">MAU</div><div class="v" id="mau">–</div></div>
     <div class="card"><div class="k">India · NRI</div><div class="v" id="split">–</div></div>
@@ -64,9 +65,23 @@
   <div class="grid2">
     <div class="panel"><h2>Installs by day</h2><canvas id="cInstalls"></canvas></div>
     <div class="panel"><h2>DAU / WAU trend</h2><canvas id="cTrend"></canvas><p class="note" id="trendNote"></p></div>
-    <div class="panel"><h2>Where — by country</h2><canvas id="cCountry"></canvas></div>
+    <div class="panel"><h2>Where — real regions (by phone clock)</h2><canvas id="cRegion"></canvas>
+      <p class="note">Grouped by each phone's real timezone band — the old country view trusted phone <em>language</em> and wrongly called ~1,300 India phones US/GB.</p></div>
     <div class="panel"><h2>Versions &amp; platforms</h2><canvas id="cVersion"></canvas><div class="rows" id="plat"></div></div>
   </div>
+
+  <div class="panel"><h2>తిరిగి వస్తున్నారా? — Retention</h2>
+    <div class="cards" style="margin:6px 0 12px">
+      <div class="card"><div class="k">D1 · మరుసటి రోజు తర్వాత</div><div class="v" id="rD1">–</div><p class="note" id="rD1s" style="margin-top:4px"></p></div>
+      <div class="card"><div class="k">D7 · వారం తర్వాత</div><div class="v" id="rD7">–</div><p class="note" id="rD7s" style="margin-top:4px"></p></div>
+    </div>
+    <canvas id="cCohort"></canvas>
+    <div class="rows" id="cohortRows" style="margin-top:10px"></div>
+    <p class="note">"N రోజుల తర్వాత కూడా వస్తున్నారు" — a phone counts as retained for day N if it was seen again on/after that day (slightly generous vs classic day-N). – means the cohort is younger than N days. Headline cards are size-weighted across matured cohorts.</p></div>
+
+  <div class="panel"><h2>🔕 Dark phones — notifications, India vs NRI</h2>
+    <div class="rows" id="npRegion"><div><span>waiting for permission data…</span></div></div>
+    <p class="note">✅ granted = daily సందేశం reaches them · 🔕 denied + ❓ never asked = dark · 📡 = older app version that doesn't report yet. Dark% counts only reporting phones.</p></div>
 
   <div class="panel"><h2>Timezone bands (push planning)</h2><canvas id="cBand"></canvas>
     <p class="note">p330 = India · n300/n360 = US East/Central · p0/p60 = UK/EU · p480 = SG/HK</p></div>
@@ -99,6 +114,15 @@
       options: { plugins: { legend: { display: false } }, scales: type === "doughnut" ? {} : { y: { beginAtZero: true, ticks: { precision: 0 } } } },
     });
   }
+  function lines(id, labels, dss) {
+    if (charts[id]) { charts[id].data.labels = labels; dss.forEach((d, i) => { charts[id].data.datasets[i].data = d.data; }); charts[id].update(); return; }
+    charts[id] = new Chart(document.getElementById(id), {
+      type: "line",
+      data: { labels, datasets: dss.map((d) => ({ label: d.label, data: d.data, borderColor: d.color, backgroundColor: d.color, borderWidth: 2, tension: 0.3, pointRadius: 3, spanGaps: false })) },
+      options: { plugins: { legend: { display: true, position: "bottom", labels: { boxWidth: 12 } } }, scales: { y: { beginAtZero: true, max: 100, ticks: { callback: (v) => v + "%" } } } },
+    });
+  }
+  const pf = (v) => (v === null || v === undefined ? "–" : v + "%");
   async function load() {
     try {
       const s = await (await fetch("stats.json?cb=" + Date.now())).json();
@@ -107,10 +131,36 @@
       set("total", s.installsTotal); set("today", s.installsToday); set("now", s.activeNow);
       set("dau", s.dau); set("wau", s.wau); set("mau", s.mau);
       set("split", s.indiaShare + "% · " + (100 - s.indiaShare) + "%");
+      set("dauSplit", s.dauIndia !== undefined ? s.dauIndia + " · " + s.dauNri : "–");
       const days = Object.keys(s.installsByDay).sort().slice(-30);
       bar("cInstalls", days.map((d) => d.slice(5)), days.map((d) => s.installsByDay[d]), gold);
-      const cn = Object.entries(s.byCountry).slice(0, 12);
-      bar("cCountry", cn.map(([k]) => k), cn.map(([, v]) => v), kum);
+      const rg = Object.entries(s.byRegion || s.byCountry).slice(0, 12);
+      bar("cRegion", rg.map(([k]) => k), rg.map(([, v]) => v), kum);
+      // ── retention (survival cohorts) ──
+      if (s.retention) {
+        const r = s.retention;
+        set("rD1", pf(r.d1)); set("rD7", pf(r.d7));
+        document.getElementById("rD1s").textContent = "🇮🇳 " + pf(r.india.d1) + " · 🌏 " + pf(r.nri.d1);
+        document.getElementById("rD7s").textContent = "🇮🇳 " + pf(r.india.d7) + " · 🌏 " + pf(r.nri.d7);
+        const co = s.cohorts || [];
+        lines("cCohort", co.map((x) => x.fo.slice(5)), [
+          { label: "D1 · మరుసటి రోజు", data: co.map((x) => x.d1), color: gold },
+          { label: "D7 · వారం", data: co.map((x) => x.d7), color: kum },
+        ]);
+        document.getElementById("cohortRows").innerHTML = co.slice(-10).reverse().map((x) =>
+          `<div><span>${x.fo.slice(5)} — ${x.size} phones · D3 ${pf(x.d3)} · D7 ${pf(x.d7)} · D14 ${pf(x.d14)}</span><b>D1 ${pf(x.d1)}</b></div>`
+        ).join("");
+      }
+      // ── dark phones by region ──
+      if (s.npByRegion) {
+        const fmtNp = (name, m) => {
+          const g = m.g || 0, dd = m.d || 0, u = m.u || 0, nr = m["(not reported)"] || 0;
+          const rep = g + dd + u;
+          const dark = rep ? Math.round(((dd + u) / rep) * 100) : 0;
+          return `<div><span>${name} — ✅ ${g} · 🔕 ${dd} · ❓ ${u} · 📡 ${nr}</span><b>${rep ? dark + "% dark" : "no data"}</b></div>`;
+        };
+        document.getElementById("npRegion").innerHTML = fmtNp("🇮🇳 India", s.npByRegion.india) + fmtNp("🌏 NRI", s.npByRegion.nri);
+      }
       const vs = Object.entries(s.byVersion);
       bar("cVersion", vs.map(([k]) => k), vs.map(([, v]) => v), [gold, kum, soft, "#7A5C43", "#2E7D4F"], "doughnut");
       document.getElementById("plat").innerHTML = Object.entries(s.byPlatform)
