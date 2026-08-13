@@ -89,6 +89,11 @@
   <div class="panel"><h2>📣 Influencer links (/go?r=name)</h2><div class="rows" id="inf"><div><span>No link clicks yet — share pocketpanchangam.com/go?r=&lt;name&gt;</span></div></div>
     <p class="note">Clicks = our beacon · installs per campaign appear in the App Store section (Apple ct=) and Play Console (utm_source) as stores report them</p></div>
 
+  <div class="panel"><h2>🪷 వరలక్ష్మీ వ్రతం hub (2026 Sravana Fridays)</h2>
+    <canvas id="cVrat"></canvas>
+    <div class="rows" id="vrat"><div><span>No hub beacons yet — ships with the vratham OTA</span></div></div>
+    <p class="note">Poll: f1 = Aug 14 (first Friday) · f2 = Aug 21 (TTD, our date) · f3 = Aug 28 (drik) · nd = undecided. Funnel rows = exact device counts from the vratham beacon (reached → voted → used).</p></div>
+
   <div class="panel"><h2>📦 Store installs (official · Apple reports ~24–48h behind)</h2>
     <div class="rows" id="asc"><div><span>Waiting for Apple's report delivery…</span></div></div>
     <div class="rows" id="camp" style="margin-top:10px"></div>
@@ -173,6 +178,26 @@
           const today = v.byDay[new Date().toISOString().slice(0, 10)] || 0;
           return `<div><span>${k} — 🍎 ${v.ios} · 🤖 ${v.android} · today ${today}</span><b>${v.total}</b></div>`;
         }).join("");
+      }
+      // ── వరలక్ష్మీ వ్రతం hub — exact numbers (founder ask 2026-08-14) ──
+      const vr = s.vratham;
+      if (vr && vr.reached) {
+        const labels = ["Aug 14", "Aug 21 (TTD)", "Aug 28 (drik)", "undecided"];
+        bar("cVrat", labels, ["f1", "f2", "f3", "nd"].map((k) => vr.votes[k] || 0), [soft, kum, gold, "#7A5C43"]);
+        const pct = (n) => vr.voted ? ` (${Math.round((n / vr.voted) * 100)}%)` : "";
+        document.getElementById("vrat").innerHTML = [
+          `<div><span>📬 Reached the hub (beacons)</span><b>${vr.reached}</b></div>`,
+          `<div><span>🗳️ Voted a Friday</span><b>${vr.voted}</b></div>`,
+          ...["f1", "f2", "f3", "nd"].map((k, i) =>
+            `<div><span>&nbsp;&nbsp;&nbsp;${labels[i]} — IN ${vr.votesIndia[k] || 0} · NRI ${vr.votesNri[k] || 0}</span><b>${vr.votes[k] || 0}${pct(vr.votes[k] || 0)}</b></div>`),
+          `<div><span>🛍️ Used the checklist</span><b>${vr.checklistUsers}</b></div>`,
+          `<div><span>&nbsp;&nbsp;&nbsp;items checked, all devices</span><b>${vr.itemsChecked}</b></div>`,
+          `<div><span>🗺️ Opened any station tile</span><b>${vr.stationVisitors}</b></div>`,
+          `<div><span>📖 Read the katha</span><b>${vr.kathaReaders}</b></div>`,
+          `<div><span>🙏 Viewed the vidhanam</span><b>${vr.vidhanamViewers}</b></div>`,
+          `<div><span>📤 Shared the list</span><b>${vr.sharers}</b></div>`,
+          `<div><span>🔔 Reminders on</span><b>${vr.reminderUsers}</b></div>`,
+        ].join("");
       }
       // ── official store installs ──
       const ios = s.ios || {};
