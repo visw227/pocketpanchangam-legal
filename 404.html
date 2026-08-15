@@ -105,7 +105,17 @@
     else if (/^[a-zA-Z0-9/_-]+$/.test(seg) && seg) to = seg;
     else to = "tab/panchangam";
   }
-  var deep = "pocketpanchangam://" + to;
+  // The route's PARAMS must ride along (2026-08-15: kundli share links
+  // carried ?id=… that this line silently dropped — the app opened the
+  // tab empty-handed). Everything except the router's own s/src/to keys
+  // is forwarded into the scheme URL.
+  var extras = [];
+  qs.forEach(function(v, k){
+    if (k === "s" || k === "src" || k === "to") return;
+    extras.push(encodeURIComponent(k) + "=" + encodeURIComponent(v));
+  });
+  var deepQuery = extras.length ? "?" + extras.join("&") : "";
+  var deep = "pocketpanchangam://" + to + deepQuery;
 
   // ?s=share-<feature> (short; legacy ?src= accepted) — the ONE link in a
   // share caption carries its own attribution. Landing here logs the click
@@ -170,7 +180,7 @@
     // Android's native pattern: intent:// opens the app if installed and
     // falls back to the store route — no error dialog possible. The fallback
     // rides /go so the Play install referrer keeps the feature tag.
-    open.href = "intent://" + to +
+    open.href = "intent://" + to + deepQuery +
       "#Intent;scheme=pocketpanchangam;package=com.pocketpanchangam.app;" +
       "S.browser_fallback_url=" + encodeURIComponent("https://pocketpanchangam.com" + go("android")) + ";end";
     // Non-Chrome Android browsers ignore intent URLs — transform to the
