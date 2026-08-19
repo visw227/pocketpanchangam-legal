@@ -37,8 +37,12 @@
   .row:first-child{border-top:none}
   .row span{color:var(--soft)}
   .row b{font-variant-numeric:tabular-nums}
-  .spark{display:flex;align-items:flex-end;gap:2px;height:44px;margin-top:9px}
-  .spark i{flex:1;background:var(--gold);border-radius:2px 2px 0 0;min-height:2px;opacity:.85}
+  .spark{display:flex;align-items:flex-end;gap:3px;height:64px;margin-top:12px}
+  .spark .b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;height:100%}
+  .spark .b em{font-style:normal;font-size:9.5px;color:var(--soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .spark .b i{width:100%;background:var(--gold);border-radius:2px 2px 0 0;min-height:2px;opacity:.85}
+  .xlab{display:flex;gap:3px;margin-top:4px}
+  .xlab span{flex:1;text-align:center;font-size:9px;color:var(--faint)}
   .note{color:var(--faint);font-size:11.5px;line-height:1.5;margin-top:9px}
   details{margin-top:10px}
   summary{cursor:pointer;color:var(--gold);font-size:12.5px;font-weight:700;padding:9px 0}
@@ -94,15 +98,16 @@
         <div class="hero">
           <div class="n">${n(d.installsTotal)}</div>
           <div class="l">phones that have ever opened the app</div>
-          <div class="d">+${n(d.installsTodayIst)} today (IST)</div>
+          <div class="d">+${n(d.installsTodayIst)} since midnight IST</div>
         </div>`));
       el.appendChild($(`
         <div class="grid">
-          <div class="c"><div class="n">${n(d.returningDau)}</div><div class="l">returning today</div>
-            <div class="h">came back — installed more than 24h ago. This is the real engagement number.</div></div>
-          <div class="c"><div class="n">${n(d.newDau)}</div><div class="l">new today</div>
-            <div class="h">first-ever opens in the last 24h.</div></div>
-          <div class="c"><div class="n">${pct(d.retentionCurve && d.retentionCurve.d1)}</div><div class="l">day-1 retention</div>
+          <div class="c"><div class="n">${n(d.returningDau)}</div><div class="l">returning · last 24h</div>
+            <div class="h">opened the app in the last 24h AND installed before that. The real engagement number.</div></div>
+          <div class="c"><div class="n">${n(d.newDau)}</div><div class="l">new · last 24h</div>
+            <div class="h">first-ever opens in the last 24h. This uses a rolling 24h window, so it differs from the
+            "since midnight IST" figure above — both are correct, they measure different windows.</div></div>
+          <div class="c"><div class="n">${pct(d.retentionCurve && d.retentionCurve.d1)}</div><div class="l">day-1 retention (mature phones)</div>
             <div class="h">of phones old enough to measure, share that came back after a full day.</div></div>
           <div class="c"><div class="n">${pct(d.matureActive7Pct)}</div><div class="l">week-active base</div>
             <div class="h">of ${n(d.matureBase)} phones older than a day, share seen this week.</div></div>
@@ -138,20 +143,35 @@
 
       // cohort triangle — newest first, colour by value
       const rows = (d.cohorts || []).slice().reverse().slice(0, 12);
-      const cell = (v) => {
+      // A cohort's day-N number keeps RISING for days after the window opens:
+      // a phone that installed at 23:00 only becomes measurable 24h later and
+      // has had almost no chance to return yet. Cells younger than 2 days past
+      // their window are marked ↑ so a low number is not read as final.
+      const DAYN = { d1: 1, d3: 3, d7: 7, d14: 14, d30: 30 };
+      const cell = (v, fo, k) => {
         if (v == null) return `<td class="k">·</td>`;
+        const opened = Date.parse(fo) + DAYN[k] * 86400000;
+        const climbing = Date.now() - opened < 2 * 86400000;
         const a = Math.max(0, Math.min(1, v / 60));
-        return `<td><span class="cell" style="background:rgba(226,178,74,${0.10 + a * 0.55});padding:3px 6px">${v}%</span></td>`;
+        return `<td><span class="cell" style="background:rgba(226,178,74,${0.10 + a * 0.55});padding:3px 6px${climbing ? ";opacity:.65" : ""}">${v}%${climbing ? "<span style=\"color:var(--warn)\">↑</span>" : ""}</span></td>`;
       };
       el.appendChild($(`
         <div class="panel">
           <table class="heat">
             <tr><th>cohort</th><th>size</th>${cols.map(k => `<th>${k}</th>`).join("")}</tr>
-            ${rows.map(r => `<tr><td class="k">${r.fo}</td><td>${n(r.size)}</td>${cols.map(k => cell(r[k])).join("")}</tr>`).join("")}
+            ${rows.map(r => `<tr><td class="k">${r.fo}</td><td>${n(r.size)}</td>${cols.map(k => cell(r[k], r.fo, k)).join("")}</tr>`).join("")}
           </table>
-          <div class="note">Each row is everyone who first opened on that day. Dots mean the window has not matured yet —
-          not zero. Notice the newest, biggest cohorts retain worse than the older organic ones: that is the viral wave,
-          and it is the honest read.</div>
+          <div class="note">
+            <b style="color:var(--soft)">How this is calculated.</b> A row is everyone whose very first open was on that
+            date. <b>D1</b> = of those phones, the share seen again at least 24 hours after <i>their own</i> first open
+            (not midnight — each phone is measured from its own clock). D3, D7, D14 are the same at 3, 7 and 14 days.<br><br>
+            <b>·</b> means the window has not opened yet — not zero.
+            <b style="color:var(--warn)">↑</b> means the window opened less than 2 days ago, so the number is still
+            climbing and will rise: a phone that installed last night only became measurable this morning and has barely
+            had a chance to return. Judge a cohort only after its ↑ is gone.<br><br>
+            The newest, biggest cohorts retain worse than the older organic ones. That is the viral wave, and it is the
+            honest read — mass-arriving curiosity traffic always retains below word-of-mouth traffic.
+          </div>
         </div>`));
       return el;
     });
@@ -168,12 +188,14 @@
         <div><h2>Growth</h2>
         <div class="panel">
           <div class="row" style="border:none"><span>installs · last 14 days</span><b>${n(days.reduce((s, k) => s + byd[k], 0))}</b></div>
-          <div class="spark">${days.map(k => `<i style="height:${Math.round(byd[k] / max * 100)}%" title="${k}: ${byd[k]}"></i>`).join("")}</div>
-          <div class="note">${days[0]} → ${days[days.length - 1]}</div>
+          <div class="spark">${days.map(k => `<span class="b"><em>${byd[k] >= 1000 ? (byd[k]/1000).toFixed(1)+"k" : byd[k]}</em><i style="height:${Math.round(byd[k] / max * 88)}%"></i></span>`).join("")}</div>
+          <div class="xlab">${days.map(k => `<span>${k.slice(8)}</span>`).join("")}</div>
+          <div class="note">${days[0]} → ${days[days.length - 1]} · day of month below each bar</div>
         </div>
         <div class="panel">
           <div class="row" style="border:none"><span>today by hour · IST</span><b>${n(d.installsTodayIst)}</b></div>
-          <div class="spark">${hkeys.map(k => `<i style="height:${Math.round(hrs[k] / hmax * 100)}%;opacity:.9" title="${k}:00 — ${hrs[k]}"></i>`).join("")}</div>
+          <div class="spark">${hkeys.map(k => `<span class="b"><em>${hrs[k] >= 1000 ? (hrs[k]/1000).toFixed(1)+"k" : hrs[k]}</em><i style="height:${Math.round(hrs[k] / hmax * 88)}%"></i></span>`).join("")}</div>
+          <div class="xlab">${hkeys.map(k => `<span>${k}</span>`).join("")}</div>
           <div class="note">Real IST hours. The install counter itself rolls over at 05:30 IST (midnight UTC), so this is the
           only view that shows a festival morning whole.</div>
         </div></div>`);
@@ -211,6 +233,14 @@
           <div class="note">These two will never match, and that is correct — they count different populations.
           A click is a landing-page hit (many never install, some install days later, one person can tap five times);
           an install is a phone that opened the app (many arrive from store search with no link at all).
+          <br><br><b style="color:var(--soft)">Why creator clicks are tiny next to installs.</b>
+          Tracked creator links account for ${n((d.channels&&d.channels.creator)?d.channels.creator.clicks:0)} taps, but installs are
+          ${n(d.installsTotal)} — because almost nobody arrives through a tracked creator link. The wave is coming from
+          your own Instagram (${n((d.channels&&d.channels.campaign)?d.channels.campaign.clicks:0)} taps), from
+          ${n((d.channels&&d.channels.unattributed)?d.channels.unattributed.clicks:0)} taps that carried no ref at all,
+          and from people who never touched a link — store search, a forwarded screenshot, word of mouth.
+          <b>99.5% of installs currently have no known source.</b> That is the single biggest gap in this dashboard, and
+          Play's own per-source export (which also carries retention per source) is the fix.<br><br>
           Only the store's own campaign data can join the two, and today that covers
           <b>${n((d.ios && d.ios.byCampaign) ? Object.values(d.ios.byCampaign).reduce((s, v) => s + (v.total || 0), 0) : 0)}</b>
           iOS installs. Android — ~92% of users — is not wired up yet.</div>
