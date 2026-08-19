@@ -201,6 +201,57 @@
         </div></div>`);
     });
 
+
+    // ══ CAMPAIGN IMPACT — which post moved the needle ══
+    section(() => {
+      const cs = d.campaigns || [];
+      const hrs = d.installsByHourAll || {};
+      const keys = Object.keys(hrs).sort().slice(-72);
+      const hmax = Math.max(...keys.map(k => hrs[k]), 1);
+      const posts = cs.filter(c => c.at).map(c => new Date(c.at).toISOString().slice(0, 13));
+      const el = $(`<div><h2>Campaign impact</h2></div>`);
+      el.appendChild($(`
+        <div class="panel">
+          <div class="row" style="border:none"><span>installs per hour · last 72h (IST)</span><b>${n(keys.reduce((s,k)=>s+hrs[k],0))}</b></div>
+          <div class="spark" style="height:70px">${keys.map(k => {
+            const isPost = posts.some(p => new Date(Date.parse(k + ":00:00Z")).toISOString().slice(0,13) === p);
+            return `<span class="b"><i style="height:${Math.round(hrs[k] / hmax * 92)}%;background:${isPost ? "var(--kum)" : "var(--gold)"}" title="${k} — ${hrs[k]}"></i></span>`;
+          }).join("")}</div>
+          <div class="note">Rebuilt hour by hour from every install's own timestamp — the full history, not just today.
+          Red bars are hours a campaign went live.</div>
+        </div>`));
+      if (!cs.length) {
+        el.appendChild($(`<div class="panel"><div class="note" style="margin:0">
+          No campaigns listed yet. Add each reel/post to <b>dash/campaigns.json</b> in the content repo
+          — creator, label, and the exact go-live time — and the lift below is computed automatically.
+        </div></div>`));
+        return el;
+      }
+      for (const c of cs) {
+        if (c.error) { el.appendChild($(`<div class="panel"><div class="note">${c.label || c.creator}: ${c.error}</div></div>`)); continue; }
+        const t = new Date(Date.parse(c.at) + 5.5 * 3600000).toISOString().replace("T", " ").slice(0, 16);
+        const w = (k, lbl) => `<tr><td class="k">${lbl}</td><td>${n(c[k].installs)}</td><td class="k">${n(c[k].expected)}</td>
+          <td style="color:${c[k].lift > 0 ? "var(--good)" : "var(--soft)"};font-weight:800">${c[k].lift > 0 ? "+" : ""}${n(c[k].lift)}</td></tr>`;
+        el.appendChild($(`
+          <div class="panel fam">
+            <h3>${c.label}</h3>
+            <div class="st">${c.platform || "post"} · went live ${t} IST · baseline ${n(c.baselinePerHour)} installs/hour before</div>
+            <table>
+              <tr><th>window</th><th>installs</th><th>expected</th><th>lift</th></tr>
+              ${w("h2", "first 2h")}${w("h6", "first 6h")}${w("h24", "first 24h")}
+            </table>
+          </div>`));
+      }
+      el.appendChild($(`<div class="panel"><div class="note" style="margin:0">
+        <b style="color:var(--soft)">How to read this.</b> A collab reel sends people to your profile and then the bio
+        link, so the click never carries the creator's name — timing is the only honest signal available without
+        changing the install flow. <b>Expected</b> is the median hourly install rate over the 24h before the post,
+        extended across the window. <b>Lift</b> is everything above that. Overlapping posts share credit, so keep the
+        windows short when two creators post the same evening.
+      </div></div>`));
+      return el;
+    });
+
     // ══ WHERE ══
     section(() => {
       const reg = d.byRegion || {}, dau = d.dauByRegion || {};
