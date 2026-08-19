@@ -4,243 +4,268 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>మన Mission Control · Pocket Panchangam</title>
-<link rel="icon" href="/icon.png">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<title>మన Mission Control</title>
 <style>
-  :root{--bg:#FAF6ED;--card:#FFFFFF;--ink:#26190F;--soft:#6E5C4B;--faint:#8F7F6B;
-        --kum:#9E2233;--gold:#B07D10;--line:#E8DFCC;--green:#2E7D4F}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);padding:20px 16px 60px}
-  .wrap{max-width:1080px;margin:0 auto}
-  header{display:flex;align-items:center;gap:12px;margin-bottom:4px}
-  header img{width:44px;height:44px;border-radius:10px;border:1px solid var(--line)}
-  h1{font-size:15px;letter-spacing:2px;color:var(--gold);margin:0;font-weight:800}
-  .sub{font-size:12px;color:var(--faint);margin:2px 0 0}
-  .updated{margin-left:auto;font-size:11px;color:var(--faint);text-align:right}
-  .live{display:inline-block;width:8px;height:8px;border-radius:4px;background:var(--green);margin-right:5px;animation:blink 2s infinite}
-  @keyframes blink{50%{opacity:.35}}
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:18px 0}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-  .card .k{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--soft);text-transform:uppercase}
-  .card .v{font-size:30px;font-weight:800;font-family:Georgia,serif;margin-top:4px}
-  .card .v small{font-size:13px;color:var(--faint);font-weight:600}
-  .card.hero .v{color:var(--kum)}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
-  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:12px}
-  .panel h2{font-size:12px;letter-spacing:1.5px;color:var(--gold);margin:0 0 10px;font-weight:800;text-transform:uppercase}
-  .note{font-size:12px;color:var(--faint);margin-top:8px}
-  canvas{max-height:260px}
-  .rows{font-size:13px}
-  .rows div{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--line)}
-  .rows b{font-family:Georgia,serif}
-  footer{text-align:center;font-size:11px;color:var(--faint);letter-spacing:1.5px;margin-top:28px}
+  :root{--bg:#14100B;--card:#1D170F;--line:#2E2617;--gold:#E2B24A;--ink:#F6EFE0;--soft:#B6A88C;--faint:#7C7263;--good:#5FBF7F;--warn:#E2A33C;--bad:#D9534F;--kum:#C2455A}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,'Segoe UI',system-ui,sans-serif;padding:0 0 60px}
+  .wrap{max-width:840px;margin:0 auto;padding:0 14px}
+  .bar{position:sticky;top:0;z-index:9;background:rgba(20,16,11,.96);border-bottom:1px solid var(--line);padding:9px 14px;display:flex;align-items:center;gap:9px;font-size:12.5px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--good);flex:none}
+  .bar b{color:var(--ink);font-weight:700}
+  .bar span{color:var(--soft)}
+  h1{font-size:15px;font-weight:800;letter-spacing:.3px;margin:18px 0 3px}
+  .sub{color:var(--faint);font-size:12.5px;margin-bottom:14px}
+  h2{font-size:13px;font-weight:800;color:var(--gold);letter-spacing:.4px;margin:26px 0 9px;text-transform:uppercase}
+  .hero{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:10px}
+  .hero .n{font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1.05}
+  .hero .l{color:var(--soft);font-size:13px;margin-top:3px}
+  .hero .d{margin-top:9px;font-size:13px;color:var(--good);font-weight:700}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px}
+  .c .n{font-size:23px;font-weight:800;line-height:1.15}
+  .c .l{color:var(--soft);font-size:12px;margin-top:2px}
+  .c .h{color:var(--faint);font-size:11.5px;margin-top:5px;line-height:1.4}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:right;color:var(--faint);font-weight:700;font-size:11px;padding:0 0 7px;text-transform:uppercase;letter-spacing:.3px}
+  th:first-child,td:first-child{text-align:left}
+  td{text-align:right;padding:6px 0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+  td.k{color:var(--soft)}
+  .pill{display:inline-block;padding:1px 7px;border-radius:999px;font-size:11px;font-weight:700}
+  .row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-top:1px solid var(--line);font-size:13.5px}
+  .row:first-child{border-top:none}
+  .row span{color:var(--soft)}
+  .row b{font-variant-numeric:tabular-nums}
+  .spark{display:flex;align-items:flex-end;gap:2px;height:44px;margin-top:9px}
+  .spark i{flex:1;background:var(--gold);border-radius:2px 2px 0 0;min-height:2px;opacity:.85}
+  .note{color:var(--faint);font-size:11.5px;line-height:1.5;margin-top:9px}
+  details{margin-top:10px}
+  summary{cursor:pointer;color:var(--gold);font-size:12.5px;font-weight:700;padding:9px 0}
+  .fam{margin-top:12px}
+  .fam h3{font-size:12.5px;font-weight:800;margin-bottom:2px}
+  .fam .st{color:var(--faint);font-size:11.5px;margin-bottom:5px}
+  .err{background:#2A1414;border:1px solid #5A2A2A;color:#E9B0B0;border-radius:10px;padding:9px;font-size:12px;margin-bottom:9px}
+  .heat td{border-top:1px solid var(--line)}
+  .heat .cell{border-radius:4px;padding:4px 0;font-weight:700;font-size:12px}
 </style>
 </head>
 <body>
+<div class="bar"><span class="dot" id="dot"></span><b id="fresh">loading…</b><span id="freshnote"></span></div>
 <div class="wrap">
-  <header>
-    <img src="/icon.png" alt="">
-    <div>
-      <h1>మన MISSION CONTROL</h1>
-      <p class="sub">Pocket Panchangam · live pulse (beacon phones) · App Store history below</p>
-    </div>
-    <div class="updated"><span class="live"></span><span id="upd">loading…</span><br><span id="auto">auto-refresh 60s</span></div>
-  </header>
-
-  <div class="cards">
-    <div class="card hero"><div class="k">Phones on pulse</div><div class="v" id="total">–</div></div>
-    <div class="card hero"><div class="k">New phones today</div><div class="v" id="today">–</div></div>
-    <div class="card"><div class="k">Active right now</div><div class="v" id="now">–</div></div>
-    <div class="card"><div class="k">DAU</div><div class="v" id="dau">–</div></div>
-    <div class="card"><div class="k">DAU 🇮🇳 · 🌏</div><div class="v" id="dauSplit">–</div></div>
-    <div class="card"><div class="k">WAU</div><div class="v" id="wau">–</div></div>
-    <div class="card"><div class="k">MAU</div><div class="v" id="mau">–</div></div>
-    <div class="card"><div class="k">India · NRI</div><div class="v" id="split">–</div></div>
-    <div class="card"><div class="k">🍎 Installs (store)</div><div class="v" id="iosInst">–</div></div>
-    <div class="card"><div class="k">🤖 Installs (Play)</div><div class="v" id="andInst">–</div></div>
-  </div>
-
-  <div class="grid2">
-    <div class="panel"><h2>Installs by day</h2><canvas id="cInstalls"></canvas></div>
-    <div class="panel"><h2>DAU / WAU trend</h2><canvas id="cTrend"></canvas><p class="note" id="trendNote"></p></div>
-    <div class="panel"><h2>Where — real regions (by phone clock)</h2><canvas id="cRegion"></canvas>
-      <p class="note">Grouped by each phone's real timezone band — the old country view trusted phone <em>language</em> and wrongly called ~1,300 India phones US/GB.</p></div>
-    <div class="panel"><h2>Versions &amp; platforms</h2><canvas id="cVersion"></canvas><div class="rows" id="plat"></div></div>
-  </div>
-
-  <div class="panel"><h2>తిరిగి వస్తున్నారా? — Retention</h2>
-    <div class="cards" style="margin:6px 0 12px">
-      <div class="card"><div class="k">D1 · మరుసటి రోజు తర్వాత</div><div class="v" id="rD1">–</div><p class="note" id="rD1s" style="margin-top:4px"></p></div>
-      <div class="card"><div class="k">D7 · వారం తర్వాత</div><div class="v" id="rD7">–</div><p class="note" id="rD7s" style="margin-top:4px"></p></div>
-    </div>
-    <canvas id="cCohort"></canvas>
-    <div class="rows" id="cohortRows" style="margin-top:10px"></div>
-    <p class="note">"N రోజుల తర్వాత కూడా వస్తున్నారు" — a phone counts as retained for day N if it was seen again on/after that day (slightly generous vs classic day-N). – means the cohort is younger than N days. Headline cards are size-weighted across matured cohorts.</p></div>
-
-  <div class="panel"><h2>🔕 Dark phones — notifications, India vs NRI</h2>
-    <div class="rows" id="npRegion"><div><span>waiting for permission data…</span></div></div>
-    <p class="note">✅ granted = daily సందేశం reaches them · 🔕 denied + ❓ never asked = dark · 📡 = older app version that doesn't report yet. Dark% counts only reporting phones.</p></div>
-
-  <div class="panel"><h2>Timezone bands (push planning)</h2><canvas id="cBand"></canvas>
-    <p class="note">p330 = India · n300/n360 = US East/Central · p0/p60 = UK/EU · p480 = SG/HK</p></div>
-
-  <div class="panel"><h2>📣 Influencer links (/go?r=name)</h2><div class="rows" id="inf"><div><span>No link clicks yet — share pocketpanchangam.com/go?r=&lt;name&gt;</span></div></div>
-    <p class="note">Clicks = our beacon · installs per campaign appear in the App Store section (Apple ct=) and Play Console (utm_source) as stores report them</p></div>
-
-  <div class="panel"><h2>🪷 వరలక్ష్మీ వ్రతం hub (2026 Sravana Fridays)</h2>
-    <canvas id="cVrat"></canvas>
-    <div class="rows" id="vrat"><div><span>No hub beacons yet — ships with the vratham OTA</span></div></div>
-    <p class="note">Poll: f1 = Aug 14 (first Friday) · f2 = Aug 21 (TTD, our date) · f3 = Aug 28 (drik) · nd = undecided. Funnel rows = exact device counts from the vratham beacon (reached → voted → used).</p></div>
-
-  <div class="panel"><h2>📦 Store installs (official · Apple reports ~24–48h behind)</h2>
-    <div class="rows" id="asc"><div><span>Waiting for Apple's report delivery…</span></div></div>
-    <div class="rows" id="camp" style="margin-top:10px"></div>
-    <div class="rows" id="andRow" style="margin-top:10px"></div>
-    <p class="note">iOS = first-time downloads from App Store Connect analytics · campaign rows = ct= tag on the App Store link (janag)</p></div>
-
-  <footer>🕉️ POCKETPANCHANGAM.COM · counts only, no personal data</footer>
+  <h1>మన Mission Control</h1>
+  <div class="sub" id="asof">—</div>
+  <div id="root"></div>
 </div>
 <script>
-(async function () {
+(function () {
   if (localStorage.getItem("dk") !== "srivari") {
     const p = prompt("passphrase?");
     if (p !== "srivari") { document.body.innerHTML = ""; return; }
     localStorage.setItem("dk", "srivari");
   }
-  const gold = "#B07D10", kum = "#9E2233", soft = "#D8C9A8";
-  const charts = {};
-  function bar(id, labels, data, color, type) {
-    if (charts[id]) { charts[id].data.labels = labels; charts[id].data.datasets[0].data = data; charts[id].update(); return; }
-    charts[id] = new Chart(document.getElementById(id), {
-      type: type || "bar",
-      data: { labels, datasets: [{ data, backgroundColor: color, borderColor: color, borderWidth: type === "line" ? 2 : 0, tension: 0.3, fill: false, pointRadius: 2 }] },
-      options: { plugins: { legend: { display: false } }, scales: type === "doughnut" ? {} : { y: { beginAtZero: true, ticks: { precision: 0 } } } },
+  const $ = (h) => { const d = document.createElement("div"); d.innerHTML = h.trim(); return d.firstChild; };
+  const n = (v) => v == null ? "—" : Number(v).toLocaleString("en-IN");
+  const pct = (v) => v == null ? "—" : v + "%";
+  const root = document.getElementById("root");
+
+  // Each section renders independently: one bad key can never blank the page.
+  function section(fn) {
+    try { const el = fn(); if (el) root.appendChild(el); }
+    catch (e) { root.appendChild($(`<div class="err">This section failed to render: ${String(e.message || e).slice(0, 120)}</div>`)); }
+  }
+
+  fetch("stats.json?cb=" + Date.now()).then(r => r.json()).then(d => {
+    // ── freshness: never claim "live" when the cron has slipped ──
+    const ageMin = Math.round((Date.now() - Date.parse(d.updated)) / 60000);
+    const dot = document.getElementById("dot");
+    dot.style.background = ageMin <= 15 ? "var(--good)" : ageMin <= 40 ? "var(--warn)" : "var(--bad)";
+    document.getElementById("fresh").textContent =
+      ageMin <= 1 ? "live" : ageMin + " min old";
+    document.getElementById("freshnote").textContent =
+      ageMin <= 15 ? "· refreshes every 10 min" : "· GitHub dropped a cron slot; it self-heals";
+    const ist = new Date(Date.parse(d.updated) + 5.5 * 3600000).toISOString().slice(11, 16);
+    document.getElementById("asof").textContent = "as of " + ist + " IST · " + d.istToday;
+
+    // ══ THE FIVE — only numbers that can go DOWN ══
+    section(() => {
+      const el = $('<div></div>');
+      el.appendChild($(`
+        <div class="hero">
+          <div class="n">${n(d.installsTotal)}</div>
+          <div class="l">phones that have ever opened the app</div>
+          <div class="d">+${n(d.installsTodayIst)} today (IST)</div>
+        </div>`));
+      el.appendChild($(`
+        <div class="grid">
+          <div class="c"><div class="n">${n(d.returningDau)}</div><div class="l">returning today</div>
+            <div class="h">came back — installed more than 24h ago. This is the real engagement number.</div></div>
+          <div class="c"><div class="n">${n(d.newDau)}</div><div class="l">new today</div>
+            <div class="h">first-ever opens in the last 24h.</div></div>
+          <div class="c"><div class="n">${pct(d.retentionCurve && d.retentionCurve.d1)}</div><div class="l">day-1 retention</div>
+            <div class="h">of phones old enough to measure, share that came back after a full day.</div></div>
+          <div class="c"><div class="n">${pct(d.matureActive7Pct)}</div><div class="l">week-active base</div>
+            <div class="h">of ${n(d.matureBase)} phones older than a day, share seen this week.</div></div>
+        </div>`));
+      return el;
     });
-  }
-  function lines(id, labels, dss) {
-    if (charts[id]) { charts[id].data.labels = labels; dss.forEach((d, i) => { charts[id].data.datasets[i].data = d.data; }); charts[id].update(); return; }
-    charts[id] = new Chart(document.getElementById(id), {
-      type: "line",
-      data: { labels, datasets: dss.map((d) => ({ label: d.label, data: d.data, borderColor: d.color, backgroundColor: d.color, borderWidth: 2, tension: 0.3, pointRadius: 3, spanGaps: false })) },
-      options: { plugins: { legend: { display: true, position: "bottom", labels: { boxWidth: 12 } } }, scales: { y: { beginAtZero: true, max: 100, ticks: { callback: (v) => v + "%" } } } },
+
+    // ── why MAU/WAU are not up there ──
+    section(() => d.mauIsDegenerate ? $(`
+      <div class="panel" style="margin-top:10px">
+        <div class="note" style="margin:0">
+          <b style="color:var(--soft)">Why MAU and WAU are not shown above.</b>
+          The app is younger than 30 days, so MAU (${n(d.mau)}) is arithmetically identical to total installs —
+          it cannot yet mean anything. WAU (${n(d.wau)}) is ${Math.round(d.wau / d.installsTotal * 100)}% of all installs
+          for the same reason. Both are kept below for completeness; the four cards above are the ones that can fall.
+        </div>
+      </div>`) : null);
+
+    // ══ RETENTION — one comparable cohort set + the triangle ══
+    section(() => {
+      const c = d.retentionCurve || {}, b = d.retentionBasis || {};
+      const cols = ["d1", "d3", "d7", "d14", "d30"];
+      const el = $('<div></div>');
+      el.appendChild($(`<h2>Retention</h2>`));
+      el.appendChild($(`
+        <div class="panel">
+          <table><tr>${cols.map(k => `<th style="text-align:center">${k.toUpperCase()}</th>`).join("")}</tr>
+          <tr>${cols.map(k => `<td style="text-align:center;font-size:19px;font-weight:800">${pct(c[k])}</td>`).join("")}</tr></table>
+          <div class="note">Every column is measured on the <b>same ${n(b.devices)} phones</b> (${b.cohorts} cohorts old enough
+          to reach day ${b.throughDay}). Comparing columns across different cohort sets is what previously produced an
+          impossible curve where day-7 beat day-1.</div>
+        </div>`));
+
+      // cohort triangle — newest first, colour by value
+      const rows = (d.cohorts || []).slice().reverse().slice(0, 12);
+      const cell = (v) => {
+        if (v == null) return `<td class="k">·</td>`;
+        const a = Math.max(0, Math.min(1, v / 60));
+        return `<td><span class="cell" style="background:rgba(226,178,74,${0.10 + a * 0.55});padding:3px 6px">${v}%</span></td>`;
+      };
+      el.appendChild($(`
+        <div class="panel">
+          <table class="heat">
+            <tr><th>cohort</th><th>size</th>${cols.map(k => `<th>${k}</th>`).join("")}</tr>
+            ${rows.map(r => `<tr><td class="k">${r.fo}</td><td>${n(r.size)}</td>${cols.map(k => cell(r[k])).join("")}</tr>`).join("")}
+          </table>
+          <div class="note">Each row is everyone who first opened on that day. Dots mean the window has not matured yet —
+          not zero. Notice the newest, biggest cohorts retain worse than the older organic ones: that is the viral wave,
+          and it is the honest read.</div>
+        </div>`));
+      return el;
     });
-  }
-  const pf = (v) => (v === null || v === undefined ? "–" : v + "%");
-  async function load() {
-    try {
-      const s = await (await fetch("stats.json?cb=" + Date.now())).json();
-      document.getElementById("upd").textContent = new Date(s.updated).toLocaleTimeString();
-      const set = (id, v) => (document.getElementById(id).textContent = v);
-      set("total", s.installsTotal); set("today", s.installsToday); set("now", s.activeNow);
-      set("dau", s.dau); set("wau", s.wau); set("mau", s.mau);
-      set("split", s.indiaShare + "% · " + (100 - s.indiaShare) + "%");
-      set("dauSplit", s.dauIndia !== undefined ? s.dauIndia + " · " + s.dauNri : "–");
-      const days = Object.keys(s.installsByDay).sort().slice(-30);
-      bar("cInstalls", days.map((d) => d.slice(5)), days.map((d) => s.installsByDay[d]), gold);
-      const rg = Object.entries(s.byRegion || s.byCountry).slice(0, 12);
-      bar("cRegion", rg.map(([k]) => k), rg.map(([, v]) => v), kum);
-      // ── retention (survival cohorts) ──
-      if (s.retention) {
-        const r = s.retention;
-        set("rD1", pf(r.d1)); set("rD7", pf(r.d7));
-        document.getElementById("rD1s").textContent = "🇮🇳 " + pf(r.india.d1) + " · 🌏 " + pf(r.nri.d1);
-        document.getElementById("rD7s").textContent = "🇮🇳 " + pf(r.india.d7) + " · 🌏 " + pf(r.nri.d7);
-        const co = s.cohorts || [];
-        lines("cCohort", co.map((x) => x.fo.slice(5)), [
-          { label: "D1 · మరుసటి రోజు", data: co.map((x) => x.d1), color: gold },
-          { label: "D7 · వారం", data: co.map((x) => x.d7), color: kum },
-        ]);
-        document.getElementById("cohortRows").innerHTML = co.slice(-10).reverse().map((x) =>
-          `<div><span>${x.fo.slice(5)} — ${x.size} phones · D3 ${pf(x.d3)} · D7 ${pf(x.d7)} · D14 ${pf(x.d14)}</span><b>D1 ${pf(x.d1)}</b></div>`
-        ).join("");
+
+    // ══ GROWTH ══
+    section(() => {
+      const byd = d.installsByDay || {};
+      const days = Object.keys(byd).sort().slice(-14);
+      const max = Math.max(...days.map(k => byd[k]), 1);
+      const hrs = d.installsByHourIst || {};
+      const hkeys = Object.keys(hrs).sort();
+      const hmax = Math.max(...hkeys.map(k => hrs[k]), 1);
+      return $(`
+        <div><h2>Growth</h2>
+        <div class="panel">
+          <div class="row" style="border:none"><span>installs · last 14 days</span><b>${n(days.reduce((s, k) => s + byd[k], 0))}</b></div>
+          <div class="spark">${days.map(k => `<i style="height:${Math.round(byd[k] / max * 100)}%" title="${k}: ${byd[k]}"></i>`).join("")}</div>
+          <div class="note">${days[0]} → ${days[days.length - 1]}</div>
+        </div>
+        <div class="panel">
+          <div class="row" style="border:none"><span>today by hour · IST</span><b>${n(d.installsTodayIst)}</b></div>
+          <div class="spark">${hkeys.map(k => `<i style="height:${Math.round(hrs[k] / hmax * 100)}%;opacity:.9" title="${k}:00 — ${hrs[k]}"></i>`).join("")}</div>
+          <div class="note">Real IST hours. The install counter itself rolls over at 05:30 IST (midnight UTC), so this is the
+          only view that shows a festival morning whole.</div>
+        </div></div>`);
+    });
+
+    // ══ WHERE ══
+    section(() => {
+      const reg = d.byRegion || {}, dau = d.dauByRegion || {};
+      const keys = Object.keys(reg).sort((a, b) => reg[b] - reg[a]);
+      return $(`
+        <div><h2>Where</h2>
+        <div class="panel"><table>
+          <tr><th>region</th><th>installs</th><th>active today</th><th>share</th></tr>
+          ${keys.map(k => `<tr><td class="k">${k}</td><td>${n(reg[k])}</td><td>${n(dau[k] || 0)}</td>
+            <td>${Math.round(reg[k] / d.installsTotal * 100)}%</td></tr>`).join("")}
+        </table></div></div>`);
+    });
+
+    // ══ CHANNELS — families, not 65 flat rows ══
+    section(() => {
+      const ch = d.channels || {};
+      const order = ["creator", "campaign", "unattributed", "share", "test"];
+      const label = {
+        creator: ["Creators", "named people sharing your link"],
+        campaign: ["Campaigns", "your own posts and placements"],
+        unattributed: ["Unattributed", "opened the link with no ref — cannot be credited to anyone"],
+        share: ["Shares from inside the app", "OUTBOUND — a user pressed share. Never a click; excluded from the click total."],
+        test: ["Tests", "your own probes"],
+      };
+      const el = $(`<div><h2>Channels</h2></div>`);
+      el.appendChild($(`
+        <div class="panel">
+          <div class="row" style="border:none"><span>inbound clicks (real taps)</span><b>${n(d.inboundClicks)}</b></div>
+          <div class="row"><span>installs</span><b>${n(d.installsTotal)}</b></div>
+          <div class="note">These two will never match, and that is correct — they count different populations.
+          A click is a landing-page hit (many never install, some install days later, one person can tap five times);
+          an install is a phone that opened the app (many arrive from store search with no link at all).
+          Only the store's own campaign data can join the two, and today that covers
+          <b>${n((d.ios && d.ios.byCampaign) ? Object.values(d.ios.byCampaign).reduce((s, v) => s + (v.total || 0), 0) : 0)}</b>
+          iOS installs. Android — ~92% of users — is not wired up yet.</div>
+        </div>`));
+      for (const k of order) {
+        const f = ch[k]; if (!f) continue;
+        el.appendChild($(`
+          <div class="panel fam">
+            <h3>${label[k][0]} · ${n(f.clicks)}</h3>
+            <div class="st">${label[k][1]} — ${f.refs} link${f.refs === 1 ? "" : "s"}</div>
+            ${(f.top || []).map(t => `<div class="row"><span>${t.ref}</span><b>${n(t.clicks)}${
+              t.storeInstalls != null ? ` <span style="color:var(--good);font-size:11.5px">· ${t.storeInstalls} iOS installs</span>` : ""
+            }</b></div>`).join("")}
+          </div>`));
       }
-      // ── dark phones by region ──
-      if (s.npByRegion) {
-        const fmtNp = (name, m) => {
-          const g = m.g || 0, dd = m.d || 0, u = m.u || 0, nr = m["(not reported)"] || 0;
-          const rep = g + dd + u;
-          const dark = rep ? Math.round(((dd + u) / rep) * 100) : 0;
-          return `<div><span>${name} — ✅ ${g} · 🔕 ${dd} · ❓ ${u} · 📡 ${nr}</span><b>${rep ? dark + "% dark" : "no data"}</b></div>`;
-        };
-        document.getElementById("npRegion").innerHTML = fmtNp("🇮🇳 India", s.npByRegion.india) + fmtNp("🌏 NRI", s.npByRegion.nri);
-      }
-      const vs = Object.entries(s.byVersion);
-      bar("cVersion", vs.map(([k]) => k), vs.map(([, v]) => v), [gold, kum, soft, "#7A5C43", "#2E7D4F"], "doughnut");
-      document.getElementById("plat").innerHTML = Object.entries(s.byPlatform)
-        .map(([k, v]) => `<div><span>${k === "ios" ? "🍎 iOS" : "🤖 Android"}</span><b>${v}</b></div>`).join("");
-      const bd = Object.entries(s.byBand).slice(0, 10);
-      bar("cBand", bd.map(([k]) => k), bd.map(([, v]) => v), soft);
-      const refs = Object.entries(s.clicksByRef || {}).sort((a, b) => b[1].total - a[1].total);
-      if (refs.length) {
-        document.getElementById("inf").innerHTML = refs.map(([k, v]) => {
-          const today = v.byDay[new Date().toISOString().slice(0, 10)] || 0;
-          return `<div><span>${k} — 🍎 ${v.ios} · 🤖 ${v.android} · today ${today}</span><b>${v.total}</b></div>`;
-        }).join("");
-      }
-      // ── వరలక్ష్మీ వ్రతం hub — exact numbers (founder ask 2026-08-14) ──
-      const vr = s.vratham;
-      if (vr && vr.reached) {
-        const labels = ["Aug 14", "Aug 21 (TTD)", "Aug 28 (drik)", "undecided"];
-        bar("cVrat", labels, ["f1", "f2", "f3", "nd"].map((k) => vr.votes[k] || 0), [soft, kum, gold, "#7A5C43"]);
-        const pct = (n) => vr.voted ? ` (${Math.round((n / vr.voted) * 100)}%)` : "";
-        document.getElementById("vrat").innerHTML = [
-          `<div><span>📬 Reached the hub (beacons)</span><b>${vr.reached}</b></div>`,
-          `<div><span>🗳️ Voted a Friday</span><b>${vr.voted}</b></div>`,
-          ...["f1", "f2", "f3", "nd"].map((k, i) =>
-            `<div><span>&nbsp;&nbsp;&nbsp;${labels[i]} — IN ${vr.votesIndia[k] || 0} · NRI ${vr.votesNri[k] || 0}</span><b>${vr.votes[k] || 0}${pct(vr.votes[k] || 0)}</b></div>`),
-          `<div><span>🛍️ Used the checklist</span><b>${vr.checklistUsers}</b></div>`,
-          `<div><span>&nbsp;&nbsp;&nbsp;items checked, all devices</span><b>${vr.itemsChecked}</b></div>`,
-          `<div><span>🗺️ Opened any station tile</span><b>${vr.stationVisitors}</b></div>`,
-          `<div><span>📖 Read the katha</span><b>${vr.kathaReaders}</b></div>`,
-          `<div><span>🙏 Viewed the vidhanam</span><b>${vr.vidhanamViewers}</b></div>`,
-          `<div><span>📤 Shared the list</span><b>${vr.sharers}</b></div>`,
-          `<div><span>🔔 Reminders on</span><b>${vr.reminderUsers}</b></div>`,
-        ].join("");
-      }
-      // ── official store installs ──
-      const ios = s.ios || {};
-      if (ios.latest) {
-        document.getElementById("iosInst").innerHTML = `${ios.latest.installs} <small>${ios.latest.date.slice(5)} · 7d ${ios.last7}</small>`;
-        const days = Object.keys(ios.days || {}).sort().slice(-14).reverse();
-        document.getElementById("asc").innerHTML = days.map((d) => {
-          const x = ios.days[d];
-          const t = Object.entries(x.terr || {}).map(([k, v]) => `${k} ${v}`).join(" · ") || "—";
-          return `<div><span>🍎 ${d.slice(5)} — ${t}${x.up ? ` <small style="color:var(--faint)">(+${x.up} updates)</small>` : ""}</span><b>${x.ft}</b></div>`;
-        }).join("");
-      } else {
-        document.getElementById("iosInst").innerHTML = `– <small>${ios.status || "warming up"}</small>`;
-      }
-      const camps = Object.entries(ios.byCampaign || {}).sort((a, b) => b[1].total - a[1].total);
-      document.getElementById("camp").innerHTML = camps.length
-        ? camps.map(([k, v]) => {
-            const dd = Object.keys(v.byDay).sort().slice(-3).map((d) => `${d.slice(5)}: ${v.byDay[d]}`).join(" · ");
-            return `<div><span>📣 ct=${k} — ${dd}</span><b>${v.total}</b></div>`;
-          }).join("")
-        : `<div><span>📣 campaigns — no ct-tagged installs reported yet (janag shows here once Apple attributes them)</span><b>0</b></div>`;
-      const and = s.android || {};
-      if (and.latest) {
-        document.getElementById("andInst").innerHTML = `${and.latest.installs} <small>${and.latest.date.slice(5)}${and.totalUserInstalls ? ` · total ${and.totalUserInstalls}` : ""}</small>`;
-        const adays = Object.keys(and.days || {}).sort().slice(-7).reverse();
-        document.getElementById("andRow").innerHTML =
-          adays.map((d) => `<div><span>🤖 ${d.slice(5)}</span><b>${and.days[d]}</b></div>`).join("") +
-          (and.utmNote ? `<div><span>🤖 UTM — ${and.utmNote}</span><b></b></div>` : "");
-      } else {
-        document.getElementById("andInst").innerHTML = `౼ <small>awaiting Play setup</small>`;
-        document.getElementById("andRow").innerHTML = `<div><span>🤖 Android — ${and.note || "awaiting Play service account (2-minute founder step)"}</span><b>౼</b></div>`;
-      }
-    } catch (e) {}
-    try {
-      const h = await (await fetch("history.json?cb=" + Date.now())).json();
-      if (h.length) {
-        bar("cTrend", h.slice(-30).map((x) => x.date.slice(5)), h.slice(-30).map((x) => x.dau), kum, "line");
-        document.getElementById("trendNote").textContent = h.length + " days of history collected";
-      } else document.getElementById("trendNote").textContent = "trend builds up day by day from today";
-    } catch (e) {}
-  }
-  load();
-  setInterval(load, 60000);
+      return el;
+    });
+
+    // ══ VRATHAM ══
+    section(() => {
+      const v = d.vratham; if (!v) return null;
+      const rows = Object.entries(v).filter(([, x]) => typeof x === "number");
+      return $(`
+        <div><h2>వరలక్ష్మీ వ్రతం</h2>
+        <div class="panel">${rows.map(([k, x]) => `<div class="row"><span>${k}</span><b>${n(x)}</b></div>`).join("")}</div></div>`);
+    });
+
+    // ══ OPS drawer ══
+    section(() => {
+      const kv = (o) => Object.entries(o || {}).sort((a, b) => b[1] - a[1])
+        .map(([k, x]) => `<div class="row"><span>${k}</span><b>${n(x)}</b></div>`).join("");
+      return $(`
+        <details>
+          <summary>Diagnostics ▾</summary>
+          <div class="panel"><h3 style="font-size:12px;color:var(--soft);margin-bottom:6px">Legacy activity counters</h3>
+            <div class="row"><span>DAU (rolling 24h)</span><b>${n(d.dau)}</b></div>
+            <div class="row"><span>WAU</span><b>${n(d.wau)}</b></div>
+            <div class="row"><span>MAU${d.mauIsDegenerate ? " (degenerate)" : ""}</span><b>${n(d.mau)}</b></div>
+            <div class="row"><span>active in last 5 min</span><b>${n(d.activeNow)}</b></div>
+          </div>
+          <div class="panel"><h3 style="font-size:12px;color:var(--soft);margin-bottom:6px">Platform / version</h3>${kv(d.byPlatform)}${kv(d.byVersion)}</div>
+          <div class="panel"><h3 style="font-size:12px;color:var(--soft);margin-bottom:6px">Notification permission</h3>${kv(d.byNotifPerm)}</div>
+          <div class="panel"><h3 style="font-size:12px;color:var(--soft);margin-bottom:6px">Store truth</h3>
+            <div class="row"><span>iOS installs (Apple)</span><b>${n(d.ios && d.ios.total)}</b></div>
+            <div class="row"><span>Android installs (Play)</span><b>${n(d.android && d.android.totalUserInstalls)}</b></div>
+            <div class="note">Apple lags 24–48h. Play's per-source export is detected but not parsed yet — that is the
+            next unlock, and it carries Google's own retention per creator.</div>
+          </div>
+        </details>`);
+    });
+  }).catch(e => {
+    root.appendChild($(`<div class="err">Could not load stats.json — ${String(e.message || e).slice(0, 140)}</div>`));
+    document.getElementById("dot").style.background = "var(--bad)";
+    document.getElementById("fresh").textContent = "no data";
+  });
 })();
 </script>
 </body>
