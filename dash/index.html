@@ -338,6 +338,41 @@
         <div class="panel">${rows.map(([k, x]) => `<div class="row"><span>${k}</span><b>${n(x)}</b></div>`).join("")}</div></div>`);
     });
 
+    // ══ PUJA COMPANION — what families are asking us to build next ══
+    // Same shape as the vratham hub above: totals first, then the ranked
+    // demand, then the free-text asks. Those asks are ADMIN-ONLY by design —
+    // they are never served back to the app, because showing one family's
+    // words to another turns this into user-generated content.
+    section(() => {
+      const w = d.pujaWish; if (!w || !w.voters) return null;
+      const rank = Object.entries(w.byPuja || {}).sort((a, b) => b[1] - a[1]);
+      const pct = (x) => w.voters ? Math.round((x / w.voters) * 100) : 0;
+      const bar = (x) => `<div style="height:4px;border-radius:2px;background:var(--line);margin-top:3px">
+        <div style="height:4px;border-radius:2px;width:${pct(x)}%;background:var(--gold)"></div></div>`;
+      const reqs = (w.requests || []).slice().reverse();
+      return $(`
+        <div><h2>Puja Companion — what to build next</h2>
+        <div class="panel">
+          <div class="row"><span>families who voted</span><b>${n(w.voters)}</b></div>
+          <div class="row"><span>votes cast</span><b>${n(w.votes)}</b></div>
+          <div class="row"><span>India / NRI</span><b>${n(w.votesIndia)} · ${n(w.votesNri)}</b></div>
+          <div class="row"><span>asked for something not on the list</span><b>${n(reqs.length)}</b></div>
+        </div>
+        <div class="panel"><h3 style="font-size:12px;color:var(--soft);margin-bottom:6px">Most wanted</h3>
+          ${rank.length ? rank.map(([id, x]) => `
+            <div style="margin-bottom:7px">
+              <div class="row" style="border:0;padding:0"><span>${id}</span><b>${n(x)} · ${pct(x)}%</b></div>
+              ${bar(x)}
+            </div>`).join("") : `<div class="note">No votes yet.</div>`}
+        </div>
+        <div class="panel"><h3 style="font-size:12px;color:var(--soft);margin-bottom:6px">Free-text asks — admin only, newest first</h3>
+          ${reqs.length ? reqs.map((r) => `<div class="row"><span>${
+            String(r.text).replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]))
+          }</span><b style="font-size:11px;color:var(--soft)">${r.band === "p330" ? "IN" : "NRI"}</b></div>`).join("")
+            : `<div class="note">Nothing yet.</div>`}
+        </div></div>`);
+    });
+
     // ══ OPS drawer ══
     section(() => {
       const kv = (o) => Object.entries(o || {}).sort((a, b) => b[1] - a[1])
