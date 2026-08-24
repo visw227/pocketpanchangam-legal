@@ -338,6 +338,56 @@
         <div class="panel">${rows.map(([k, x]) => `<div class="row"><span>${k}</span><b>${n(x)}</b></div>`).join("")}</div></div>`);
     });
 
+    // ══ FEATURED BRAND PILOT — the funnel this experiment exists for ══
+    // impression → click → outbound, and the two rates that decide whether
+    // contextual brand discovery is worth building on. Placement rows show
+    // WHERE intent actually happens; festival and language live in GA4.
+    section(() => {
+      const b = d.brandCollab; if (!b || !b.impressions) return null;
+      const pct = (x, y) => y > 0 ? Math.round((x / y) * 1000) / 10 : 0;
+      const rows = Object.entries(b.byPlacement || {})
+        .sort((x, y) => y[1].impressions - x[1].impressions);
+      const big = (label, val, sub) => `
+        <div style="flex:1;min-width:88px">
+          <div style="font-size:11px;color:var(--soft)">${label}</div>
+          <div style="font-size:20px;font-weight:700;color:var(--gold);line-height:1.3">${val}</div>
+          ${sub ? `<div style="font-size:10.5px;color:var(--faint)">${sub}</div>` : ""}
+        </div>`;
+      return $(`
+        <div><h2>Featured brand — pilot funnel</h2>
+        <div class="panel">
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            ${big("CTR", b.ctr + "%", "clicks / impressions")}
+            ${big("Outbound", b.outboundRate + "%", "reached Instagram")}
+            ${big("Handoff", b.handoffRate + "%", "of taps that opened")}
+          </div>
+        </div>
+        <div class="panel">
+          <div class="row"><span>reach (installs that saw it)</span><b>${n(b.reach)}</b></div>
+          <div class="row"><span>India / NRI</span><b>${n(b.reachIndia)} · ${n(b.reachNri)}</b></div>
+          <div class="row"><span>impressions</span><b>${n(b.impressions)}</b></div>
+          <div class="row"><span>clicks</span><b>${n(b.clicks)}</b></div>
+          <div class="row"><span>outbound to Instagram</span><b>${n(b.outbound)}</b></div>
+        </div>
+        <div class="panel"><h3 style="font-size:12px;color:var(--soft);margin-bottom:6px">By placement</h3>
+          ${rows.length ? rows.map(([p, v]) => `
+            <div style="margin-bottom:8px">
+              <div class="row" style="border:0;padding:0">
+                <span>${p}</span>
+                <b>${pct(v.clicks, v.impressions)}% CTR</b>
+              </div>
+              <div style="font-size:10.5px;color:var(--faint)">
+                ${n(v.impressions)} seen · ${n(v.clicks)} tapped · ${n(v.outbound)} opened
+              </div>
+              <div style="height:4px;border-radius:2px;background:var(--line);margin-top:3px">
+                <div style="height:4px;border-radius:2px;width:${Math.min(100, pct(v.clicks, v.impressions))}%;background:var(--gold)"></div>
+              </div>
+            </div>`).join("") : `<div class="note">No impressions yet.</div>`}
+          <div class="note">Festival and language breakdowns are in GA4 on the same
+          three events (brand_collab_impression / _click / _outbound).</div>
+        </div></div>`);
+    });
+
     // ══ PUJA COMPANION — what families are asking us to build next ══
     // Same shape as the vratham hub above: totals first, then the ranked
     // demand, then the free-text asks. Those asks are ADMIN-ONLY by design —
