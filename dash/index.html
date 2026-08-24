@@ -345,8 +345,11 @@
     section(() => {
       const b = d.brandCollab; if (!b || !b.impressions) return null;
       const pct = (x, y) => y > 0 ? Math.round((x / y) * 1000) / 10 : 0;
+      // REACH first, not impressions: reach is unique installs, which is
+      // what a rate card prices — a placement seen many times by few people
+      // should not outrank one that reached many people once each.
       const rows = Object.entries(b.byPlacement || {})
-        .sort((x, y) => y[1].impressions - x[1].impressions);
+        .sort((x, y) => y[1].reach - x[1].reach);
       const big = (label, val, sub) => `
         <div style="flex:1;min-width:88px">
           <div style="font-size:11px;color:var(--soft)">${label}</div>
@@ -363,28 +366,30 @@
           </div>
         </div>
         <div class="panel">
-          <div class="row"><span>reach (installs that saw it)</span><b>${n(b.reach)}</b></div>
+          <div class="row"><span>reach (unique installs, any placement)</span><b>${n(b.reach)}</b></div>
           <div class="row"><span>India / NRI</span><b>${n(b.reachIndia)} · ${n(b.reachNri)}</b></div>
           <div class="row"><span>impressions</span><b>${n(b.impressions)}</b></div>
           <div class="row"><span>clicks</span><b>${n(b.clicks)}</b></div>
           <div class="row"><span>outbound to Instagram</span><b>${n(b.outbound)}</b></div>
         </div>
-        <div class="panel"><h3 style="font-size:12px;color:var(--soft);margin-bottom:6px">By placement</h3>
+        <div class="panel"><h3 style="font-size:12px;color:var(--soft);margin-bottom:6px">By placement — ranked by reach, the pricing metric</h3>
           ${rows.length ? rows.map(([p, v]) => `
-            <div style="margin-bottom:8px">
+            <div style="margin-bottom:10px">
               <div class="row" style="border:0;padding:0">
                 <span>${p}</span>
-                <b>${pct(v.clicks, v.impressions)}% CTR</b>
+                <b>${n(v.reach)} reached</b>
               </div>
               <div style="font-size:10.5px;color:var(--faint)">
-                ${n(v.impressions)} seen · ${n(v.clicks)} tapped · ${n(v.outbound)} opened
+                ${n(v.impressions)} seen (${n(v.reach)} unique) · ${n(v.clicks)} tapped ·
+                ${n(v.outbound)} opened · ${v.ctrByReach}% CTR by reach · ${v.ctr}% CTR by impression
               </div>
               <div style="height:4px;border-radius:2px;background:var(--line);margin-top:3px">
-                <div style="height:4px;border-radius:2px;width:${Math.min(100, pct(v.clicks, v.impressions))}%;background:var(--gold)"></div>
+                <div style="height:4px;border-radius:2px;width:${Math.min(100, v.ctrByReach)}%;background:var(--gold)"></div>
               </div>
             </div>`).join("") : `<div class="note">No impressions yet.</div>`}
-          <div class="note">Festival and language breakdowns are in GA4 on the same
-          three events (brand_collab_impression / _click / _outbound).</div>
+          <div class="note">CTR by reach = clicks ÷ unique installs — price a slot on this, not on
+          raw impressions, which one chatty repeat visitor can inflate. Festival and language
+          breakdowns are in GA4 on the same three events (brand_collab_impression / _click / _outbound).</div>
         </div></div>`);
     });
 
