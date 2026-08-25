@@ -329,13 +329,33 @@
       return el;
     });
 
-    // ══ VRATHAM ══
+    // ══ PUJA HUBS — one panel per puja, not one panel called వరలక్ష్మీ ══
+    // Every puja shares VrathamSheet, so until 2026-08-26 they all wrote into
+    // one doc and the dash could only ever show a blend. `pujaHubs` groups
+    // them; `vratham` is kept as the fallback for stats.json written by an
+    // older cron, and for the poll file that still reads it.
+    const HUB_LABEL = {
+      varalakshmi: "వరలక్ష్మీ వ్రతం",
+      krishnashtami: "శ్రీకృష్ణ జన్మాష్టమి",
+    };
     section(() => {
-      const v = d.vratham; if (!v) return null;
-      const rows = Object.entries(v).filter(([, x]) => typeof x === "number");
-      return $(`
-        <div><h2>వరలక్ష్మీ వ్రతం</h2>
-        <div class="panel">${rows.map(([k, x]) => `<div class="row"><span>${k}</span><b>${n(x)}</b></div>`).join("")}</div></div>`);
+      const hubs = d.pujaHubs || (d.vratham ? { varalakshmi: d.vratham } : null);
+      if (!hubs) return null;
+      const el = $(`<div><h2>పూజ hubs</h2></div>`);
+      // Most-reached first: the puja people are actually in right now.
+      Object.entries(hubs)
+        .sort((a, b) => (b[1].reached || 0) - (a[1].reached || 0))
+        .forEach(([id, v]) => {
+          const rows = Object.entries(v).filter(([, x]) => typeof x === "number");
+          if (!rows.length) return;
+          el.appendChild($(`
+            <div class="panel fam">
+              <h3>${HUB_LABEL[id] || id} · ${n(v.reached || 0)}</h3>
+              <div class="st">reached — installs that opened this hub</div>
+              ${rows.map(([k, x]) => `<div class="row"><span>${k}</span><b>${n(x)}</b></div>`).join("")}
+            </div>`));
+        });
+      return el;
     });
 
     // ══ FEATURED BRAND PILOT — the funnel this experiment exists for ══
