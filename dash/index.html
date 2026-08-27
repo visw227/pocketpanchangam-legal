@@ -588,9 +588,11 @@
           <div class="panel"><h3 style="font-size:12px;color:var(--soft);margin-bottom:6px">Notification permission</h3>${kv(d.byNotifPerm)}</div>
           <div class="panel"><h3 style="font-size:12px;color:var(--soft);margin-bottom:6px">Store truth</h3>
             <div class="row"><span>iOS installs (Apple)</span><b>${n(d.ios && d.ios.total)}</b></div>
-            <div class="row"><span>Android installs (Play)</span><b>${n(d.android && d.android.totalUserInstalls)}</b></div>
-            <div class="note">Apple lags 24–48h. Play's per-source export is detected but not parsed yet — that is the
-            next unlock, and it carries Google's own retention per creator.</div>
+            <div class="row"><span>Android, on phones right now</span><b>${n(d.android && d.android.activeDevices)}</b></div>
+            <div class="row"><span>Android installs, ${(d.android && d.android.windowFrom) || "window"} onward</span><b>${n(d.android && d.android.windowInstalls)}</b></div>
+            <div class="note">Apple lags 24–48h; Play runs ~5 days behind. Play zero-fills its "Total User Installs"
+            column for this app, so the Android figures above are active devices and installs over the window the
+            export actually covers — not an all-time total. Per-source attribution is parsed and shown above.</div>
           </div>
         </details>`);
     });
