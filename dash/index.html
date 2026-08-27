@@ -407,43 +407,53 @@
         }</div>`;
       };
       // ── THE LIFT ───────────────────────────────────────────────────────
-      // Totals hide the whole story. Branded search sat at ~55/day, then a
-      // single creator reel took it to 6,778 in a day. That is the creator's
-      // real effect, and NONE of it went through the tracked link. Compare
-      // the two rows below before paying anyone: "typed our name" is the
-      // number that moved, "clicked a link" is the number we were watching.
-      const lift = (src, label) => {
-        const bd = (src || {}).byDay || {};
-        const ds = Object.keys(bd).sort();
-        if (ds.length < 3) return null;
-        const vals = ds.map(k => bd[k]).slice().sort((a, b) => a - b);
-        const base = vals[Math.floor(vals.length / 2)];           // median day
-        let peak = ds[0];
-        for (const k of ds) if (bd[k] > bd[peak]) peak = k;
-        return { label, base, peak, peakN: bd[peak], days: ds, bd,
-                 mult: base > 0 ? Math.round(bd[peak] / base) : null };
-      };
-      const search = lift(plaSrc["Google Play search"], "typed our name into Play");
-      const refer  = lift(plaSrc["Ads and referrals"], "arrived through a link");
-      if (search) {
+      // The first version of this took a median across the days Play gave us
+      // and called it "a normal day". Four of those seven days were spike
+      // days, so the median WAS the spike -- it reported a 3x lift on a day
+      // that was really more than a hundred times a quiet one. Multipliers
+      // are fragile when the baseline is mostly the event you are measuring.
+      //
+      // So this states the thing plainly instead: on the biggest day, how
+      // many people typed our name versus how many arrived through a link.
+      // That ratio needs no baseline and cannot be inflated by a short
+      // export window. The quiet-day figure below it is a low percentile,
+      // labelled as such, and is context -- not the headline.
+      const bdOf = (k) => ((plaSrc[k] || {}).byDay) || {};
+      const allDays = {};
+      for (const k of Object.keys(plaSrc))
+        for (const [d0, v] of Object.entries(bdOf(k))) allDays[d0] = (allDays[d0] || 0) + v;
+      const dayKeys = Object.keys(allDays).sort();
+      if (dayKeys.length >= 3) {
+        let peak = dayKeys[0];
+        for (const k of dayKeys) if (allDays[k] > allDays[peak]) peak = k;
+        const sDay = bdOf("Google Play search")[peak] || 0;
+        const rDay = bdOf("Ads and referrals")[peak] || 0;
+        const ratio = rDay > 0 ? Math.round((sDay / rDay) * 10) / 10 : null;
+        // quiet day = 20th percentile of branded-search days, so a handful of
+        // spike days cannot drag it upward the way a median did.
+        const sv = Object.values(bdOf("Google Play search")).slice().sort((a, b) => a - b);
+        const quiet = sv.length ? sv[Math.floor((sv.length - 1) * 0.2)] : 0;
+        const pretty = new Date(peak + "T00:00:00").toLocaleDateString("en-IN",
+          { day: "numeric", month: "short" });
         el.insertAdjacentHTML("beforeend", `<div class="panel fam">
-          <h3>The lift a creator actually causes</h3>
-          <div class="st">peak day vs a normal day — Play acquisitions</div>
-          ${[search, refer].filter(Boolean).map(x => `<div class="row"><span>${x.label}</span>
-            <span class="nums"><span class="td${x === search ? "" : " zero"}">${
-              x.mult ? x.mult + "\u00d7" : "—"}</span>
-            <span class="at">${n(x.peakN)}<em>on ${x.peak.slice(5)}</em></span></span></div>`).join("")}
-          <div class="row"><span style="opacity:.7">a normal day, before the reel</span>
+          <h3>What a creator actually causes</h3>
+          <div class="st">the biggest day so far — ${pretty} — Play installs by how they arrived</div>
+          <div class="row"><span>typed our name into Play</span><span class="nums">
+            <span class="td">${ratio ? ratio + "\u00d7" : ""}</span>
+            <span class="at">${n(sDay)}<em>installs</em></span></span></div>
+          <div class="row"><span>arrived through any link</span><span class="nums">
+            <span class="td zero"></span>
+            <span class="at">${n(rDay)}<em>installs</em></span></span></div>
+          <div class="row"><span style="opacity:.7">a quiet day's branded search, for scale</span>
             <span class="nums"><span class="td zero"></span>
-            <span class="at">${n(search.base)}<em>searches</em></span></span></div>
+            <span class="at">${n(quiet)}<em>installs</em></span></span></div>
         </div>`);
-        // Day-by-day, so a spike can never be mistaken for a new plateau.
         el.insertAdjacentHTML("beforeend", `<div class="panel fam">
           <h3>Branded search, day by day</h3>
-          <div class="st">people who searched our name and installed</div>
-          ${search.days.slice(-12).map(k => `<div class="row"><span>${k}</span>
+          <div class="st">searched our name, then installed — a spike is not a plateau</div>
+          ${dayKeys.slice(-14).map(k => `<div class="row"><span>${k}</span>
             <span class="nums"><span class="td zero"></span>
-            <span class="at">${n(search.bd[k])}<em>installs</em></span></span></div>`).join("")}
+            <span class="at">${n(bdOf("Google Play search")[k] || 0)}<em>installs</em></span></span></div>`).join("")}
         </div>`);
       }
       el.insertAdjacentHTML("beforeend", rows("Google Play", plaSrc, "acq", "store listing acquisitions"));
