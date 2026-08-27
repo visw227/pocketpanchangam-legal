@@ -451,9 +451,10 @@
         el.insertAdjacentHTML("beforeend", `<div class="panel fam">
           <h3>Branded search, day by day</h3>
           <div class="st">searched our name, then installed — a spike is not a plateau</div>
-          ${dayKeys.slice(-14).map(k => `<div class="row"><span>${k}</span>
+          ${Object.keys(bdOf("Google Play search")).sort().slice(-14).map(k =>
+            `<div class="row"><span>${k}</span>
             <span class="nums"><span class="td zero"></span>
-            <span class="at">${n(bdOf("Google Play search")[k] || 0)}<em>installs</em></span></span></div>`).join("")}
+            <span class="at">${n(bdOf("Google Play search")[k])}<em>installs</em></span></span></div>`).join("")}
         </div>`);
       }
       el.insertAdjacentHTML("beforeend", rows("Google Play", plaSrc, "acq", "store listing acquisitions"));
