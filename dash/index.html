@@ -380,6 +380,56 @@
       return el;
     });
 
+    // ══ WHERE INSTALLS COME FROM — the store's own answer ══════════════
+    // The 18 Aug spike was 21,034 installs against 786 taps on the creator's
+    // tracked link, and every creator decision was being made on that link.
+    // The stores were holding the truth the whole time: Apple splits
+    // downloads by Source Type, Play by Traffic source — and Play also
+    // reports the SEARCH TERMS people typed. A reel does not send people
+    // through a link; it sends them to type your name into the store.
+    section(() => {
+      const ios = d.ios || {}, andr = d.android || {};
+      const iosSrc = ios.bySource || {}, plaSrc = andr.bySource || {};
+      if (!Object.keys(iosSrc).length && !Object.keys(plaSrc).length) return null;
+      const el = $(`<div><h2>Where installs come from</h2>
+        <div class="st" style="margin-bottom:10px">the stores' own attribution — not our link taps</div></div>`);
+      const rows = (title, obj, key, note) => {
+        const es = Object.entries(obj).sort((a, b) => (b[1][key] || 0) - (a[1][key] || 0));
+        if (!es.length) return "";
+        const tot = es.reduce((s, [, v]) => s + (v[key] || 0), 0) || 1;
+        return `<div class="panel fam"><h3>${title}</h3>${note ? `<div class="st">${note}</div>` : ""}${
+          es.map(([k, v]) => {
+            const pct = Math.round(((v[key] || 0) / tot) * 1000) / 10;
+            return `<div class="row"><span>${k}</span><span class="nums">
+              <span class="td${pct >= 50 ? "" : " zero"}">${pct}%</span>
+              <span class="at">${n(v[key] || 0)}<em>installs</em></span></span></div>`;
+          }).join("")
+        }</div>`;
+      };
+      el.insertAdjacentHTML("beforeend", rows("Google Play", plaSrc, "acq", "store listing acquisitions"));
+      el.insertAdjacentHTML("beforeend", rows("App Store", iosSrc, "total", "Apple source type"));
+      // WHAT THEY TYPED. This is the closest thing to a brand-strength meter
+      // we have, and it is the only place a creator's real effect is visible.
+      const terms = andr.topTerms || [];
+      if (terms.length) {
+        el.insertAdjacentHTML("beforeend", `<div class="panel fam"><h3>What they typed to find you</h3>
+          <div class="st">Play search terms — a reel's true footprint</div>${
+            terms.map(([t, c]) => `<div class="row"><span>${t}</span><span class="nums">
+              <span class="td zero"></span><span class="at">${n(c)}<em>installs</em></span></span></div>`).join("")
+          }</div>`);
+      }
+      const utm = andr.byUtm || {};
+      const tagged = Object.entries(utm).filter(([k]) => !/^No UTM/i.test(k));
+      if (tagged.length) {
+        el.insertAdjacentHTML("beforeend", `<div class="panel fam"><h3>Tagged links, as the STORE counted them</h3>
+          <div class="st">compare against creator link taps above — the gap is the real reach</div>${
+            tagged.map(([k, v]) => `<div class="row"><span>${k}</span><span class="nums">
+              <span class="td zero"></span><span class="at">${n(v.acq || 0)}<em>installs</em></span></span></div>`).join("")
+          }</div>`);
+      }
+      return el;
+    });
+
     // ══ FEATURED BRAND PILOT — the funnel this experiment exists for ══
     // impression → click → outbound, and the two rates that decide whether
     // contextual brand discovery is worth building on. Placement rows show
