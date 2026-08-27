@@ -406,6 +406,46 @@
           }).join("")
         }</div>`;
       };
+      // ── THE LIFT ───────────────────────────────────────────────────────
+      // Totals hide the whole story. Branded search sat at ~55/day, then a
+      // single creator reel took it to 6,778 in a day. That is the creator's
+      // real effect, and NONE of it went through the tracked link. Compare
+      // the two rows below before paying anyone: "typed our name" is the
+      // number that moved, "clicked a link" is the number we were watching.
+      const lift = (src, label) => {
+        const bd = (src || {}).byDay || {};
+        const ds = Object.keys(bd).sort();
+        if (ds.length < 3) return null;
+        const vals = ds.map(k => bd[k]).slice().sort((a, b) => a - b);
+        const base = vals[Math.floor(vals.length / 2)];           // median day
+        let peak = ds[0];
+        for (const k of ds) if (bd[k] > bd[peak]) peak = k;
+        return { label, base, peak, peakN: bd[peak], days: ds, bd,
+                 mult: base > 0 ? Math.round(bd[peak] / base) : null };
+      };
+      const search = lift(plaSrc["Google Play search"], "typed our name into Play");
+      const refer  = lift(plaSrc["Ads and referrals"], "arrived through a link");
+      if (search) {
+        el.insertAdjacentHTML("beforeend", `<div class="panel fam">
+          <h3>The lift a creator actually causes</h3>
+          <div class="st">peak day vs a normal day — Play acquisitions</div>
+          ${[search, refer].filter(Boolean).map(x => `<div class="row"><span>${x.label}</span>
+            <span class="nums"><span class="td${x === search ? "" : " zero"}">${
+              x.mult ? x.mult + "\u00d7" : "—"}</span>
+            <span class="at">${n(x.peakN)}<em>on ${x.peak.slice(5)}</em></span></span></div>`).join("")}
+          <div class="row"><span style="opacity:.7">a normal day, before the reel</span>
+            <span class="nums"><span class="td zero"></span>
+            <span class="at">${n(search.base)}<em>searches</em></span></span></div>
+        </div>`);
+        // Day-by-day, so a spike can never be mistaken for a new plateau.
+        el.insertAdjacentHTML("beforeend", `<div class="panel fam">
+          <h3>Branded search, day by day</h3>
+          <div class="st">people who searched our name and installed</div>
+          ${search.days.slice(-12).map(k => `<div class="row"><span>${k}</span>
+            <span class="nums"><span class="td zero"></span>
+            <span class="at">${n(search.bd[k])}<em>installs</em></span></span></div>`).join("")}
+        </div>`);
+      }
       el.insertAdjacentHTML("beforeend", rows("Google Play", plaSrc, "acq", "store listing acquisitions"));
       el.insertAdjacentHTML("beforeend", rows("App Store", iosSrc, "total", "Apple source type"));
       // WHAT THEY TYPED. This is the closest thing to a brand-strength meter
