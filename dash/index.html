@@ -43,6 +43,14 @@
   .row:first-child{border-top:none}
   .row span{color:var(--soft)}
   .row b{font-variant-numeric:tabular-nums}
+  /* Link rows carry TWO numbers — what moved today and the lifetime total.
+     Fixed columns and tabular figures so the eye can run down them; today
+     is the live signal and gets the colour, all-time stays quiet. */
+  .row .nums{display:flex;align-items:baseline;gap:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .row .nums .td{min-width:74px;text-align:right;color:var(--good);font-weight:700}
+  .row .nums .td.zero{color:var(--faint);font-weight:400}
+  .row .nums .at{min-width:96px;text-align:right;color:var(--soft)}
+  .row .nums .at em{font-style:normal;color:var(--faint);font-size:11px;margin-left:4px}
   .spark{display:flex;align-items:flex-end;gap:3px;height:64px;margin-top:12px}
   .spark .b{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;height:100%}
   .spark .b em{font-style:normal;font-size:9.5px;color:var(--soft);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -330,11 +338,14 @@
           <div class="panel fam">
             <h3>${label[k][0]} · ${n(f.clicks)}</h3>
             <div class="st">${label[k][1]} — ${f.refs} link${f.refs === 1 ? "" : "s"}</div>
-            ${(f.top || []).map(t => `<div class="row"><span>${t.ref}${
-              t.today ? ` <span style="color:var(--good);font-size:11px;font-weight:700">+${n(t.today)} today</span>` : ""
-            }</span><b>${n(t.clicks)}${
-              t.storeInstalls != null ? ` <span style="color:var(--good);font-size:11.5px">· ${t.storeInstalls} iOS installs</span>` : ""
-            }</b></div>`).join("")}
+            ${(f.top || []).map(t => `<div class="row"><span>${t.ref}</span><span class="nums">
+              <span class="td${t.today ? "" : " zero"}">${t.today ? "+" + n(t.today) + " today" : "—"}</span>
+              <span class="at">${n(t.clicks)}<em>all-time</em></span>
+            </span></div>${
+              t.storeInstalls != null
+                ? `<div class="row" style="border-top:none;padding-top:0"><span></span><span class="nums"><span class="td"></span><span class="at" style="color:var(--good)">${t.storeInstalls}<em>iOS installs</em></span></span></div>`
+                : ""
+            }`).join("")}
           </div>`));
       }
       return el;
