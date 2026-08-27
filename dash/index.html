@@ -330,7 +330,9 @@
           <div class="panel fam">
             <h3>${label[k][0]} · ${n(f.clicks)}</h3>
             <div class="st">${label[k][1]} — ${f.refs} link${f.refs === 1 ? "" : "s"}</div>
-            ${(f.top || []).map(t => `<div class="row"><span>${t.ref}</span><b>${n(t.clicks)}${
+            ${(f.top || []).map(t => `<div class="row"><span>${t.ref}${
+              t.today ? ` <span style="color:var(--good);font-size:11px;font-weight:700">+${n(t.today)} today</span>` : ""
+            }</span><b>${n(t.clicks)}${
               t.storeInstalls != null ? ` <span style="color:var(--good);font-size:11.5px">· ${t.storeInstalls} iOS installs</span>` : ""
             }</b></div>`).join("")}
           </div>`));
