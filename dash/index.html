@@ -380,6 +380,201 @@
       return el;
     });
 
+    // ══ ASK PP — Mission Control card + Ask Lab console ═══════════════
+    section(() => {
+      const A = d.ask;
+      if (!A || A.status === "error") {
+        const e = $(`<div><h2>Ask PP</h2><div class="st">${A ? "aggregation error: " + (A.note ?? "") : "no data yet — feature is on the working branch"}</div></div>`);
+        return e;
+      }
+      const el = $(`<div><h2>Ask PP</h2>
+        <div class="st" style="margin-bottom:10px">the spiritual intelligence layer — live usage, quality, cost</div></div>`);
+      const k = A.d7 ?? {};
+      el.insertAdjacentHTML("beforeend", `<div class="panel fam">
+        <h3>Last 7 days</h3>
+        ${[["Users", k.users], ["Questions", k.questions], ["Answer rate", (k.answerRate ?? 0) + "%"],
+           ["Rekha rate", (k.rekhaRate ?? 0) + "%"], ["Positive", k.posRate === null ? "—" : k.posRate + "%"],
+           ["Gemini est.", "$" + (k.costUsd ?? 0)]]
+          .map(([l, v]) => `<div class="row"><span>${l}</span><b>${v ?? 0}</b></div>`).join("")}
+        <div style="margin-top:12px"><a href="#" id="openasklab" style="font-weight:700;color:var(--kumkuma)">OPEN ASK LAB →</a></div>
+      </div>`);
+      setTimeout(() => {
+        const btn = document.getElementById("openasklab");
+        if (btn) btn.onclick = (ev) => { ev.preventDefault(); openAskLab(A); };
+      }, 0);
+      return el;
+    });
+
+    // ── Ask Lab — a full-screen console over the dashboard ────────────
+    function openAskLab(A) {
+      let ov = document.getElementById("asklab");
+      if (ov) { ov.style.display = "block"; return; }
+      ov = document.createElement("div");
+      ov.id = "asklab";
+      ov.style.cssText = "position:fixed;inset:0;background:var(--bg,#141010);z-index:50;overflow:auto;padding:20px 16px 60px";
+      const kget = (o, l, v) => `<div style="min-width:96px"><div style="font-size:11px;color:var(--soft);text-transform:uppercase;letter-spacing:.06em">${l}</div><div style="font-size:22px;font-weight:800">${v}</div></div>`;
+      const kpirow = (k) => [
+        kget(k, "Users", k.users ?? 0), kget(k, "Questions", k.questions ?? 0),
+        kget(k, "Q / user", k.qPerUser ?? 0), kget(k, "Answered", (k.answerRate ?? 0) + "%"),
+        kget(k, "Clarify", k.clarify ?? 0), kget(k, "Rekha", (k.rekhaRate ?? 0) + "%"),
+        kget(k, "👍 rate", k.posRate === null ? "—" : (k.posRate ?? 0) + "%"),
+        kget(k, "AI calls", k.aiCalls ?? 0), kget(k, "Cost", "$" + (k.costUsd ?? 0)),
+      ].join("");
+      const funnel = (k) => {
+        const total = k.questions || 1;
+        const rows = [["Answered directly", k.answered], ["Clarification", k.clarify],
+          ["లక్ష్మణ రేఖ (RED)", k.rekha], ["Awaiting model (no key)", k.noModel],
+          ["Premium preview", k.premium], ["Off-scope", k.offscope]];
+        return rows.map(([l, v]) => `<div class="row"><span>${l}</span><span class="nums"><b>${v ?? 0}</b> <span style="color:var(--soft)">${Math.round(((v ?? 0) / total) * 100)}%</span></span></div>`).join("");
+      };
+      const intentsTable = (A.intents ?? []).slice(0, 25).map((i) =>
+        `<div class="row"><span>${i.sen ? "🔒 " : ""}<b>${i.cat}</b> · ${i.intent}<br>
+          <span style="color:var(--soft);font-size:12px">${i.sen ? "— sensitive —" : (i.example || "")}</span></span>
+          <span class="nums" style="text-align:right">${i.users}u · ${i.n}q · ${i.variants}v<br>
+          <span style="color:var(--soft);font-size:12px">ok ${i.ok} 👍${i.fbP} 👎${i.fbN}${i.wrong ? " ⚠" + i.wrong : ""}</span></span></div>`).join("");
+      const failedTable = (A.failed ?? []).slice(0, 30).map((f) =>
+        `<div class="row"><span>${f.sen ? "🔒 — sensitive —" : (f.example || f.intent)}<br>
+          <span style="color:var(--soft);font-size:12px">${f.cat} · ${new Date(f.ts).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}</span></span>
+          <span style="font-size:12px;font-weight:700;color:var(--bad,#c66)">${f.reason}</span></div>`).join("");
+      const muh = A.muhurtham ?? { byPurpose: {} };
+      const muhRows = Object.entries(muh.byPurpose).sort((a, b) => b[1] - a[1])
+        .map(([p, n]) => `<div class="row"><span>${p}</span><b>${n}</b></div>`).join("");
+      const kn = A.knowledge ?? {};
+      const srcRows = Object.entries(A.srcMix ?? {}).sort((a, b) => b[1] - a[1])
+        .map(([sName, n]) => `<div class="row"><span>${sName}</span><b>${n}</b></div>`).join("");
+      const fu = A.followup ?? {};
+      ov.innerHTML = `
+        <div style="max-width:960px;margin:0 auto">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+            <h1 style="font-size:26px;margin:0">✨ Ask Lab</h1>
+            <span style="color:var(--soft)">what are users asking · where are we failing · what do we teach next</span>
+            <a href="#" id="asklab-close" style="margin-left:auto;font-weight:700">✕ close</a>
+          </div>
+          <div class="panel fam"><h3>Today</h3><div style="display:flex;flex-wrap:wrap;gap:18px">${kpirow(A.today ?? {})}</div></div>
+          <div class="panel fam"><h3>7 days</h3><div style="display:flex;flex-wrap:wrap;gap:18px">${kpirow(A.d7 ?? {})}</div></div>
+          <div class="panel fam"><h3>30 days</h3><div style="display:flex;flex-wrap:wrap;gap:18px">${kpirow(A.d30 ?? {})}</div></div>
+          <div class="panel fam"><h3>Answer funnel · 7d</h3>${funnel(A.d7 ?? {})}
+            <div class="st" style="margin-top:8px">If రేఖ suddenly reads 20–30%, Ask PP has become too restrictive — that number is the alarm.</div></div>
+          <div class="panel fam"><h3>Top intents</h3>${intentsTable || '<div class="st">no traffic yet</div>'}</div>
+          <div class="panel fam"><h3>⚠ Failed & flagged</h3>${failedTable || '<div class="st">nothing failing — or nothing asked yet</div>'}
+            ${Object.entries(A.failReasons ?? {}).map(([r, n]) => `<span style="display:inline-block;margin:6px 6px 0 0;padding:3px 8px;border-radius:6px;background:var(--panel2,#241a18);font-size:11px;font-weight:700">${r} · ${n}</span>`).join("")}</div>
+          <div class="panel fam"><h3>✨ Personalised Muhurtham demand</h3>
+            <div class="row"><span>Requests</span><b>${muh.requests ?? 0}</b></div>
+            <div class="row"><span>Unique users</span><b>${muh.users ?? 0}</b></div>
+            ${muhRows}</div>
+          <div class="panel fam"><h3>Knowledge flywheel</h3>
+            <div class="row"><span>Knowledge objects</span><b>${kn.objects ?? "—"}</b></div>
+            <div class="row"><span>Verified / Draft</span><b>${kn.verified ?? "—"} / ${kn.draft ?? "—"}</b></div>
+            <div class="row"><span>Gita themes · festivals</span><b>${kn.gitaThemes ?? "—"} · ${kn.festivals ?? "—"}</b></div>
+            <h3 style="margin-top:14px">Answer source mix</h3>${srcRows}
+            <div class="st" style="margin-top:8px">The trend that matters: PP knowledge ↑, Gemini share ↓, quality flat or better.</div></div>
+          <div class="panel fam"><h3>Follow-up quality</h3>
+            <div class="row"><span>Avg thread depth</span><b>${fu.avgDepth ?? 0}</b></div>
+            <div class="row"><span>Multi-turn rate</span><b>${(fu.multiTurnRate ?? 0)}%</b></div>
+            <div class="row"><span>Suggested-chip taps → failures</span><b>${fu.chipTaps ?? 0} → ${fu.chipFails ?? 0}</b></div>
+            <div class="row"><span>SUGGESTED_FOLLOWUP_FAILURE_RATE</span><b>${(fu.suggestedFollowupFailureRate ?? 0)}% <span style="color:var(--soft);font-weight:400">(target ~0 — a chip we offered that fails is a bug)</span></b></div></div>
+          <div class="panel fam"><h3>💬 Conversations</h3>
+            <div class="st">Full user ↔ Ask PP threads, decrypted only in this browser.</div>
+            <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+              <input id="asklab-pass" type="password" placeholder="Ask Lab passphrase" style="padding:8px 10px;border-radius:8px;border:1px solid var(--line,#3a2a28);background:transparent;color:inherit">
+              <button id="asklab-unlock" style="padding:8px 14px;border-radius:8px;font-weight:700">Unlock</button>
+              <input id="asklab-search" type="search" placeholder="search…" style="display:none;flex:1;min-width:140px;padding:8px 10px;border-radius:8px;border:1px solid var(--line,#3a2a28);background:transparent;color:inherit">
+            </div>
+            <div id="asklab-filters" style="display:none;margin-top:8px;gap:6px;flex-wrap:wrap"></div>
+            <div id="asklab-convos" style="margin-top:12px"></div></div>
+        </div>`;
+      document.body.appendChild(ov);
+      document.getElementById("asklab-close").onclick = (ev) => { ev.preventDefault(); ov.style.display = "none"; };
+      // ── decrypt + render conversations ──
+      let CONVOS = null, FILTER = "All";
+      const FILTERS = ["All", "Needs Review", "Rekha", "Negative", "Possible Wrong", "Muhurtham", "Sensitive", "Chip-fail"];
+      const match = (c) => {
+        const t = c.turns;
+        if (FILTER === "Rekha" && !t.some((x) => x.kind === "unknown" && x.lane === "red")) return false;
+        if (FILTER === "Negative" && !t.some((x) => x.fb === -1)) return false;
+        if (FILTER === "Possible Wrong" && !t.some((x) => x.wr)) return false;
+        if (FILTER === "Muhurtham" && !t.some((x) => x.kind === "premium")) return false;
+        if (FILTER === "Sensitive" && !t.some((x) => x.sen)) return false;
+        if (FILTER === "Chip-fail" && !t.some((x) => x.fuf)) return false;
+        if (FILTER === "Needs Review" && !t.some((x) => x.wr || x.fb === -1 || (x.kind === "unknown"))) return false;
+        const q = (document.getElementById("asklab-search").value || "").toLowerCase();
+        if (q && !t.some((x) => (x.q || "").toLowerCase().includes(q) || (x.intent || "").toLowerCase().includes(q))) return false;
+        return true;
+      };
+      const FS_BASE = "https://firestore.googleapis.com/v1/projects/pocketpanchangam/databases/(default)/documents";
+      const FS_KEY = "AIzaSyCCWnpXL5StCbipAkvNk1Hc9RlUM9bvl64";
+      const act = (intent, st) => fetch(`${FS_BASE}/askReview/${encodeURIComponent(intent)}?key=${FS_KEY}`, {
+        method: "PATCH", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fields: { intent: { stringValue: intent }, st: { stringValue: st },
+          note: { stringValue: "" }, ans: { stringValue: "" }, by: { stringValue: "asklab" },
+          ts: { integerValue: String(Date.now()) } } }),
+      }).then(() => true).catch(() => false);
+      const render = () => {
+        const host = document.getElementById("asklab-convos");
+        const list = CONVOS.filter(match).slice(0, 80);
+        host.innerHTML = list.map((c, i) => {
+          const badges = [
+            c.turns.some((x) => x.sen) ? "🔒 SENSITIVE" : "",
+            c.turns.some((x) => x.wr) ? "⚠ POSSIBLE WRONG" : "",
+            c.turns.some((x) => x.kind === "premium") ? "✨ MUHURTHAM" : "",
+            c.ch === "dev" ? "DEV" : "",
+          ].filter(Boolean).map((b) => `<span style="font-size:10px;font-weight:800;margin-left:6px;opacity:.8">${b}</span>`).join("");
+          const thread = c.turns.map((t) => `
+            <div style="margin:8px 0 2px;text-align:right"><span style="display:inline-block;background:var(--panel2,#241a18);padding:6px 10px;border-radius:12px 12px 4px 12px;max-width:85%">${(t.q || "").replace(/</g, "&lt;")}</span></div>
+            <div style="color:var(--soft);font-size:12px">[${t.kind}${t.lane ? "/" + t.lane : ""}] ${t.intent} · src ${t.src}${t.ai ? " · AI" : ""}${t.fb === 1 ? " · 👍" : t.fb === -1 ? " · 👎" : ""}${t.wr ? " · ⚠wrong-flag" : ""}${t.fuf ? " · CHIP-FAIL" : ""} · ${t.lat}ms${t.tout ? " · ~" + (t.tin + t.tout) + "tok" : ""}${t.rr ? " · " + t.rr : ""}</div>`).join("");
+          const mainIntent = (c.turns.find((t) => t.intent !== "UNKNOWN") ?? c.turns[0]).intent;
+          return `<div style="border:1px solid var(--line,#3a2a28);border-radius:12px;padding:12px 14px;margin-bottom:10px">
+            <div style="display:flex;align-items:center"><b>${new Date(c.ts).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}</b>
+              <span style="color:var(--soft);margin-left:8px">${c.lang} · ${c.turns.length} turns</span>${badges}
+              <span style="margin-left:auto;display:flex;gap:6px">
+                <button data-a="good" data-i="${mainIntent}" style="font-size:11px;padding:3px 8px;border-radius:6px">✓ good</button>
+                <button data-a="NEEDS_KEERTHI_REVIEW" data-i="${mainIntent}" style="font-size:11px;padding:3px 8px;border-radius:6px">→ Keerthi</button>
+                <button data-a="NEEDS_GURU_REVIEW" data-i="${mainIntent}" style="font-size:11px;padding:3px 8px;border-radius:6px">→ గురువుగారు</button>
+              </span></div>
+            ${thread}</div>`;
+        }).join("") || '<div class="st">no conversations match</div>';
+        host.querySelectorAll("button[data-a]").forEach((b) => {
+          b.onclick = async () => {
+            const ok = await act(b.dataset.i, b.dataset.a === "good" ? "APPROVED_GOOD" : b.dataset.a);
+            b.textContent = ok ? "✓ sent" : "failed";
+          };
+        });
+      };
+      document.getElementById("asklab-unlock").onclick = async () => {
+        const pass = document.getElementById("asklab-pass").value;
+        const btn = document.getElementById("asklab-unlock");
+        btn.textContent = "…";
+        try {
+          const blob = await (await fetch("asklab.enc.json?cb=" + Date.now())).json();
+          const enc = new TextEncoder();
+          const km = await crypto.subtle.importKey("raw", enc.encode(pass), "PBKDF2", false, ["deriveKey"]);
+          const key = await crypto.subtle.deriveKey(
+            { name: "PBKDF2", salt: enc.encode(blob.salt), iterations: blob.iter, hash: "SHA-256" },
+            km, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+          const b64 = (x) => Uint8Array.from(atob(x), (ch) => ch.charCodeAt(0));
+          const ctFull = new Uint8Array([...b64(blob.ct), ...b64(blob.tag)]);
+          const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(blob.iv) }, key, ctFull);
+          CONVOS = JSON.parse(new TextDecoder().decode(pt));
+          btn.style.display = "none";
+          document.getElementById("asklab-pass").style.display = "none";
+          const srch = document.getElementById("asklab-search");
+          srch.style.display = "block"; srch.oninput = render;
+          const fl = document.getElementById("asklab-filters");
+          fl.style.display = "flex";
+          fl.innerHTML = FILTERS.map((f) => `<button data-f="${f}" style="font-size:12px;padding:4px 10px;border-radius:999px;font-weight:${f === FILTER ? 800 : 400}">${f}</button>`).join("");
+          fl.querySelectorAll("button").forEach((b) => b.onclick = () => {
+            FILTER = b.dataset.f;
+            fl.querySelectorAll("button").forEach((x) => x.style.fontWeight = x.dataset.f === FILTER ? 800 : 400);
+            render();
+          });
+          render();
+        } catch (e) {
+          btn.textContent = "wrong passphrase";
+          setTimeout(() => (btn.textContent = "Unlock"), 1500);
+        }
+      };
+    }
+
     // ══ WHERE INSTALLS COME FROM — the store's own answer ══════════════
     // The 18 Aug spike was 21,034 installs against 786 taps on the creator's
     // tracked link, and every creator decision was being made on that link.
