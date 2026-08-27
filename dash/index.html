@@ -405,138 +405,220 @@
       return el;
     });
 
-    // ── Ask Lab — a full-screen console over the dashboard ────────────
+    // ── Ask Lab — tabbed console: Overview · Conversations · Questions ·
+    //    Review · Knowledge · Muhurtham · Cost ──────────────────────────
     function openAskLab(A) {
       let ov = document.getElementById("asklab");
       if (ov) { ov.style.display = "block"; return; }
       ov = document.createElement("div");
       ov.id = "asklab";
       ov.style.cssText = "position:fixed;inset:0;background:var(--bg,#141010);z-index:50;overflow:auto;padding:20px 16px 60px";
-      const kget = (o, l, v) => `<div style="min-width:96px"><div style="font-size:11px;color:var(--soft);text-transform:uppercase;letter-spacing:.06em">${l}</div><div style="font-size:22px;font-weight:800">${v}</div></div>`;
+      const esc = (x) => String(x ?? "").replace(/</g, "&lt;");
+      const kv = (l, v, hint) => `<div style="min-width:96px"><div style="font-size:11px;color:var(--soft);text-transform:uppercase;letter-spacing:.06em">${l}</div><div style="font-size:22px;font-weight:800">${v}</div>${hint ? `<div style="font-size:11px;color:var(--soft)">${hint}</div>` : ""}</div>`;
       const kpirow = (k) => [
-        kget(k, "Users", k.users ?? 0), kget(k, "Questions", k.questions ?? 0),
-        kget(k, "Q / user", k.qPerUser ?? 0), kget(k, "Answered", (k.answerRate ?? 0) + "%"),
-        kget(k, "Clarify", k.clarify ?? 0), kget(k, "Rekha", (k.rekhaRate ?? 0) + "%"),
-        kget(k, "👍 rate", k.posRate === null ? "—" : (k.posRate ?? 0) + "%"),
-        kget(k, "AI calls", k.aiCalls ?? 0), kget(k, "Cost", "$" + (k.costUsd ?? 0)),
+        kv("Users", k.users ?? 0), kv("Questions", k.questions ?? 0), kv("Q/user", k.qPerUser ?? 0),
+        kv("Answered", (k.answerRate ?? 0) + "%"), kv("Clarify", k.clarify ?? 0),
+        kv("రేఖ", (k.rekhaRate ?? 0) + "%"), kv("👍", k.posRate === null ? "—" : (k.posRate ?? 0) + "%"),
+        kv("AI", k.aiCalls ?? 0), kv("Cost", "$" + (k.costUsd ?? 0)),
       ].join("");
+      const rows = (arr) => arr.join("") || '<div class="st">nothing here yet</div>';
+      const K7 = A.d7 ?? {}, K30 = A.d30 ?? {};
+      const revCount = (st) => (A.reviews ?? []).filter((r) => r.st === st).length;
       const funnel = (k) => {
         const total = k.questions || 1;
-        const rows = [["Answered directly", k.answered], ["Clarification", k.clarify],
-          ["లక్ష్మణ రేఖ (RED)", k.rekha], ["Awaiting model (no key)", k.noModel],
-          ["Premium preview", k.premium], ["Off-scope", k.offscope]];
-        return rows.map(([l, v]) => `<div class="row"><span>${l}</span><span class="nums"><b>${v ?? 0}</b> <span style="color:var(--soft)">${Math.round(((v ?? 0) / total) * 100)}%</span></span></div>`).join("");
+        const rws = [["Answered directly", k.answered], ["Clarification", k.clarify],
+          ["లక్ష్మణ రేఖ (RED)", k.rekha], ["Awaiting model / fallback", k.noModel],
+          ["Premium preview", k.premium], ["Off-scope", k.offscope],
+          ["→ Keerthi review queue", revCount("NEEDS_KEERTHI_REVIEW")],
+          ["→ గురువుగారి review queue", revCount("NEEDS_GURU_REVIEW")],
+          ["✓ approved by review", revCount("APPROVED_GOOD") + revCount("APPROVED")]];
+        return rws.map(([l, v]) => `<div class="row"><span>${l}</span><span class="nums"><b>${v ?? 0}</b> <span style="color:var(--soft)">${Math.round(((v ?? 0) / total) * 100)}%</span></span></div>`).join("");
       };
-      const intentsTable = (A.intents ?? []).slice(0, 25).map((i) =>
-        `<div class="row"><span>${i.sen ? "🔒 " : ""}<b>${i.cat}</b> · ${i.intent}<br>
-          <span style="color:var(--soft);font-size:12px">${i.sen ? "— sensitive —" : (i.example || "")}</span></span>
-          <span class="nums" style="text-align:right">${i.users}u · ${i.n}q · ${i.variants}v<br>
-          <span style="color:var(--soft);font-size:12px">ok ${i.ok} 👍${i.fbP} 👎${i.fbN}${i.wrong ? " ⚠" + i.wrong : ""}</span></span></div>`).join("");
-      const failedTable = (A.failed ?? []).slice(0, 30).map((f) =>
-        `<div class="row"><span>${f.sen ? "🔒 — sensitive —" : (f.example || f.intent)}<br>
-          <span style="color:var(--soft);font-size:12px">${f.cat} · ${new Date(f.ts).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}</span></span>
-          <span style="font-size:12px;font-weight:700;color:var(--bad,#c66)">${f.reason}</span></div>`).join("");
-      const muh = A.muhurtham ?? { byPurpose: {} };
-      const muhRows = Object.entries(muh.byPurpose).sort((a, b) => b[1] - a[1])
-        .map(([p, n]) => `<div class="row"><span>${p}</span><b>${n}</b></div>`).join("");
-      const kn = A.knowledge ?? {};
-      const srcRows = Object.entries(A.srcMix ?? {}).sort((a, b) => b[1] - a[1])
-        .map(([sName, n]) => `<div class="row"><span>${sName}</span><b>${n}</b></div>`).join("");
-      const fu = A.followup ?? {};
+
+      // ── tab contents ──
+      const T = {};
+      T.Overview = `
+        <div class="panel fam"><div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+          ${["today", "d7", "d30"].map((r, i) => `<button data-range="${r}" style="padding:5px 12px;border-radius:999px;font-weight:${i === 1 ? 800 : 400}">${["Today", "7 days", "30 days"][i]}</button>`).join("")}
+          <span class="st" style="margin-left:auto">custom range lives in Conversations ↓</span></div>
+          <div id="asklab-kpis" style="display:flex;flex-wrap:wrap;gap:18px">${kpirow(K7)}</div></div>
+        <div class="panel fam"><h3>Answer funnel</h3>${funnel(K7)}
+          <div class="st" style="margin-top:8px">If రేఖ reads 20–30%, Ask PP has become too restrictive — that number is the alarm.</div></div>
+        <div class="panel fam"><h3>⚠ Failed & flagged — teach these next</h3>
+          ${rows((A.failed ?? []).slice(0, 20).map((f) => `<div class="row"><span>${f.sen ? "🔒 — sensitive —" : esc(f.example || f.intent)}<br><span style="color:var(--soft);font-size:12px">${f.cat} · ${new Date(f.ts).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}</span></span><span style="font-size:12px;font-weight:700;color:var(--bad,#c66)">${f.reason}</span></div>`))}
+          <div style="margin-top:8px">${Object.entries(A.failReasons ?? {}).map(([r, n]) => `<span style="display:inline-block;margin:4px 6px 0 0;padding:3px 8px;border-radius:6px;background:var(--panel2,#241a18);font-size:11px;font-weight:700">${r} · ${n}</span>`).join("")}</div></div>`;
+      T.Questions = `
+        <div class="panel fam"><h3>Top questions — one row per canonical intent, variants folded</h3>
+          ${rows((A.topQuestions ?? []).map((i) => `<div class="row"><span>${i.sen ? "🔒 " : ""}<b>${esc(i.sen ? i.intent : (i.example || i.intent))}</b><br><span style="color:var(--soft);font-size:12px">${i.cat} · ${i.intent}</span></span><span class="nums" style="text-align:right"><b>${i.users}</b> users · ${i.n} asks · ${i.variants} variants<br><span style="font-size:11px;font-weight:700;color:${/^ANSWERED|^APPROVED/.test(i.status) ? "var(--good,#6c6)" : "var(--warn,#ca4)"}">${i.status}</span> <span style="color:var(--soft);font-size:12px">👍${i.fbP} 👎${i.fbN}${i.wrong ? " ⚠" + i.wrong : ""}</span></span></div>`))}</div>
+        <div class="panel fam"><h3>Worst performing — negative feedback + wrong-flags</h3>
+          ${rows((A.worstIntents ?? []).map((i) => `<div class="row"><span>${i.sen ? "🔒 " : ""}${esc(i.sen ? i.intent : (i.example || i.intent))}</span><span style="font-size:12px;font-weight:700;color:var(--bad,#c66)">👎${i.fbN} ⚠${i.wrong}</span></div>`))}</div>
+        <div class="panel fam"><h3>Feedback by answer source</h3>
+          ${rows(Object.entries(A.fbBySrc ?? {}).map(([src, f]) => `<div class="row"><span>${src}</span><b>👍${f.p} · 👎${f.n}</b></div>`))}</div>`;
+      const queueBlock = (name, items, render) => `
+        <div class="panel fam"><h3>${name} · ${items.length}</h3>${rows(items.slice(0, 15).map(render))}</div>`;
+      const Q = A.queues ?? {};
+      T.Review = `
+        ${queueBlock("HIGH_DEMAND_UNVERIFIED — build these first", Q.HIGH_DEMAND_UNVERIFIED ?? [], (i) => `<div class="row"><span>${esc(i.intent)}</span><span class="nums"><b>${i.users}</b> users · prio ${i.prio}</span></div>`)}
+        ${queueBlock("POSSIBLE_WRONG_ANSWER", Q.POSSIBLE_WRONG_ANSWER ?? [], (i) => `<div class="row"><span>${esc(i.intent)}</span><span class="nums">⚠${i.wrong} · ${i.users} users</span></div>`)}
+        ${queueBlock("TOP_UNANSWERED", Q.TOP_UNANSWERED ?? [], (i) => `<div class="row"><span>${esc(i.q)}</span><span class="nums"><b>${i.users}</b> users asked</span></div>`)}
+        ${queueBlock("NEEDS_GURU_REVIEW", Q.NEEDS_GURU_REVIEW ?? [], (i) => `<div class="row"><span>${esc(i.intent)}</span><span class="nums">${i.users ? i.users + " users" : esc(i.note ?? "")}</span></div>`)}
+        ${queueBlock("NEEDS_KEERTHI_REVIEW", Q.NEEDS_KEERTHI_REVIEW ?? [], (i) => `<div class="row"><span>${esc(i.intent)}</span><span class="nums">${esc(i.note ?? "")}</span></div>`)}
+        ${queueBlock("NEEDS_PP_REVIEW", Q.NEEDS_PP_REVIEW ?? [], (i) => `<div class="row"><span>${esc(i.intent)}</span><span class="nums">${i.users} users · prio ${i.prio}</span></div>`)}
+        <div class="panel fam"><h3>Review an intent</h3>
+          <div class="st">Draft the improved answer / PP Perspective here — it lands in askReview for promotion into the verified corpus (the publish itself ships with the next OTA).</div>
+          <input id="rv-intent" placeholder="intent (e.g. PERIODS_RITUAL)" style="width:100%;margin-top:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--line,#3a2a28);background:transparent;color:inherit">
+          <textarea id="rv-ans" rows="4" placeholder="improved answer / PP Perspective / other tradition / prohibited claim…" style="width:100%;margin-top:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--line,#3a2a28);background:transparent;color:inherit"></textarea>
+          <input id="rv-note" placeholder="internal note" style="width:100%;margin-top:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--line,#3a2a28);background:transparent;color:inherit">
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+            ${["APPROVED", "REJECTED", "NEEDS_KEERTHI_REVIEW", "NEEDS_GURU_REVIEW", "PROMOTE_TO_CORPUS"].map((st) => `<button data-rv="${st}" style="padding:6px 12px;border-radius:8px;font-weight:700">${st.replace(/_/g, " ").toLowerCase()}</button>`).join("")}
+          </div>
+          <div class="st" style="margin-top:8px">notify-waiting-users fires on publish (P1 — needs the push mapping).</div>
+          <div id="rv-status" class="st" style="margin-top:6px"></div></div>`;
+      const kn = A.knowledge ?? {}, mix = A.srcMix ?? {}, fu = A.followup ?? {};
+      const mixTotal = Object.values(mix).reduce((a, b) => a + b, 0) || 1;
+      T.Knowledge = `
+        <div class="panel fam"><h3>ASK PP KNOWLEDGE</h3>
+          <div class="row"><span>Canonical knowledge objects</span><b>${kn.objects ?? "—"}</b></div>
+          <div class="row"><span>Verified / Draft</span><b>${kn.verified ?? "—"} / ${kn.draft ?? "—"}</b></div>
+          <div class="row"><span>Gita themes · festival lore</span><b>${kn.gitaThemes ?? "—"} · ${kn.festivals ?? "—"}</b></div>
+          <div class="row"><span>Promoted via review (approved)</span><b>${revCount("APPROVED") + revCount("APPROVED_GOOD") + revCount("PROMOTE_TO_CORPUS")}</b></div>
+          ${kn.note ? `<div class="st">counts pending merge to master: ${kn.note}</div>` : ""}</div>
+        <div class="panel fam"><h3>Answers served from</h3>
+          ${rows(Object.entries(mix).sort((a, b) => b[1] - a[1]).map(([sName, n]) => `<div class="row"><span>${sName}</span><span class="nums"><b>${n}</b> <span style="color:var(--soft)">${Math.round(n / mixTotal * 100)}%</span></span></div>`))}
+          <div class="st" style="margin-top:8px">The trend that matters: PP knowledge ↑, Gemini share ↓, quality flat or better.</div></div>
+        <div class="panel fam"><h3>Follow-up quality</h3>
+          <div class="row"><span>Avg thread depth</span><b>${fu.avgDepth ?? 0}</b></div>
+          <div class="row"><span>Multi-turn rate</span><b>${fu.multiTurnRate ?? 0}%</b></div>
+          <div class="row"><span>Suggested-chip taps → failures</span><b>${fu.chipTaps ?? 0} → ${fu.chipFails ?? 0}</b></div>
+          <div class="row"><span>SUGGESTED_FOLLOWUP_FAILURE_RATE</span><b>${fu.suggestedFollowupFailureRate ?? 0}%</b></div>
+          <div class="st" style="margin-top:6px">A chip we offered that fails is a BUG. Target ~0.</div></div>`;
+      const M = A.muhurtham ?? {};
+      T.Muhurtham = `
+        <div class="panel fam"><h3>✨ Personalised Muhurtham — future paid product demand</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:18px;margin-bottom:10px">
+            ${kv("Requests", M.requests ?? 0)}${kv("Users", M.users ?? 0)}
+            ${kv("Notify-me", M.notifyClicks ?? 0)}${kv("Conversion", M.notifyConversion === null || M.notifyConversion === undefined ? "—" : M.notifyConversion + "%", "notify / requests")}
+          </div>
+          <h3>By purpose — build the winner first</h3>
+          ${rows(Object.entries(M.byPurpose ?? {}).sort((a, b) => b[1] - a[1]).map(([pz, n]) => `<div class="row"><span>${pz}</span><b>${n}</b></div>`))}
+          <div class="st" style="margin-top:8px">No payments, no price shown anywhere — this panel only measures who is already asking.</div></div>`;
+      const C = A.cost30 ?? {};
+      const byDay = A.byDay ?? {};
+      const maxQ = Math.max(1, ...Object.values(byDay).map((v) => v.q));
+      T.Cost = `
+        <div class="panel fam"><h3>Gemini cost · 30d (flash-rate estimate)</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:18px">
+            ${kv("AI calls", C.aiCalls ?? 0)}${kv("Tokens in", (C.tokensIn ?? 0).toLocaleString())}
+            ${kv("Tokens out", (C.tokensOut ?? 0).toLocaleString())}${kv("Est. cost", "$" + (C.costUsd ?? 0))}
+            ${kv("Per user", "$" + (C.perUser ?? 0))}${kv("Per answer", "$" + (C.perAnswer ?? 0))}
+          </div></div>
+        <div class="panel fam"><h3>Questions & AI share by day</h3>
+          ${rows(Object.entries(byDay).slice(-21).map(([dd, v]) => `<div class="row"><span style="font-variant-numeric:tabular-nums">${dd.slice(5)}</span><span style="flex:1;margin:0 10px"><span style="display:block;height:8px;border-radius:4px;background:var(--panel2,#241a18);overflow:hidden"><span style="display:block;height:100%;width:${Math.round(v.q / maxQ * 100)}%;background:var(--gold,#c9962e)"></span></span></span><span class="nums">${v.q}q · ${v.ai}ai · $${v.cost}</span></div>`))}
+          <div class="st" style="margin-top:8px">Desired shape: bars grow, the ai share and $ flatten — the cache and corpus absorbing the load.</div></div>`;
+      T.Conversations = `
+        <div class="panel fam"><h3>💬 Conversations — decrypted only in this browser</h3>
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+            <input id="asklab-pass" type="password" placeholder="Ask Lab passphrase" style="padding:8px 10px;border-radius:8px;border:1px solid var(--line,#3a2a28);background:transparent;color:inherit">
+            <button id="asklab-unlock" style="padding:8px 14px;border-radius:8px;font-weight:700">Unlock</button>
+            <input id="asklab-search" type="search" placeholder="search text or intent…" style="display:none;flex:1;min-width:140px;padding:8px 10px;border-radius:8px;border:1px solid var(--line,#3a2a28);background:transparent;color:inherit">
+            <input id="asklab-from" type="date" style="display:none;padding:6px;border-radius:8px;border:1px solid var(--line,#3a2a28);background:transparent;color:inherit">
+            <input id="asklab-to" type="date" style="display:none;padding:6px;border-radius:8px;border:1px solid var(--line,#3a2a28);background:transparent;color:inherit">
+          </div>
+          <div id="asklab-filters" style="display:none;margin-top:8px;gap:6px;flex-wrap:wrap"></div>
+          <div id="asklab-convos" style="margin-top:12px"></div></div>`;
+
+      const TABS = ["Overview", "Conversations", "Questions", "Review", "Knowledge", "Muhurtham", "Cost"];
       ov.innerHTML = `
-        <div style="max-width:960px;margin:0 auto">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+        <div style="max-width:980px;margin:0 auto">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
             <h1 style="font-size:26px;margin:0">✨ Ask Lab</h1>
             <span style="color:var(--soft)">what are users asking · where are we failing · what do we teach next</span>
             <a href="#" id="asklab-close" style="margin-left:auto;font-weight:700">✕ close</a>
           </div>
-          <div class="panel fam"><h3>Today</h3><div style="display:flex;flex-wrap:wrap;gap:18px">${kpirow(A.today ?? {})}</div></div>
-          <div class="panel fam"><h3>7 days</h3><div style="display:flex;flex-wrap:wrap;gap:18px">${kpirow(A.d7 ?? {})}</div></div>
-          <div class="panel fam"><h3>30 days</h3><div style="display:flex;flex-wrap:wrap;gap:18px">${kpirow(A.d30 ?? {})}</div></div>
-          <div class="panel fam"><h3>Answer funnel · 7d</h3>${funnel(A.d7 ?? {})}
-            <div class="st" style="margin-top:8px">If రేఖ suddenly reads 20–30%, Ask PP has become too restrictive — that number is the alarm.</div></div>
-          <div class="panel fam"><h3>Top intents</h3>${intentsTable || '<div class="st">no traffic yet</div>'}</div>
-          <div class="panel fam"><h3>⚠ Failed & flagged</h3>${failedTable || '<div class="st">nothing failing — or nothing asked yet</div>'}
-            ${Object.entries(A.failReasons ?? {}).map(([r, n]) => `<span style="display:inline-block;margin:6px 6px 0 0;padding:3px 8px;border-radius:6px;background:var(--panel2,#241a18);font-size:11px;font-weight:700">${r} · ${n}</span>`).join("")}</div>
-          <div class="panel fam"><h3>✨ Personalised Muhurtham demand</h3>
-            <div class="row"><span>Requests</span><b>${muh.requests ?? 0}</b></div>
-            <div class="row"><span>Unique users</span><b>${muh.users ?? 0}</b></div>
-            ${muhRows}</div>
-          <div class="panel fam"><h3>Knowledge flywheel</h3>
-            <div class="row"><span>Knowledge objects</span><b>${kn.objects ?? "—"}</b></div>
-            <div class="row"><span>Verified / Draft</span><b>${kn.verified ?? "—"} / ${kn.draft ?? "—"}</b></div>
-            <div class="row"><span>Gita themes · festivals</span><b>${kn.gitaThemes ?? "—"} · ${kn.festivals ?? "—"}</b></div>
-            <h3 style="margin-top:14px">Answer source mix</h3>${srcRows}
-            <div class="st" style="margin-top:8px">The trend that matters: PP knowledge ↑, Gemini share ↓, quality flat or better.</div></div>
-          <div class="panel fam"><h3>Follow-up quality</h3>
-            <div class="row"><span>Avg thread depth</span><b>${fu.avgDepth ?? 0}</b></div>
-            <div class="row"><span>Multi-turn rate</span><b>${(fu.multiTurnRate ?? 0)}%</b></div>
-            <div class="row"><span>Suggested-chip taps → failures</span><b>${fu.chipTaps ?? 0} → ${fu.chipFails ?? 0}</b></div>
-            <div class="row"><span>SUGGESTED_FOLLOWUP_FAILURE_RATE</span><b>${(fu.suggestedFollowupFailureRate ?? 0)}% <span style="color:var(--soft);font-weight:400">(target ~0 — a chip we offered that fails is a bug)</span></b></div></div>
-          <div class="panel fam"><h3>💬 Conversations</h3>
-            <div class="st">Full user ↔ Ask PP threads, decrypted only in this browser.</div>
-            <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-              <input id="asklab-pass" type="password" placeholder="Ask Lab passphrase" style="padding:8px 10px;border-radius:8px;border:1px solid var(--line,#3a2a28);background:transparent;color:inherit">
-              <button id="asklab-unlock" style="padding:8px 14px;border-radius:8px;font-weight:700">Unlock</button>
-              <input id="asklab-search" type="search" placeholder="search…" style="display:none;flex:1;min-width:140px;padding:8px 10px;border-radius:8px;border:1px solid var(--line,#3a2a28);background:transparent;color:inherit">
-            </div>
-            <div id="asklab-filters" style="display:none;margin-top:8px;gap:6px;flex-wrap:wrap"></div>
-            <div id="asklab-convos" style="margin-top:12px"></div></div>
+          <div id="asklab-tabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;position:sticky;top:0;background:var(--bg,#141010);padding:8px 0;z-index:5">
+            ${TABS.map((t, i) => `<button data-tab="${t}" style="padding:7px 14px;border-radius:999px;font-weight:${i === 0 ? 800 : 400};border:1px solid var(--line,#3a2a28)">${t}</button>`).join("")}
+          </div>
+          ${TABS.map((t, i) => `<div id="tab-${t}" style="display:${i === 0 ? "block" : "none"}">${T[t]}</div>`).join("")}
         </div>`;
       document.body.appendChild(ov);
       document.getElementById("asklab-close").onclick = (ev) => { ev.preventDefault(); ov.style.display = "none"; };
-      // ── decrypt + render conversations ──
+      ov.querySelectorAll("#asklab-tabs button").forEach((b) => b.onclick = () => {
+        TABS.forEach((t) => document.getElementById("tab-" + t).style.display = t === b.dataset.tab ? "block" : "none");
+        ov.querySelectorAll("#asklab-tabs button").forEach((x) => x.style.fontWeight = x === b ? 800 : 400);
+      });
+      ov.querySelectorAll("button[data-range]").forEach((b) => b.onclick = () => {
+        document.getElementById("asklab-kpis").innerHTML = kpirow(A[b.dataset.range] ?? {});
+        ov.querySelectorAll("button[data-range]").forEach((x) => x.style.fontWeight = x === b ? 800 : 400);
+      });
+      // review actions
+      const FS_BASE = "https://firestore.googleapis.com/v1/projects/pocketpanchangam/databases/(default)/documents";
+      const FS_KEY = "AIzaSyCCWnpXL5StCbipAkvNk1Hc9RlUM9bvl64";
+      const act = (intent, st, note, ans) => fetch(`${FS_BASE}/askReview/${encodeURIComponent(intent)}?key=${FS_KEY}`, {
+        method: "PATCH", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fields: { intent: { stringValue: intent }, st: { stringValue: st },
+          note: { stringValue: (note ?? "").slice(0, 1900) }, ans: { stringValue: (ans ?? "").slice(0, 3900) },
+          by: { stringValue: "asklab" }, ts: { integerValue: String(Date.now()) } } }),
+      }).then((r) => r.ok).catch(() => false);
+      ov.querySelectorAll("button[data-rv]").forEach((b) => b.onclick = async () => {
+        const intent = document.getElementById("rv-intent").value.trim();
+        if (!intent) { document.getElementById("rv-status").textContent = "intent required"; return; }
+        const ok = await act(intent, b.dataset.rv, document.getElementById("rv-note").value, document.getElementById("rv-ans").value);
+        document.getElementById("rv-status").textContent = ok ? `✓ ${intent} → ${b.dataset.rv} (folds into the next aggregate)` : "write failed";
+      });
+      // ── conversations: decrypt + filters + per-convo actions ──
       let CONVOS = null, FILTER = "All";
-      const FILTERS = ["All", "Needs Review", "Rekha", "Negative", "Possible Wrong", "Muhurtham", "Sensitive", "Chip-fail"];
+      const FILTERS = ["All", "Today", "Needs Review", "Rekha", "Negative", "Possible Wrong", "Muhurtham", "Sensitive", "Chip-fail", "AI"];
       const match = (c) => {
         const t = c.turns;
+        const dayMs = 86400000;
+        if (FILTER === "Today" && c.ts < Date.now() - dayMs) return false;
         if (FILTER === "Rekha" && !t.some((x) => x.kind === "unknown" && x.lane === "red")) return false;
         if (FILTER === "Negative" && !t.some((x) => x.fb === -1)) return false;
         if (FILTER === "Possible Wrong" && !t.some((x) => x.wr)) return false;
-        if (FILTER === "Muhurtham" && !t.some((x) => x.kind === "premium")) return false;
+        if (FILTER === "Muhurtham" && !t.some((x) => x.kind === "premium" || x.kind === "notify")) return false;
         if (FILTER === "Sensitive" && !t.some((x) => x.sen)) return false;
         if (FILTER === "Chip-fail" && !t.some((x) => x.fuf)) return false;
-        if (FILTER === "Needs Review" && !t.some((x) => x.wr || x.fb === -1 || (x.kind === "unknown"))) return false;
+        if (FILTER === "AI" && !t.some((x) => x.ai)) return false;
+        if (FILTER === "Needs Review" && !t.some((x) => x.wr || x.fb === -1 || x.kind === "unknown")) return false;
+        const from = document.getElementById("asklab-from").value;
+        const to = document.getElementById("asklab-to").value;
+        if (from && c.ts < new Date(from).getTime()) return false;
+        if (to && c.ts > new Date(to).getTime() + dayMs) return false;
         const q = (document.getElementById("asklab-search").value || "").toLowerCase();
         if (q && !t.some((x) => (x.q || "").toLowerCase().includes(q) || (x.intent || "").toLowerCase().includes(q))) return false;
         return true;
       };
-      const FS_BASE = "https://firestore.googleapis.com/v1/projects/pocketpanchangam/databases/(default)/documents";
-      const FS_KEY = "AIzaSyCCWnpXL5StCbipAkvNk1Hc9RlUM9bvl64";
-      const act = (intent, st) => fetch(`${FS_BASE}/askReview/${encodeURIComponent(intent)}?key=${FS_KEY}`, {
-        method: "PATCH", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fields: { intent: { stringValue: intent }, st: { stringValue: st },
-          note: { stringValue: "" }, ans: { stringValue: "" }, by: { stringValue: "asklab" },
-          ts: { integerValue: String(Date.now()) } } }),
-      }).then(() => true).catch(() => false);
       const render = () => {
         const host = document.getElementById("asklab-convos");
         const list = CONVOS.filter(match).slice(0, 80);
-        host.innerHTML = list.map((c, i) => {
+        host.innerHTML = list.map((c) => {
           const badges = [
             c.turns.some((x) => x.sen) ? "🔒 SENSITIVE" : "",
             c.turns.some((x) => x.wr) ? "⚠ POSSIBLE WRONG" : "",
             c.turns.some((x) => x.kind === "premium") ? "✨ MUHURTHAM" : "",
             c.ch === "dev" ? "DEV" : "",
           ].filter(Boolean).map((b) => `<span style="font-size:10px;font-weight:800;margin-left:6px;opacity:.8">${b}</span>`).join("");
-          const thread = c.turns.map((t) => `
-            <div style="margin:8px 0 2px;text-align:right"><span style="display:inline-block;background:var(--panel2,#241a18);padding:6px 10px;border-radius:12px 12px 4px 12px;max-width:85%">${(t.q || "").replace(/</g, "&lt;")}</span></div>
-            <div style="color:var(--soft);font-size:12px">[${t.kind}${t.lane ? "/" + t.lane : ""}] ${t.intent} · src ${t.src}${t.ai ? " · AI" : ""}${t.fb === 1 ? " · 👍" : t.fb === -1 ? " · 👎" : ""}${t.wr ? " · ⚠wrong-flag" : ""}${t.fuf ? " · CHIP-FAIL" : ""} · ${t.lat}ms${t.tout ? " · ~" + (t.tin + t.tout) + "tok" : ""}${t.rr ? " · " + t.rr : ""}</div>`).join("");
+          const thread = c.turns.map((t) => t.kind === "notify"
+            ? `<div style="color:var(--soft);font-size:12px;margin:6px 0">🔔 tapped notify-me (${t.pp || "OTHER"})</div>`
+            : `
+            <div style="margin:8px 0 2px;text-align:right"><span style="display:inline-block;background:var(--panel2,#241a18);padding:6px 10px;border-radius:12px 12px 4px 12px;max-width:85%">${esc(t.q)}</span></div>
+            <div style="color:var(--soft);font-size:12px">[${t.kind}${t.lane ? "/" + t.lane : ""}] ${t.intent} · src ${t.src}${t.ai ? " · AI" : ""}${t.fb === 1 ? " · 👍" : t.fb === -1 ? " · 👎" : ""}${t.wr ? " · ⚠wrong" : ""}${t.fuf ? " · CHIP-FAIL" : ""} · ${t.lat}ms${t.tout ? " · ~" + (t.tin + t.tout) + "tok" : ""}${t.rr ? " · " + t.rr : ""}</div>`).join("");
           const mainIntent = (c.turns.find((t) => t.intent !== "UNKNOWN") ?? c.turns[0]).intent;
           return `<div style="border:1px solid var(--line,#3a2a28);border-radius:12px;padding:12px 14px;margin-bottom:10px">
-            <div style="display:flex;align-items:center"><b>${new Date(c.ts).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}</b>
+            <div style="display:flex;align-items:center;flex-wrap:wrap"><b>${new Date(c.ts).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}</b>
               <span style="color:var(--soft);margin-left:8px">${c.lang} · ${c.turns.length} turns</span>${badges}
-              <span style="margin-left:auto;display:flex;gap:6px">
-                <button data-a="good" data-i="${mainIntent}" style="font-size:11px;padding:3px 8px;border-radius:6px">✓ good</button>
-                <button data-a="NEEDS_KEERTHI_REVIEW" data-i="${mainIntent}" style="font-size:11px;padding:3px 8px;border-radius:6px">→ Keerthi</button>
-                <button data-a="NEEDS_GURU_REVIEW" data-i="${mainIntent}" style="font-size:11px;padding:3px 8px;border-radius:6px">→ గురువుగారు</button>
+              <span style="margin-left:auto;display:flex;gap:6px;flex-wrap:wrap">
+                ${[["good", "✓ good"], ["MARKED_WRONG", "✗ wrong"], ["note", "+ note"], ["NEEDS_KEERTHI_REVIEW", "→ Keerthi"], ["NEEDS_GURU_REVIEW", "→ గురువుగారు"]].map(([aType, lbl]) => `<button data-a="${aType}" data-i="${mainIntent}" style="font-size:11px;padding:3px 8px;border-radius:6px">${lbl}</button>`).join("")}
               </span></div>
             ${thread}</div>`;
         }).join("") || '<div class="st">no conversations match</div>';
         host.querySelectorAll("button[data-a]").forEach((b) => {
           b.onclick = async () => {
-            const ok = await act(b.dataset.i, b.dataset.a === "good" ? "APPROVED_GOOD" : b.dataset.a);
-            b.textContent = ok ? "✓ sent" : "failed";
+            let note = "";
+            if (b.dataset.a === "note") { note = prompt("Internal note for " + b.dataset.i) || ""; if (!note) return; }
+            const st = b.dataset.a === "good" ? "APPROVED_GOOD" : b.dataset.a === "note" ? "NOTED" : b.dataset.a;
+            const ok = await act(b.dataset.i, st, note, "");
+            b.textContent = ok ? "✓" : "failed";
           };
         });
       };
@@ -557,8 +639,10 @@
           CONVOS = JSON.parse(new TextDecoder().decode(pt));
           btn.style.display = "none";
           document.getElementById("asklab-pass").style.display = "none";
-          const srch = document.getElementById("asklab-search");
-          srch.style.display = "block"; srch.oninput = render;
+          ["asklab-search", "asklab-from", "asklab-to"].forEach((idn) => {
+            const x = document.getElementById(idn); x.style.display = "block";
+            x.oninput = render; x.onchange = render;
+          });
           const fl = document.getElementById("asklab-filters");
           fl.style.display = "flex";
           fl.innerHTML = FILTERS.map((f) => `<button data-f="${f}" style="font-size:12px;padding:4px 10px;border-radius:999px;font-weight:${f === FILTER ? 800 : 400}">${f}</button>`).join("");
