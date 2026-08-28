@@ -398,18 +398,46 @@
           .map(([l, v]) => `<div class="row"><span>${l}</span><b>${v ?? 0}</b></div>`).join("")}
         <div style="margin-top:12px"><a href="#" id="openasklab" style="font-weight:700;color:var(--kumkuma)">OPEN ASK LAB →</a></div>
       </div>`);
+      // ── NEEDS YOUR ATTENTION ─────────────────────────────────────────
+      // Ask Lab has always held this, spread over tabs — which meant the
+      // honest answer to "where do I see what needs us?" was "open the
+      // console, pick a tab, and read". One number on the card, straight
+      // into the list. Silent when there is nothing, because a badge that
+      // is always lit stops meaning anything.
+      const AT = A.attention;
+      if (AT && AT.total > 0) {
+        el.insertAdjacentHTML("beforeend", `<div class="panel fam" style="border:1px solid var(--kumkuma)">
+          <h3 style="display:flex;align-items:center;gap:8px">
+            <span style="display:inline-flex;min-width:26px;height:26px;padding:0 8px;border-radius:999px;background:var(--kumkuma);color:#FFF7EC;font-weight:800;align-items:center;justify-content:center">${AT.total}</span>
+            needs your attention
+          </h3>
+          ${[["Told us we misread them", AT.possibleWrong, "POSSIBLE_WRONG"],
+             ["Marked the answer bad", AT.thumbsDown, "THUMBS_DOWN"],
+             ["Hit a real లక్ష్మణ రేఖ", AT.rekha, "REKHA"],
+             ["Waiting for an answer", AT.awaitingAnswer, "AWAITING_ANSWER"]]
+            .filter(([, n]) => n > 0)
+            .map(([l, n]) => `<div class="row"><span>${l}</span><b>${n}</b></div>`).join("")
+            || '<div class="st">nothing outstanding</div>'}
+          <div style="margin-top:12px"><a href="#" id="openattention" style="font-weight:700;color:var(--kumkuma)">SEE WHAT NEEDS US →</a></div>
+        </div>`);
+      }
       setTimeout(() => {
         const btn = document.getElementById("openasklab");
         if (btn) btn.onclick = (ev) => { ev.preventDefault(); openAskLab(A); };
+        const att = document.getElementById("openattention");
+        if (att) att.onclick = (ev) => { ev.preventDefault(); openAskLab(A, "Attention"); };
       }, 0);
       return el;
     });
 
     // ── Ask Lab — tabbed console: Overview · Conversations · Questions ·
     //    Review · Knowledge · Muhurtham · Cost ──────────────────────────
-    function openAskLab(A) {
+    function openAskLab(A, focusTab) {
       let ov = document.getElementById("asklab");
-      if (ov) { ov.style.display = "block"; return; }
+      // Reopening: selectTab is hoisted but CLOSES OVER `TABS`, a const
+      // declared further down — calling it here would hit the temporal
+      // dead zone and throw. Use the handle the first open published.
+      if (ov) { ov.style.display = "block"; if (focusTab) window.__asklabSelectTab?.(focusTab); return; }
       ov = document.createElement("div");
       ov.id = "asklab";
       ov.style.cssText = "position:fixed;inset:0;background:var(--bg,#141010);z-index:50;overflow:auto;padding:20px 16px 60px";
@@ -437,6 +465,33 @@
 
       // ── tab contents ──
       const T = {};
+      // Per-TURN work, not per-intent aggregates: these are individual
+      // people waiting on something. Session id included so a click can
+      // land on the actual conversation in Conversations.
+      const ATT = A.attention ?? { total: 0, items: [] };
+      const attLabel = {
+        POSSIBLE_WRONG: ["⚠ they told us we misread them", "var(--bad,#c66)"],
+        THUMBS_DOWN: ["👎 marked the answer bad", "var(--warn,#ca4)"],
+        REKHA: ["లక్ష్మణ రేఖ — a real boundary", "var(--soft)"],
+        AWAITING_ANSWER: ["🔔 waiting for an answer we promised", "var(--kumkuma)"],
+      };
+      T.Attention = `
+        <div class="panel fam">
+          <h3>${ATT.total} thing${ATT.total === 1 ? "" : "s"} want a human</h3>
+          <div class="st" style="margin-bottom:10px">Newest first. Anything already marked reviewed drops off by itself.</div>
+          ${rows((ATT.items ?? []).map((i) => {
+            const [lbl, col] = attLabel[i.kind] ?? [i.kind, "var(--soft)"];
+            return `<div class="row"><span><b style="color:${col}">${lbl}</b><br>
+              <span style="color:var(--soft);font-size:12px">${esc(i.intent)} · ${new Date(i.ts).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}</span></span>
+              <span class="nums"><a href="#" data-att-sid="${esc(i.sid ?? "")}" style="font-size:12px;font-weight:700;color:var(--kumkuma)">open chat →</a></span></div>`;
+          }))}
+        </div>
+        <div class="panel fam"><h3>What each one means</h3>
+          <div class="row"><span>⚠ they told us we misread them</span><span class="st">the next message was a correction — read both turns</span></div>
+          <div class="row"><span>👎 marked the answer bad</span><span class="st">the answer was wrong, cold, or beside the point</span></div>
+          <div class="row"><span>లక్ష్మణ రేఖ</span><span class="st">a genuine boundary. If these climb, we are too strict again</span></div>
+          <div class="row"><span>🔔 waiting for an answer</span><span class="st">they asked to be told. Answer it, then push</span></div>
+        </div>`;
       T.Overview = `
         <div class="panel fam"><div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
           ${["today", "d7", "d30"].map((r, i) => `<button data-range="${r}" style="padding:5px 12px;border-radius:999px;font-weight:${i === 1 ? 800 : 400}">${["Today", "7 days", "30 days"][i]}</button>`).join("")}
@@ -527,7 +582,8 @@
           <div id="asklab-filters" style="display:none;margin-top:8px;gap:6px;flex-wrap:wrap"></div>
           <div id="asklab-convos" style="margin-top:12px"></div></div>`;
 
-      const TABS = ["Overview", "Conversations", "Questions", "Review", "Knowledge", "Muhurtham", "Cost"];
+      // Attention first: the work comes before the metrics.
+      const TABS = ["Attention", "Overview", "Conversations", "Questions", "Review", "Knowledge", "Muhurtham", "Cost"];
       ov.innerHTML = `
         <div style="max-width:980px;margin:0 auto">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
@@ -541,10 +597,29 @@
           ${TABS.map((t, i) => `<div id="tab-${t}" style="display:${i === 0 ? "block" : "none"}">${T[t]}</div>`).join("")}
         </div>`;
       document.body.appendChild(ov);
+      function selectTab(name) {
+        if (!TABS.includes(name)) return;
+        TABS.forEach((t) => {
+          const pane = document.getElementById("tab-" + t);
+          if (pane) pane.style.display = t === name ? "block" : "none";
+        });
+        ov.querySelectorAll("#asklab-tabs button").forEach((x) => {
+          x.style.fontWeight = x.dataset.tab === name ? 800 : 400;
+        });
+      }
+      if (focusTab) selectTab(focusTab);
       document.getElementById("asklab-close").onclick = (ev) => { ev.preventDefault(); ov.style.display = "none"; };
-      ov.querySelectorAll("#asklab-tabs button").forEach((b) => b.onclick = () => {
-        TABS.forEach((t) => document.getElementById("tab-" + t).style.display = t === b.dataset.tab ? "block" : "none");
-        ov.querySelectorAll("#asklab-tabs button").forEach((x) => x.style.fontWeight = x === b ? 800 : 400);
+      ov.querySelectorAll("#asklab-tabs button").forEach((b) => b.onclick = () => selectTab(b.dataset.tab));
+      // Named so the card's "SEE WHAT NEEDS US" can jump straight here.
+      window.__asklabSelectTab = selectTab;
+      // Clicking an attention row filters Conversations to that session —
+      // the point of the list is to land IN the conversation, not near it.
+      ov.querySelectorAll("a[data-att-sid]").forEach((a) => a.onclick = (ev) => {
+        ev.preventDefault();
+        const sid = a.dataset.attSid;
+        selectTab("Conversations");
+        const box = document.getElementById("asklab-search");
+        if (box && sid) { box.value = sid; box.dispatchEvent(new Event("input", { bubbles: true })); }
       });
       ov.querySelectorAll("button[data-range]").forEach((b) => b.onclick = () => {
         document.getElementById("asklab-kpis").innerHTML = kpirow(A[b.dataset.range] ?? {});
