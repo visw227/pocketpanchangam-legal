@@ -660,7 +660,11 @@
         if (from && c.ts < new Date(from).getTime()) return false;
         if (to && c.ts > new Date(to).getTime() + dayMs) return false;
         const q = (document.getElementById("asklab-search").value || "").toLowerCase();
-        if (q && !t.some((x) => (x.q || "").toLowerCase().includes(q) || (x.intent || "").toLowerCase().includes(q))) return false;
+        // Session id counts as a match: the Attention tab deep-links by
+        // sid, and without this the jump landed on "no conversations
+        // match" — a link that navigates you to an empty room.
+        if (q && String(c.sid || "").toLowerCase() !== q
+            && !t.some((x) => (x.q || "").toLowerCase().includes(q) || (x.intent || "").toLowerCase().includes(q))) return false;
         return true;
       };
       const render = () => {
