@@ -152,6 +152,48 @@
     });
 
     // ── why MAU/WAU are not up there ──
+    // ── DOES A FESTIVAL CROWD COME BACK? ────────────────────────────
+    // First among the deep panels because it is the question the founder
+    // is actually losing sleep over — and because it expires: once చవితి
+    // has passed this stops being a question and becomes the record of
+    // the answer.
+    section(() => {
+      const f = d.festivalReturn;
+      if (!f) return null;
+      const el = $('<div class="panel" style="margin-top:10px"></div>');
+      const row = (label, val, sub) =>
+        `<div style="min-width:130px"><div class="k">${label}</div><div style="font-size:26px;font-weight:800">${val}</div>${sub ? `<div class="l">${sub}</div>` : ""}</div>`;
+      const side = (name, o, colour) => `
+        <div style="flex:1;min-width:260px;border-left:3px solid ${colour};padding-left:12px">
+          <div class="k">${name}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:6px">
+            ${row("SIZE", n(o.size))}
+            ${row("ACTIVE · 7d", n(o.active7), pct(o.active7Pct) + " of them")}
+            ${row("RUN-UP", n(o.runupReturn), pct(o.runupPct) + " since " + f.runupFrom)}
+            ${row("ON చవితి", n(o.chavithiReturn), pct(o.chavithiPct))}
+          </div>
+        </div>`;
+      const waiting = f.daysToChavithi > 0;
+      el.innerHTML = `
+        <div class="k">DOES THE FESTIVAL CROWD COME BACK?</div>
+        <div class="l" style="margin-bottom:10px">${f.note}</div>
+        ${waiting ? `<div class="note" style="margin:0 0 12px">
+            <b style="color:var(--soft)">${f.daysToChavithi} days to వినాయక చవితి (${f.chavithiDay}).</b>
+            RUN-UP and ON చవితి read 0 until those dates arrive — that is the clock, not the answer.
+            Read ACTIVE · 7d today: if the festival column sits close to the organic one, the crowd is
+            behaving like ordinary users and the floor is real.
+          </div>` : ""}
+        <div style="display:flex;flex-wrap:wrap;gap:22px">
+          ${side("వరలక్ష్మీ CROWD · installed 16–22 Aug", f.festival, "var(--kumkuma,#DCB25C)")}
+          ${side("ORDINARY DAY · installed before 16 Aug", f.organic, "rgba(255,255,255,.25)")}
+        </div>
+        <div class="l" style="margin-top:12px">
+          The comparison is the point. A festival cohort retaining like the organic one means వరలక్ష్మీ brought
+          real households and not curiosity — and చవితి should lift the floor again rather than replace it.
+        </div>`;
+      return el;
+    });
+
     // ── WHAT PEOPLE REACH FOR ───────────────────────────────────────
     // The founder's question, 2026-09-01: "let us see what ppl are more
     // interested in." Every denominator here is PHONES THAT TOUCHED THE
