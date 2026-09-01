@@ -152,6 +152,74 @@
     });
 
     // ── why MAU/WAU are not up there ──
+    // ── WHAT PEOPLE REACH FOR ───────────────────────────────────────
+    // The founder's question, 2026-09-01: "let us see what ppl are more
+    // interested in." Every denominator here is PHONES THAT TOUCHED THE
+    // THING, never the whole base — a feature nobody opened must read as
+    // silence, not as a zero next to 56,000.
+    section(() => {
+      const i = d.interest;
+      if (!i) return null;
+      const el = $('<div class="panel" style="margin-top:10px"></div>');
+      const row = (label, val, sub) =>
+        `<div style="min-width:120px"><div class="k">${label}</div><div style="font-size:26px;font-weight:800">${val}</div>${sub ? `<div class="l">${sub}</div>` : ""}</div>`;
+      const bars = (obj) => {
+        const es = Object.entries(obj || {}).sort((a, b) => b[1] - a[1]);
+        const top = es.length ? es[0][1] : 1;
+        return es.map(([k, v]) =>
+          `<div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+             <div style="width:70px;font-size:12px;color:var(--soft)">${k}</div>
+             <div style="flex:1;height:6px;background:rgba(220,178,92,.14);border-radius:3px;overflow:hidden">
+               <div style="height:6px;width:${Math.round((v / top) * 100)}%;background:var(--kumkuma,#DCB25C)"></div></div>
+             <div style="width:44px;text-align:right;font-size:12px">${n(v)}</div></div>`).join("");
+      };
+      const card = (t, o, made, sent) => `
+        <div style="margin-top:14px">
+          <div class="k">${t}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:18px;margin-top:6px">
+            ${row("PHONES", n(o.phones), "made at least one")}
+            ${row(made, n(o.revealed ?? o.made))}
+            ${row(sent, n(o.sent))}
+            ${row("SENT BY", pct(o.sendRate), o.sharers + " of " + o.phones + " phones")}
+            ${row("INDIA / NRI", n(o.india) + " / " + n(o.nri))}
+          </div></div>`;
+      el.innerHTML = `
+        <div class="k">WHAT PEOPLE REACH FOR</div>
+        <div class="l" style="margin-bottom:4px">counts only — no mantra, no chart, no name ever leaves a phone</div>
+        ${i.ponthana ? card("పొంతన CARD", i.ponthana, "MADE", "SENT") : ""}
+        ${i.birthday ? card("పుట్టినరోజు CARD", i.birthday, "SHOWN", "SENT") : ""}
+        ${i.nitya ? `
+        <div style="margin-top:16px">
+          <div class="k">నిత్య పూజ</div>
+          <div style="display:flex;flex-wrap:wrap;gap:18px;margin-top:6px">
+            ${row("PHONES", n(i.nitya.phones))}
+            ${row("OPENED", n(i.nitya.opened))}
+            ${row("FINISHED", n(i.nitya.finished), pct(i.nitya.finishRate) + " of phones")}
+            ${row("LAMPS · 30d", n(i.nitya.lamps30), "median " + n(i.nitya.medianLamps30) + " per phone")}
+            ${row("HELD 7+ DAYS", n(i.nitya.heldThisMonth), "the retention number")}
+          </div>
+          <div class="l" style="margin-top:8px">WHICH VERSION they keep — the question the puja library turns on</div>
+          <div style="display:flex;flex-wrap:wrap;gap:18px;margin-top:4px">
+            ${row("సులువు · 10 min", n(i.nitya.simple), i.nitya.preferSimple + " phones prefer it")}
+            ${row("వివరమైన · 25 min", n(i.nitya.detailed), i.nitya.preferDetailed + " phones prefer it")}
+          </div></div>` : ""}
+        ${i.japa ? `
+        <div style="margin-top:16px">
+          <div class="k">జప మాల</div>
+          <div style="display:flex;flex-wrap:wrap;gap:18px;margin-top:6px">
+            ${row("PHONES", n(i.japa.phones))}
+            ${row("JAPAS", n(i.japa.japas), "median " + n(i.japa.medianJapas) + " per phone")}
+            ${row("CAME BACK", n(i.japa.repeatDays), "more than one day")}
+            ${row("DAYS", n(i.japa.medianDays), "median per phone")}
+            ${row("SANKALPAM", n(i.japa.vows), "carrying a live vow")}
+          </div>
+          <div class="l" style="margin-top:8px">the ring they actually tell on</div>
+          ${bars(i.japa.byBeads)}
+          ${Object.keys(i.japa.byVow || {}).length ? `<div class="l" style="margin-top:8px">vows taken</div>${bars(i.japa.byVow)}` : ""}
+        </div>` : ""}`;
+      return el;
+    });
+
     section(() => d.mauIsDegenerate ? $(`
       <div class="panel" style="margin-top:10px">
         <div class="note" style="margin:0">
