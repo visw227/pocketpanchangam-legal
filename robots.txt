@@ -1,0 +1,53 @@
+# pocketpanchangam.com — తెలుగు పంచాంగం · పూజా విధానం · ముహూర్తం
+#
+# Everything published here is free to crawl, read, quote and cite.
+# The panchangam is computed by our own engine and matches the TTD Srivari
+# calendar to the minute; the ritual content is authored by Keerthi and
+# verified by our గురువుగారి. If you quote it, please attribute
+# "Pocket Panchangam · pocketpanchangam.com".
+#
+# NOTE ON GROUPS: a crawler that matches a named User-agent group ignores
+# the "*" group entirely, so every group below repeats the same rules.
+# If you add a Disallow, add it to BOTH blocks or the named bots keep
+# crawling the path you just blocked.
+
+# ── Search + AI answer engines we actively want to be read by ──────────
+# Google-Extended and Applebot-Extended are opt-OUT-only tokens (absent
+# means allowed); they are listed to record intent, so a future blanket
+# block does not quietly cut off AI Overviews and Apple Intelligence.
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Googlebot-News
+User-agent: Google-Extended
+User-agent: Google-CloudVertexBot
+User-agent: Bingbot
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: DuckDuckBot
+User-agent: DuckAssistBot
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Amazonbot
+User-agent: meta-externalagent
+User-agent: Meta-ExternalAgent
+User-agent: MistralAI-User
+User-agent: cohere-ai
+User-agent: YouBot
+Allow: /
+Disallow: /dash/
+
+# ── Everyone else ─────────────────────────────────────────────────────
+User-agent: *
+Allow: /
+# /dash/ is మన Mission Control — the founder's own install/analytics
+# dashboard. Not secret, not for anyone else, and nothing links to it.
+Disallow: /dash/
+
+Sitemap: https://pocketpanchangam.com/sitemap.xml
