@@ -93,7 +93,16 @@
   var path = "/" + (pretty[to] || (to.indexOf("bhakti/") === 0 ? "story/" + to.slice(7) : to));
   var src = (qs.get("src") || qs.get("s") || "")
     .toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 24);
-  location.replace(path + (src ? "?s=" + src : ""));
+  // The route's own params ride along (?p=<puja>&shelf=list — the checklist
+  // door, 2026-10-09); only the router's to/src/s are its own. Same rule as
+  // 404.html, which forwards them into the app.
+  var extras = [];
+  qs.forEach(function (v, k) {
+    if (k === "to" || k === "src" || k === "s") return;
+    extras.push(encodeURIComponent(k) + "=" + encodeURIComponent(v));
+  });
+  if (src) extras.push("s=" + src);
+  location.replace(path + (extras.length ? "?" + extras.join("&") : ""));
 })();
 </script>
 </body>
