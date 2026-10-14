@@ -6,6 +6,7 @@
 <title>శ్రీ మహాచండీ దేవి · శ్రీ కూష్మాండా దేవి · శరన్నవరాత్రులు 4వ రోజు · Pocket Panchangam</title>
 <meta name="description" content="శరన్నవరాత్రుల 4వ రోజు — విజయవాడ ఆచారంలో శ్రీ మహాచండీ దేవి, నవదుర్గ ఆచారంలో శ్రీ కూష్మాండా దేవి దర్శనం. పాకెట్ పంచాంగం యాప్‌లో రోజూ అమ్మవారి దర్శనం, పూజ విధానం.">
 <meta name="theme-color" content="#17110D">
+<meta name="apple-itunes-app" content="app-id=6787660096, app-argument=pocketpanchangam://bhakti/m-2026-10-13-2157">
 <link rel="icon" type="image/png" href="/icon.png">
 <link rel="apple-touch-icon" href="/icon.png">
 <meta property="og:type" content="video.other">
@@ -43,6 +44,13 @@
   .badges a{display:inline-flex;align-items:center;height:52px;overflow:hidden;border-radius:9px}
   .badges img.as{height:52px}
   .badges img.gp{height:78px;margin:-13px 0}
+  .frame{position:relative}
+  .endcard{position:absolute;inset:3px;border-radius:17px;background:rgba(18,10,6,.88);display:flex;flex-direction:column;
+    align-items:center;justify-content:center;padding:26px 22px;text-align:center;gap:16px}
+  .endcard p{margin:0;font-size:19px;line-height:1.6;font-weight:800;color:var(--cream)}
+  .endcard a.btn{margin-top:4px}
+  .endcard button{background:none;border:1.5px solid var(--gold);color:var(--gold);border-radius:999px;padding:12px 24px;
+    font-size:15px;font-weight:800;font-family:inherit;min-height:46px}
   footer{margin-top:22px;font-size:11px;letter-spacing:1.5px;color:var(--gold);font-weight:700}
 </style>
 </head>
@@ -51,11 +59,16 @@
   <div class="frame">
     <video id="vid" src="/bhakti/video/story/nv26-d4-mahachandi.mp4" poster="/bhakti/video/story/nv26-d4-mahachandi.jpg"
       playsinline controls preload="metadata"></video>
+    <div class="endcard" id="end" hidden>
+      <p>రోజూ అమ్మవారి దర్శనం, పూజ విధానం —<br>పాకెట్ పంచాంగం యాప్‌లో</p>
+      <a class="btn" id="end-get" href="#">ఉచితంగా డౌన్‌లోడ్ చేయండి · Get the app</a>
+      <button id="again" type="button">మళ్ళీ చూడండి · Watch again</button>
+    </div>
   </div>
   <p class="eyebrow">శరన్నవరాత్రులు · 4వ రోజు</p>
   <h1>శ్రీ మహాచండీ దేవి · శ్రీ కూష్మాండా దేవి 🙏</h1>
   <p class="note">విజయవాడ ఆచారం: శ్రీ మహాచండీ దేవి · నవదుర్గ ఆచారం: శ్రీ కూష్మాండా దేవి</p>
-  <a class="btn" id="open" href="#">యాప్‌లో పూజ చేయండి · Open in app</a>
+  <a class="btn" id="open" href="#">యాప్‌లో చూడండి · Open in app</a>
   <p class="note" id="note">పాకెట్ పంచాంగం ఉచిత యాప్ — రోజూ అమ్మవారి దర్శనం, పూజ విధానం, పంచాంగం.</p>
   <div class="badges">
     <a id="badge-ios" href="https://apps.apple.com/app/id6787660096"><img class="as" alt="Download on the App Store" src="/badges/app-store.svg" width="156" height="52"></a>
@@ -69,6 +82,7 @@
   // ?s=<ref> (sanitised) is beaconed to Firestore 'clicks' once on landing,
   // and every store door goes through /go?r=<ref> so Apple ct= / Play
   // utm_source carry it. No ?s= → ref "vid-nv26d4".
+  var PAGE = "nv26-d4", STORY = "m-2026-10-13-2157";
   var qs = new URLSearchParams(location.search);
   var src = (qs.get("s") || qs.get("src") || "vid-nv26d4").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 24);
   var ua = navigator.userAgent || "";
@@ -91,12 +105,34 @@
   function go(store){ return "/go?r=" + src + (store ? "&p=" + store : ""); }
   document.getElementById("badge-ios").href = go("ios");
   document.getElementById("badge-android").href = go("android");
-  var to = "vrat", deepQuery = "?p=sharannavaratri";
+  // store taps get their own row (st-), so landings and store doors separate
+  ["badge-ios", "badge-android", "end-get"].forEach(function(id){
+    document.getElementById(id).addEventListener("click", function(){ beacon("st-" + PAGE); });
+  });
+  // the old (1.3.5) app's in-app button lands here: they HAVE the app — no
+  // open/download push for them, just the video
+  var fromApp = /^vbtn-/.test(src);
+  var store = isIOS ? "ios" : isAndroid ? "android" : "";
+  var vid = document.getElementById("vid"), end = document.getElementById("end");
+  document.getElementById("end-get").href = go(store);
+  if (fromApp) document.getElementById("end-get").hidden = true;
+  var ended = false;
+  vid.addEventListener("ended", function(){
+    if (!ended) { ended = true; beacon("vend-" + PAGE); }
+    end.hidden = false;
+  });
+  document.getElementById("again").addEventListener("click", function(){
+    end.hidden = true; try { vid.currentTime = 0; vid.play(); } catch (e) {}
+  });
+  var to = "bhakti/" + STORY, deepQuery = "";
   var open = document.getElementById("open");
+  if (fromApp) open.hidden = true;
+  open.addEventListener("click", function(){ beacon((open.getAttribute("data-install") ? "st-" : "oia-") + PAGE); });
   function showInstall(store){
+    open.setAttribute("data-install", "1");
     open.textContent = "ఉచితంగా డౌన్‌లోడ్ చేయండి · Get the app";
     open.href = go(store);
-    document.getElementById("note").textContent = "డౌన్‌లోడ్ అయ్యాక యాప్‌లో శరన్నవరాత్రుల పూజ కనిపిస్తుంది · After installing, Navaratri puja is right on Home.";
+    document.getElementById("note").textContent = "డౌన్‌లోడ్ అయ్యాక యాప్‌లో రోజూ అమ్మవారి దర్శనం, పూజ విధానం · After installing: the daily darshan and puja, right on Home.";
   }
   if (isAndroid) {
     open.href = "intent://" + to + deepQuery + "#Intent;scheme=pocketpanchangam;package=com.pocketpanchangam.app;" +
