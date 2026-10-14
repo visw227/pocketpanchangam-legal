@@ -2,10 +2,27 @@
   "applinks": {
     "details": [
       {
-        "appIDs": ["RPBB7AQNS5.com.pocketpanchangam.app"],
-        "components": [{ "/": "/open.html*" }]
+        "appIDs": [
+          "RPBB7AQNS5.com.pocketpanchangam.app"
+        ],
+        "components": [
+          {
+            "/": "/open.html*"
+          },
+          {
+            "/": "/v/*",
+            "?": {
+              "to": "bhakti/*"
+            },
+            "comment": "shared video links carrying to=bhakti/<id> open the story in the app"
+          }
+        ]
       }
     ]
   },
-  "webcredentials": { "apps": ["RPBB7AQNS5.com.pocketpanchangam.app"] }
+  "webcredentials": {
+    "apps": [
+      "RPBB7AQNS5.com.pocketpanchangam.app"
+    ]
+  }
 }
