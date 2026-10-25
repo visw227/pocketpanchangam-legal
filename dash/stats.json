@@ -1,7 +1,7 @@
 {
- "updated": "2026-10-25T11:30:05.201Z",
- "installsTotal": 75660,
- "installsToday": 47,
+ "updated": "2026-10-25T16:20:05.686Z",
+ "installsTotal": 75686,
+ "installsToday": 73,
  "installsByDay": {
   "2026-08-18": 21039,
   "2026-08-19": 12278,
@@ -89,7 +89,7 @@
   "2026-10-05": 84,
   "2026-10-07": 76,
   "2026-10-08": 73,
-  "2026-10-25": 47,
+  "2026-10-25": 73,
   "2026-07-28": 33,
   "2026-07-27": 31,
   "2026-07-26": 29,
@@ -99,14 +99,14 @@
   "2026-07-30": 9,
   "2026-07-23": 4
  },
- "activeNow": 11,
- "dau": 3097,
- "wau": 12236,
- "mau": 27305,
+ "activeNow": 21,
+ "dau": 3351,
+ "wau": 12244,
+ "mau": 27290,
  "byCountry": {
-  "IN": 32526,
-  "US": 25601,
-  "GB": 15867,
+  "IN": 32529,
+  "US": 25607,
+  "GB": 15884,
   "AU": 581,
   "CA": 385,
   "AE": 142,
@@ -179,40 +179,40 @@
   "AC": 1
  },
  "byRegion": {
-  "India": 69361,
+  "India": 69388,
   "USA-Canada": 3582,
   "Gulf": 1075,
-  "UK-Europe": 806,
+  "UK-Europe": 805,
   "ANZ": 541,
   "SEA-East": 210,
   "Other": 85
  },
  "byPlatform": {
-  "android": 67578,
+  "android": 67604,
   "ios": 8079,
   "web": 3
  },
  "byVersion": {
-  "1.4.1": 31459,
-  "1.3.5": 31309,
-  "1.4.0": 12843,
+  "1.4.1": 31478,
+  "1.3.5": 31305,
+  "1.4.0": 12854,
   "1.3.3": 49
  },
  "byBand": {
-  "p330": 69355,
+  "p330": 69382,
   "n240": 1679,
-  "n300": 1230,
-  "p180": 549,
-  "n420": 541,
-  "p240": 528,
-  "p60": 503,
+  "n300": 1229,
+  "p180": 550,
+  "n420": 542,
+  "p240": 527,
+  "p60": 496,
   "p600": 293,
-  "p120": 265,
+  "p120": 262,
   "p480": 235,
   "p660": 140,
   "n360": 129,
+  "p0": 47,
   "p720": 39,
-  "p0": 38,
   "p780": 33,
   "p570": 22,
   "n180": 17,
@@ -227,15 +227,15 @@
   "p390": 2
  },
  "indiaShare": 92,
- "newDau": 88,
- "returningDau": 3009,
- "matureBase": 75572,
- "matureActive7": 12148,
+ "newDau": 90,
+ "returningDau": 3261,
+ "matureBase": 75596,
+ "matureActive7": 12154,
  "matureActive7Pct": 16.1,
  "regular": {
   "note": "descriptive, among phones that report `ad`; windows are calendar dates (thisWeek = D−7..D−1, lastWeek = D−14..D−8, D = the last calendar date that has ended in every time zone at this run) in each phone's own local calendar; a phone counts for a window only if it observed every day of it (unobserved ≠ zero); days after the phone's last pulse count as inactive and are reported as staleness — read pctRegularsOfPulsing when the base has aged (fullThisWeek keeps dead docs forever); regular = opened on ≥ 3 days of the window",
   "windows": {
-   "refDay": "2026-10-24",
+   "refDay": "2026-10-25",
    "thisWeek": [
     "D-7",
     "D-1"
@@ -246,122 +246,122 @@
    ]
   },
   "coverage": {
-   "docs": 19414,
+   "docs": 19493,
    "malformed": 0,
-   "pctOfInstalls": 25.7,
-   "pctOfWau": 93.1,
-   "pctOfDau": 96,
-   "fullThisWeek": 17665,
+   "pctOfInstalls": 25.8,
+   "pctOfWau": 93.2,
+   "pctOfDau": 96.2,
+   "fullThisWeek": 18010,
    "fullFourWeeks": 0,
    "staleness": {
-    "0": 5733,
-    "1-3": 4042,
-    "4-7": 3773,
-    "8-14": 4356,
-    "15+": 1510
+    "0": 4884,
+    "1-3": 3619,
+    "4-7": 4458,
+    "8-14": 4625,
+    "15+": 1907
    }
   },
   "thisWeekStatus": "ok",
   "thisWeekActiveDays": {
-   "0": 7200,
-   "1": 4015,
-   "2": 2313,
-   "3": 1497,
-   "4": 1093,
-   "5": 676,
-   "6": 450,
-   "7": 421
+   "0": 7667,
+   "1": 4162,
+   "2": 2330,
+   "3": 1577,
+   "4": 925,
+   "5": 584,
+   "6": 384,
+   "7": 381
   },
-  "fourWeeksStatus": "UNAVAILABLE — no phone has observed the whole 28-day window D−28..D−1 yet (19414 reporting; a phone's coverage grows one day per day since its OTA)",
+  "fourWeeksStatus": "UNAVAILABLE — no phone has observed the whole 28-day window D−28..D−1 yet (19493 reporting; a phone's coverage grows one day per day since its OTA)",
   "fourWeekActiveDays": null,
-  "reporting": 19414,
-  "fullThisWeek": 17665,
-  "fullThisWeekWithPulse": 11003,
-  "fullBothWeeks": 12566,
-  "regularsThisWeek": 4137,
-  "pctRegularsOfFull": 23.4,
-  "pctRegularsOfPulsing": 37.6,
-  "regularsLastWeek": 4363,
-  "stillRegular": 2407,
-  "stillSeen": 3732,
-  "pctStillRegular": 55.2,
-  "pctStillSeen": 85.5,
+  "reporting": 19493,
+  "fullThisWeek": 18010,
+  "fullThisWeekWithPulse": 10725,
+  "fullBothWeeks": 14245,
+  "regularsThisWeek": 3851,
+  "pctRegularsOfFull": 21.4,
+  "pctRegularsOfPulsing": 35.9,
+  "regularsLastWeek": 4741,
+  "stillRegular": 2466,
+  "stillSeen": 4027,
+  "pctStillRegular": 52,
+  "pctStillSeen": 84.9,
   "byRegion": {
    "India": {
-    "reporting": 16843,
-    "fullThisWeek": 15340,
-    "fullThisWeekWithPulse": 9419,
-    "fullBothWeeks": 10899,
-    "regularsThisWeek": 3457,
-    "pctRegularsOfFull": 22.5,
-    "pctRegularsOfPulsing": 36.7,
-    "regularsLastWeek": 3707,
-    "stillRegular": 2001,
-    "stillSeen": 3154,
-    "pctStillRegular": 54,
-    "pctStillSeen": 85.1
+    "reporting": 16916,
+    "fullThisWeek": 15627,
+    "fullThisWeekWithPulse": 9161,
+    "fullBothWeeks": 12389,
+    "regularsThisWeek": 3220,
+    "pctRegularsOfFull": 20.6,
+    "pctRegularsOfPulsing": 35.1,
+    "regularsLastWeek": 4044,
+    "stillRegular": 2065,
+    "stillSeen": 3407,
+    "pctStillRegular": 51.1,
+    "pctStillSeen": 84.2
    },
    "Outside": {
-    "reporting": 2571,
-    "fullThisWeek": 2325,
-    "fullThisWeekWithPulse": 1584,
-    "fullBothWeeks": 1667,
-    "regularsThisWeek": 680,
-    "pctRegularsOfFull": 29.2,
-    "pctRegularsOfPulsing": 42.9,
-    "regularsLastWeek": 656,
-    "stillRegular": 406,
-    "stillSeen": 578,
-    "pctStillRegular": 61.9,
-    "pctStillSeen": 88.1
+    "reporting": 2577,
+    "fullThisWeek": 2383,
+    "fullThisWeekWithPulse": 1564,
+    "fullBothWeeks": 1856,
+    "regularsThisWeek": 631,
+    "pctRegularsOfFull": 26.5,
+    "pctRegularsOfPulsing": 40.3,
+    "regularsLastWeek": 697,
+    "stillRegular": 401,
+    "stillSeen": 620,
+    "pctStillRegular": 57.5,
+    "pctStillSeen": 89
    }
   },
   "byInstallAge": {
    "<14d": {
-    "reporting": 1749,
-    "fullThisWeek": 1336,
-    "fullThisWeekWithPulse": 925,
-    "fullBothWeeks": 0,
-    "regularsThisWeek": 425,
-    "pctRegularsOfFull": 31.8,
-    "pctRegularsOfPulsing": 45.9,
-    "regularsLastWeek": 0,
-    "stillRegular": 0,
-    "stillSeen": 0,
-    "pctStillRegular": null,
-    "pctStillSeen": null
+    "reporting": 1620,
+    "fullThisWeek": 1275,
+    "fullThisWeekWithPulse": 844,
+    "fullBothWeeks": 89,
+    "regularsThisWeek": 351,
+    "pctRegularsOfFull": 27.5,
+    "pctRegularsOfPulsing": 41.6,
+    "regularsLastWeek": 58,
+    "stillRegular": 20,
+    "stillSeen": 40,
+    "pctStillRegular": 34.5,
+    "pctStillSeen": 69
    },
    "14-60d": {
-    "reporting": 5025,
-    "fullThisWeek": 4763,
-    "fullThisWeekWithPulse": 2833,
-    "fullBothWeeks": 3637,
-    "regularsThisWeek": 1156,
-    "pctRegularsOfFull": 24.3,
-    "pctRegularsOfPulsing": 40.8,
-    "regularsLastWeek": 1425,
-    "stillRegular": 734,
-    "stillSeen": 1171,
-    "pctStillRegular": 51.5,
-    "pctStillSeen": 82.2
+    "reporting": 5154,
+    "fullThisWeek": 4927,
+    "fullThisWeekWithPulse": 2810,
+    "fullBothWeeks": 4509,
+    "regularsThisWeek": 1103,
+    "pctRegularsOfFull": 22.4,
+    "pctRegularsOfPulsing": 39.3,
+    "regularsLastWeek": 1666,
+    "stillRegular": 831,
+    "stillSeen": 1379,
+    "pctStillRegular": 49.9,
+    "pctStillSeen": 82.8
    },
    ">60d": {
-    "reporting": 12640,
-    "fullThisWeek": 11566,
-    "fullThisWeekWithPulse": 7245,
-    "fullBothWeeks": 8929,
-    "regularsThisWeek": 2556,
-    "pctRegularsOfFull": 22.1,
-    "pctRegularsOfPulsing": 35.3,
-    "regularsLastWeek": 2938,
-    "stillRegular": 1673,
-    "stillSeen": 2561,
-    "pctStillRegular": 56.9,
-    "pctStillSeen": 87.2
+    "reporting": 12719,
+    "fullThisWeek": 11808,
+    "fullThisWeekWithPulse": 7071,
+    "fullBothWeeks": 9647,
+    "regularsThisWeek": 2397,
+    "pctRegularsOfFull": 20.3,
+    "pctRegularsOfPulsing": 33.9,
+    "regularsLastWeek": 3017,
+    "stillRegular": 1615,
+    "stillSeen": 2608,
+    "pctStillRegular": 53.5,
+    "pctStillSeen": 86.4
    }
   }
  },
- "installsTodayIst": 56,
+ "installsTodayIst": 82,
  "installsByHourIst": {
   "10": 6,
   "11": 8,
@@ -370,6 +370,10 @@
   "14": 8,
   "15": 5,
   "16": 4,
+  "17": 10,
+  "18": 2,
+  "19": 10,
+  "21": 4,
   "00": 5,
   "01": 1,
   "02": 2,
@@ -379,11 +383,7 @@
   "08": 5
  },
  "installsByHourAll": {
-  "2026-10-04T17": 8,
-  "2026-10-04T18": 3,
-  "2026-10-04T19": 17,
-  "2026-10-04T20": 8,
-  "2026-10-04T21": 13,
+  "2026-10-04T21": 1,
   "2026-10-04T23": 1,
   "2026-10-05T00": 3,
   "2026-10-05T01": 2,
@@ -837,7 +837,11 @@
   "2026-10-25T13": 3,
   "2026-10-25T14": 8,
   "2026-10-25T15": 5,
-  "2026-10-25T16": 4
+  "2026-10-25T16": 4,
+  "2026-10-25T17": 10,
+  "2026-10-25T18": 2,
+  "2026-10-25T19": 10,
+  "2026-10-25T21": 4
  },
  "recent": {
   "h1": {
@@ -847,8 +851,7 @@
     "India": 4
    },
    "byCountry": {
-    "GB": 2,
-    "US": 2
+    "GB": 4
    },
    "byBand": {
     "p330": 4
@@ -864,9 +867,9 @@
     "India": 30
    },
    "byCountry": {
-    "US": 15,
-    "IN": 9,
-    "GB": 6
+    "GB": 18,
+    "US": 8,
+    "IN": 4
    },
    "byBand": {
     "p330": 30
@@ -877,26 +880,26 @@
   },
   "h24": {
    "hours": 24,
-   "total": 88,
+   "total": 90,
    "byRegion": {
-    "India": 81,
+    "India": 83,
     "Gulf": 4,
     "USA-Canada": 3
    },
    "byCountry": {
-    "IN": 36,
-    "GB": 26,
-    "US": 25,
+    "GB": 35,
+    "US": 31,
+    "IN": 23,
     "AE": 1
    },
    "byBand": {
-    "p330": 81,
+    "p330": 83,
     "p240": 4,
     "n240": 2,
     "n300": 1
    },
    "byPlatform": {
-    "android": 85,
+    "android": 87,
     "ios": 3
    }
   }
@@ -953,24 +956,24 @@
   "d1": 46.2,
   "d3": 42.7,
   "d7": 39.7,
-  "d14": 36.2,
-  "d30": 28
+  "d14": 36.3,
+  "d30": 28.1
  },
  "retentionBasis": {
   "cohorts": 65,
   "devices": 66325,
   "throughDay": 30
  },
- "dauIndia": 2636,
- "dauNri": 461,
+ "dauIndia": 2877,
+ "dauNri": 474,
  "dauByRegion": {
-  "India": 2636,
-  "USA-Canada": 299,
-  "Gulf": 56,
-  "UK-Europe": 49,
-  "ANZ": 36,
-  "SEA-East": 12,
-  "Other": 9
+  "India": 2877,
+  "USA-Canada": 296,
+  "Gulf": 65,
+  "UK-Europe": 60,
+  "ANZ": 35,
+  "Other": 10,
+  "SEA-East": 8
  },
  "cohorts": [
   {
@@ -1204,8 +1207,8 @@
    "d1": 49.3,
    "d3": 47.4,
    "d7": 42.6,
-   "d14": 39.1,
-   "d30": 30.5
+   "d14": 39.2,
+   "d30": 30.6
   },
   {
    "fo": "2026-08-18",
@@ -1214,7 +1217,7 @@
    "d3": 44.9,
    "d7": 41.5,
    "d14": 38.2,
-   "d30": 29.8
+   "d30": 29.9
   },
   {
    "fo": "2026-08-19",
@@ -1232,15 +1235,15 @@
    "d3": 41.3,
    "d7": 39.3,
    "d14": 36,
-   "d30": 27.5
+   "d30": 27.6
   },
   {
    "fo": "2026-08-21",
    "size": 2861,
-   "d1": 41.4,
+   "d1": 41.5,
    "d3": 39.4,
    "d7": 37.2,
-   "d14": 34,
+   "d14": 34.1,
    "d30": 25.1
   },
   {
@@ -1264,11 +1267,11 @@
   {
    "fo": "2026-08-24",
    "size": 600,
-   "d1": 44,
-   "d3": 42.5,
-   "d7": 39.7,
-   "d14": 36.7,
-   "d30": 29.2
+   "d1": 44.2,
+   "d3": 42.7,
+   "d7": 39.8,
+   "d14": 36.8,
+   "d30": 29.5
   },
   {
    "fo": "2026-08-25",
@@ -1392,9 +1395,9 @@
    "size": 386,
    "d1": 42.2,
    "d3": 40.2,
-   "d7": 35.5,
-   "d14": 31.3,
-   "d30": 24.4
+   "d7": 35.8,
+   "d14": 31.6,
+   "d30": 24.9
   },
   {
    "fo": "2026-09-08",
@@ -1421,7 +1424,7 @@
    "d3": 39.2,
    "d7": 32.7,
    "d14": 29.1,
-   "d30": 20.9
+   "d30": 21.2
   },
   {
    "fo": "2026-09-11",
@@ -1439,7 +1442,7 @@
    "d3": 39.1,
    "d7": 33.8,
    "d14": 31.5,
-   "d30": 21.8
+   "d30": 22
   },
   {
    "fo": "2026-09-13",
@@ -1447,17 +1450,17 @@
    "d1": 33.9,
    "d3": 26.1,
    "d7": 22,
-   "d14": 18.4,
-   "d30": 11
+   "d14": 18.5,
+   "d30": 11.1
   },
   {
    "fo": "2026-09-14",
    "size": 1390,
-   "d1": 29.8,
-   "d3": 25.5,
-   "d7": 21.9,
+   "d1": 29.9,
+   "d3": 25.6,
+   "d7": 22,
    "d14": 18.3,
-   "d30": 11.6
+   "d30": 11.7
   },
   {
    "fo": "2026-09-15",
@@ -1466,16 +1469,16 @@
    "d3": 32.7,
    "d7": 31.9,
    "d14": 27.9,
-   "d30": 19.1
+   "d30": 20.3
   },
   {
    "fo": "2026-09-16",
    "size": 148,
    "d1": 38.5,
    "d3": 36.5,
-   "d7": 33.1,
-   "d14": 29.7,
-   "d30": 19.6
+   "d7": 33.8,
+   "d14": 30.4,
+   "d30": 20.3
   },
   {
    "fo": "2026-09-17",
@@ -1493,7 +1496,7 @@
    "d3": 32.1,
    "d7": 28.6,
    "d14": 23.8,
-   "d30": 14.3
+   "d30": 14.9
   },
   {
    "fo": "2026-09-19",
@@ -1511,7 +1514,7 @@
    "d3": 43,
    "d7": 38.6,
    "d14": 36.8,
-   "d30": 17.5
+   "d30": 19.3
   },
   {
    "fo": "2026-09-21",
@@ -1529,7 +1532,7 @@
    "d3": 36,
    "d7": 32.6,
    "d14": 28,
-   "d30": 9.7
+   "d30": 11.4
   },
   {
    "fo": "2026-09-23",
@@ -1547,7 +1550,7 @@
    "d3": 35.3,
    "d7": 30.1,
    "d14": 27.5,
-   "d30": 7.2
+   "d30": 9.2
   },
   {
    "fo": "2026-09-25",
@@ -1563,17 +1566,17 @@
    "size": 147,
    "d1": 42.2,
    "d3": 39.5,
-   "d7": 36.7,
-   "d14": 31.3,
+   "d7": 37.4,
+   "d14": 32,
    "d30": null
   },
   {
    "fo": "2026-09-27",
    "size": 111,
-   "d1": 38.7,
-   "d3": 36,
-   "d7": 32.4,
-   "d14": 29.7,
+   "d1": 39.6,
+   "d3": 36.9,
+   "d7": 34.2,
+   "d14": 31.5,
    "d30": null
   },
   {
@@ -1606,10 +1609,10 @@
   {
    "fo": "2026-10-01",
    "size": 94,
-   "d1": 34,
-   "d3": 30.9,
-   "d7": 26.6,
-   "d14": 16,
+   "d1": 35.1,
+   "d3": 31.9,
+   "d7": 27.7,
+   "d14": 18.1,
    "d30": null
   },
   {
@@ -1635,17 +1638,17 @@
    "size": 92,
    "d1": 31.5,
    "d3": 27.2,
-   "d7": 22.8,
-   "d14": 19.6,
+   "d7": 23.9,
+   "d14": 20.7,
    "d30": null
   },
   {
    "fo": "2026-10-05",
    "size": 84,
-   "d1": 38.1,
-   "d3": 34.5,
-   "d7": 25,
-   "d14": 22.6,
+   "d1": 39.3,
+   "d3": 35.7,
+   "d7": 28.6,
+   "d14": 26.2,
    "d30": null
   },
   {
@@ -1654,7 +1657,7 @@
    "d1": 33,
    "d3": 30.7,
    "d7": 26.1,
-   "d14": 14.8,
+   "d14": 15.9,
    "d30": null
   },
   {
@@ -1663,7 +1666,7 @@
    "d1": 39.5,
    "d3": 36.8,
    "d7": 31.6,
-   "d14": 22.4,
+   "d14": 23.7,
    "d30": null
   },
   {
@@ -1672,25 +1675,25 @@
    "d1": 39.7,
    "d3": 37,
    "d7": 28.8,
-   "d14": 13.7,
+   "d14": 15.1,
    "d30": null
   },
   {
    "fo": "2026-10-09",
    "size": 645,
-   "d1": 34.1,
-   "d3": 29.6,
-   "d7": 23.9,
-   "d14": 6.7,
+   "d1": 34.3,
+   "d3": 29.8,
+   "d7": 24,
+   "d14": 7.6,
    "d30": null
   },
   {
    "fo": "2026-10-10",
    "size": 2137,
    "d1": 38.1,
-   "d3": 33.4,
-   "d7": 25.9,
-   "d14": 4.4,
+   "d3": 33.5,
+   "d7": 26.2,
+   "d14": 6.3,
    "d30": null
   },
   {
@@ -1698,16 +1701,16 @@
    "size": 1738,
    "d1": 36.3,
    "d3": 31.5,
-   "d7": 24.3,
-   "d14": 1.4,
+   "d7": 24.5,
+   "d14": 2.7,
    "d30": null
   },
   {
    "fo": "2026-10-12",
    "size": 736,
    "d1": 34.2,
-   "d3": 29.1,
-   "d7": 21.6,
+   "d3": 29.2,
+   "d7": 21.7,
    "d14": null,
    "d30": null
   },
@@ -1716,7 +1719,7 @@
    "size": 467,
    "d1": 36,
    "d3": 31,
-   "d7": 18.6,
+   "d7": 19.1,
    "d14": null,
    "d30": null
   },
@@ -1725,34 +1728,34 @@
    "size": 265,
    "d1": 34,
    "d3": 27.5,
-   "d7": 14.3,
+   "d7": 14.7,
    "d14": null,
    "d30": null
   },
   {
    "fo": "2026-10-15",
    "size": 455,
-   "d1": 40.9,
-   "d3": 33.6,
-   "d7": 16.9,
+   "d1": 41.1,
+   "d3": 33.8,
+   "d7": 18,
    "d14": null,
    "d30": null
   },
   {
    "fo": "2026-10-16",
    "size": 288,
-   "d1": 37.5,
-   "d3": 31.9,
-   "d7": 15.3,
+   "d1": 37.8,
+   "d3": 32.3,
+   "d7": 15.6,
    "d14": null,
    "d30": null
   },
   {
    "fo": "2026-10-17",
    "size": 183,
-   "d1": 30.6,
-   "d3": 23,
-   "d7": 8.2,
+   "d1": 32.2,
+   "d3": 24.6,
+   "d7": 11.5,
    "d14": null,
    "d30": null
   },
@@ -1761,7 +1764,7 @@
    "size": 183,
    "d1": 33.9,
    "d3": 25.1,
-   "d7": 1.8,
+   "d7": 3.3,
    "d14": null,
    "d30": null
   },
@@ -1778,7 +1781,7 @@
    "fo": "2026-10-20",
    "size": 170,
    "d1": 26.5,
-   "d3": 14.1,
+   "d3": 14.7,
    "d7": null,
    "d14": null,
    "d30": null
@@ -1786,8 +1789,8 @@
   {
    "fo": "2026-10-21",
    "size": 125,
-   "d1": 22.4,
-   "d3": 10.4,
+   "d1": 23.2,
+   "d3": 13.6,
    "d7": null,
    "d14": null,
    "d30": null
@@ -1795,8 +1798,8 @@
   {
    "fo": "2026-10-22",
    "size": 169,
-   "d1": 21.3,
-   "d3": 4.2,
+   "d1": 21.9,
+   "d3": 7.5,
    "d7": null,
    "d14": null,
    "d30": null
@@ -1804,7 +1807,7 @@
   {
    "fo": "2026-10-23",
    "size": 107,
-   "d1": 12.1,
+   "d1": 13.1,
    "d3": null,
    "d7": null,
    "d14": null,
@@ -1813,7 +1816,7 @@
   {
    "fo": "2026-10-24",
    "size": 114,
-   "d1": 6.8,
+   "d1": 7.2,
    "d3": null,
    "d7": null,
    "d14": null,
@@ -1821,7 +1824,7 @@
   },
   {
    "fo": "2026-10-25",
-   "size": 47,
+   "size": 73,
    "d1": null,
    "d3": null,
    "d7": null,
@@ -2057,12 +2060,12 @@
   },
   {
    "fo": "2026-08-17",
-   "size": 3009,
+   "size": 3010,
    "d1": 46.3,
    "d3": 44.4,
-   "d7": 39.8,
-   "d14": 36.5,
-   "d30": 28.5
+   "d7": 39.9,
+   "d14": 36.6,
+   "d30": 28.6
   },
   {
    "fo": "2026-08-18",
@@ -2071,7 +2074,7 @@
    "d3": 43.4,
    "d7": 40.1,
    "d14": 36.8,
-   "d30": 28.6
+   "d30": 28.7
   },
   {
    "fo": "2026-08-19",
@@ -2080,7 +2083,7 @@
    "d3": 41.5,
    "d7": 38.9,
    "d14": 35.8,
-   "d30": 27.5
+   "d30": 27.6
   },
   {
    "fo": "2026-08-20",
@@ -2089,12 +2092,12 @@
    "d3": 39.7,
    "d7": 37.7,
    "d14": 34.4,
-   "d30": 26.3
+   "d30": 26.4
   },
   {
    "fo": "2026-08-21",
    "size": 2666,
-   "d1": 39.6,
+   "d1": 39.7,
    "d3": 37.7,
    "d7": 35.5,
    "d14": 32.4,
@@ -2121,11 +2124,11 @@
   {
    "fo": "2026-08-24",
    "size": 564,
-   "d1": 42.7,
-   "d3": 41.1,
-   "d7": 38.3,
-   "d14": 35.5,
-   "d30": 27.8
+   "d1": 42.9,
+   "d3": 41.3,
+   "d7": 38.5,
+   "d14": 35.6,
+   "d30": 28.2
   },
   {
    "fo": "2026-08-25",
@@ -2174,12 +2177,12 @@
   },
   {
    "fo": "2026-08-30",
-   "size": 252,
-   "d1": 40.5,
-   "d3": 37.7,
-   "d7": 34.5,
-   "d14": 33.3,
-   "d30": 27
+   "size": 251,
+   "d1": 40.2,
+   "d3": 37.5,
+   "d7": 34.3,
+   "d14": 33.1,
+   "d30": 26.7
   },
   {
    "fo": "2026-08-31",
@@ -2249,9 +2252,9 @@
    "size": 352,
    "d1": 40.3,
    "d3": 38.4,
-   "d7": 33.5,
-   "d14": 29.8,
-   "d30": 22.2
+   "d7": 33.8,
+   "d14": 30.1,
+   "d30": 22.7
   },
   {
    "fo": "2026-09-08",
@@ -2296,43 +2299,43 @@
    "d3": 35.6,
    "d7": 31.5,
    "d14": 29.4,
-   "d30": 19.8
+   "d30": 20
   },
   {
    "fo": "2026-09-13",
    "size": 2169,
    "d1": 32.4,
    "d3": 24.7,
-   "d7": 20.6,
+   "d7": 20.7,
    "d14": 17.2,
-   "d30": 10.3
+   "d30": 10.5
   },
   {
    "fo": "2026-09-14",
    "size": 1227,
-   "d1": 27,
-   "d3": 23.1,
-   "d7": 19.8,
-   "d14": 16.4,
-   "d30": 10
+   "d1": 27.1,
+   "d3": 23.2,
+   "d7": 19.9,
+   "d14": 16.5,
+   "d30": 10.1
   },
   {
    "fo": "2026-09-15",
-   "size": 215,
-   "d1": 34.4,
-   "d3": 30.2,
-   "d7": 29.8,
-   "d14": 25.6,
-   "d30": 18.1
+   "size": 216,
+   "d1": 34.7,
+   "d3": 30.6,
+   "d7": 30.1,
+   "d14": 25.9,
+   "d30": 19.4
   },
   {
    "fo": "2026-09-16",
    "size": 126,
    "d1": 34.9,
    "d3": 33.3,
-   "d7": 30.2,
-   "d14": 26.2,
-   "d30": 16.7
+   "d7": 31,
+   "d14": 27,
+   "d30": 17.5
   },
   {
    "fo": "2026-09-17",
@@ -2350,7 +2353,7 @@
    "d3": 31.1,
    "d7": 28.5,
    "d14": 23.8,
-   "d30": 13.2
+   "d30": 13.9
   },
   {
    "fo": "2026-09-19",
@@ -2368,7 +2371,7 @@
    "d3": 42.3,
    "d7": 37.1,
    "d14": 36.1,
-   "d30": 16.5
+   "d30": 18.6
   },
   {
    "fo": "2026-09-21",
@@ -2381,12 +2384,12 @@
   },
   {
    "fo": "2026-09-22",
-   "size": 157,
-   "d1": 38.9,
-   "d3": 35,
-   "d7": 31.2,
-   "d14": 26.8,
-   "d30": 10.8
+   "size": 158,
+   "d1": 39.2,
+   "d3": 35.4,
+   "d7": 31.6,
+   "d14": 27.2,
+   "d30": 12.7
   },
   {
    "fo": "2026-09-23",
@@ -2404,7 +2407,7 @@
    "d3": 33.8,
    "d7": 28.9,
    "d14": 26.8,
-   "d30": 6.3
+   "d30": 8.5
   },
   {
    "fo": "2026-09-25",
@@ -2420,17 +2423,17 @@
    "size": 122,
    "d1": 39.3,
    "d3": 37.7,
-   "d7": 34.4,
-   "d14": 27.9,
+   "d7": 35.2,
+   "d14": 28.7,
    "d30": null
   },
   {
    "fo": "2026-09-27",
    "size": 97,
-   "d1": 36.1,
-   "d3": 33,
-   "d7": 29.9,
-   "d14": 28.9,
+   "d1": 37.1,
+   "d3": 34,
+   "d7": 32,
+   "d14": 30.9,
    "d30": null
   },
   {
@@ -2463,10 +2466,10 @@
   {
    "fo": "2026-10-01",
    "size": 88,
-   "d1": 31.8,
-   "d3": 28.4,
-   "d7": 23.9,
-   "d14": 14.8,
+   "d1": 33,
+   "d3": 29.5,
+   "d7": 25,
+   "d14": 17,
    "d30": null
   },
   {
@@ -2492,17 +2495,17 @@
    "size": 82,
    "d1": 28,
    "d3": 24.4,
-   "d7": 19.5,
-   "d14": 17.1,
+   "d7": 20.7,
+   "d14": 18.3,
    "d30": null
   },
   {
    "fo": "2026-10-05",
    "size": 77,
-   "d1": 36.4,
-   "d3": 32.5,
-   "d7": 23.4,
-   "d14": 20.8,
+   "d1": 37.7,
+   "d3": 33.8,
+   "d7": 27.3,
+   "d14": 24.7,
    "d30": null
   },
   {
@@ -2511,7 +2514,7 @@
    "d1": 31.8,
    "d3": 29.4,
    "d7": 24.7,
-   "d14": 14.1,
+   "d14": 15.3,
    "d30": null
   },
   {
@@ -2520,7 +2523,7 @@
    "d1": 37.5,
    "d3": 34.7,
    "d7": 30.6,
-   "d14": 20.8,
+   "d14": 22.2,
    "d30": null
   },
   {
@@ -2529,25 +2532,25 @@
    "d1": 39.1,
    "d3": 35.9,
    "d7": 26.6,
-   "d14": 12.5,
+   "d14": 14.1,
    "d30": null
   },
   {
    "fo": "2026-10-09",
    "size": 619,
-   "d1": 33.3,
-   "d3": 29.1,
-   "d7": 23.4,
-   "d14": 6.8,
+   "d1": 33.4,
+   "d3": 29.2,
+   "d7": 23.6,
+   "d14": 7.8,
    "d30": null
   },
   {
    "fo": "2026-10-10",
    "size": 1952,
-   "d1": 36.6,
-   "d3": 31.9,
-   "d7": 24.6,
-   "d14": 4.6,
+   "d1": 36.7,
+   "d3": 32,
+   "d7": 25,
+   "d14": 6.4,
    "d30": null
   },
   {
@@ -2556,15 +2559,15 @@
    "d1": 34.3,
    "d3": 29.8,
    "d7": 22.9,
-   "d14": 1.4,
+   "d14": 2.6,
    "d30": null
   },
   {
    "fo": "2026-10-12",
    "size": 696,
    "d1": 33.3,
-   "d3": 28.2,
-   "d7": 20.5,
+   "d3": 28.3,
+   "d7": 20.7,
    "d14": null,
    "d30": null
   },
@@ -2573,7 +2576,7 @@
    "size": 447,
    "d1": 34.5,
    "d3": 29.8,
-   "d7": 17.7,
+   "d7": 18.1,
    "d14": null,
    "d30": null
   },
@@ -2582,7 +2585,7 @@
    "size": 241,
    "d1": 32.4,
    "d3": 26.6,
-   "d7": 13.3,
+   "d7": 13.7,
    "d14": null,
    "d30": null
   },
@@ -2591,25 +2594,25 @@
    "size": 288,
    "d1": 27.8,
    "d3": 21.2,
-   "d7": 11.5,
+   "d7": 12.5,
    "d14": null,
    "d30": null
   },
   {
    "fo": "2026-10-16",
    "size": 209,
-   "d1": 33.5,
-   "d3": 29.2,
-   "d7": 13.9,
+   "d1": 34,
+   "d3": 29.7,
+   "d7": 14.4,
    "d14": null,
    "d30": null
   },
   {
    "fo": "2026-10-17",
-   "size": 146,
-   "d1": 30.8,
-   "d3": 23.3,
-   "d7": 7.5,
+   "size": 145,
+   "d1": 32.4,
+   "d3": 24.8,
+   "d7": 11,
    "d14": null,
    "d30": null
   },
@@ -2618,7 +2621,7 @@
    "size": 138,
    "d1": 29,
    "d3": 23.9,
-   "d7": 2.3,
+   "d7": 4.1,
    "d14": null,
    "d30": null
   },
@@ -2643,8 +2646,8 @@
   {
    "fo": "2026-10-21",
    "size": 107,
-   "d1": 20.6,
-   "d3": 9.3,
+   "d1": 21.5,
+   "d3": 13.1,
    "d7": null,
    "d14": null,
    "d30": null
@@ -2652,8 +2655,8 @@
   {
    "fo": "2026-10-22",
    "size": 160,
-   "d1": 21.3,
-   "d3": 4.5,
+   "d1": 21.9,
+   "d3": 7.9,
    "d7": null,
    "d14": null,
    "d30": null
@@ -2661,7 +2664,7 @@
   {
    "fo": "2026-10-23",
    "size": 98,
-   "d1": 10.2,
+   "d1": 11.2,
    "d3": null,
    "d7": null,
    "d14": null,
@@ -2670,7 +2673,7 @@
   {
    "fo": "2026-10-24",
    "size": 109,
-   "d1": 6.8,
+   "d1": 7.2,
    "d3": null,
    "d7": null,
    "d14": null,
@@ -2678,7 +2681,7 @@
   },
   {
    "fo": "2026-10-25",
-   "size": 45,
+   "size": 71,
    "d1": null,
    "d3": null,
    "d7": null,
@@ -2905,12 +2908,12 @@
   },
   {
    "fo": "2026-08-17",
-   "size": 429,
-   "d1": 70.2,
-   "d3": 68.3,
-   "d7": 61.8,
-   "d14": 57.3,
-   "d30": 44.1
+   "size": 428,
+   "d1": 70.1,
+   "d3": 68.2,
+   "d7": 61.9,
+   "d14": 57.5,
+   "d30": 44.4
   },
   {
    "fo": "2026-08-18",
@@ -2936,8 +2939,8 @@
    "d1": 70.3,
    "d3": 63.7,
    "d7": 60.8,
-   "d14": 57.8,
-   "d30": 43.5
+   "d14": 58,
+   "d30": 43.9
   },
   {
    "fo": "2026-08-21",
@@ -3022,12 +3025,12 @@
   },
   {
    "fo": "2026-08-30",
-   "size": 25,
-   "d1": 60,
-   "d3": 60,
-   "d7": 60,
-   "d14": 52,
-   "d30": 32
+   "size": 26,
+   "d1": 61.5,
+   "d3": 61.5,
+   "d7": 61.5,
+   "d14": 53.8,
+   "d30": 34.6
   },
   {
    "fo": "2026-08-31",
@@ -3126,7 +3129,7 @@
    "d3": 67.6,
    "d7": 61.8,
    "d14": 58.8,
-   "d30": 38.2
+   "d30": 41.2
   },
   {
    "fo": "2026-09-11",
@@ -3166,12 +3169,12 @@
   },
   {
    "fo": "2026-09-15",
-   "size": 36,
-   "d1": 50,
-   "d3": 47.2,
-   "d7": 44.4,
-   "d14": 41.7,
-   "d30": 25
+   "size": 35,
+   "d1": 48.6,
+   "d3": 45.7,
+   "d7": 42.9,
+   "d14": 40,
+   "d30": 25.7
   },
   {
    "fo": "2026-09-16",
@@ -3229,11 +3232,11 @@
   },
   {
    "fo": "2026-09-22",
-   "size": 18,
-   "d1": 44.4,
-   "d3": 44.4,
-   "d7": 44.4,
-   "d14": 38.9,
+   "size": 17,
+   "d1": 41.2,
+   "d3": 41.2,
+   "d7": 41.2,
+   "d14": 35.3,
    "d30": 0
   },
   {
@@ -3395,16 +3398,16 @@
    "d1": 53.5,
    "d3": 48.6,
    "d7": 38.9,
-   "d14": 3.2,
+   "d14": 5.9,
    "d30": null
   },
   {
    "fo": "2026-10-11",
    "size": 125,
    "d1": 61.6,
-   "d3": 53.6,
-   "d7": 43.2,
-   "d14": 0,
+   "d3": 54.4,
+   "d7": 44,
+   "d14": 4.3,
    "d30": null
   },
   {
@@ -3437,9 +3440,9 @@
   {
    "fo": "2026-10-15",
    "size": 167,
-   "d1": 63.5,
-   "d3": 55.1,
-   "d7": 26.3,
+   "d1": 64.1,
+   "d3": 55.7,
+   "d7": 27.5,
    "d14": null,
    "d30": null
   },
@@ -3454,10 +3457,10 @@
   },
   {
    "fo": "2026-10-17",
-   "size": 37,
-   "d1": 29.7,
-   "d3": 21.6,
-   "d7": 10.8,
+   "size": 38,
+   "d1": 31.6,
+   "d3": 23.7,
+   "d7": 13.2,
    "d14": null,
    "d30": null
   },
@@ -3483,7 +3486,7 @@
    "fo": "2026-10-20",
    "size": 28,
    "d1": 35.7,
-   "d3": 25,
+   "d3": 28.6,
    "d7": null,
    "d14": null,
    "d30": null
@@ -3537,10 +3540,10 @@
  "retention": {
   "note": "survival retention — device seen again on/after day N (N రోజుల తర్వాత కూడా వస్తున్నారు); size-weighted across matured cohorts",
   "d1": 44.9,
-  "d7": 37.8,
+  "d7": 37.9,
   "india": {
    "d1": 43.1,
-   "d7": 36.2
+   "d7": 36.3
   },
   "nri": {
    "d1": 64.8,
@@ -3549,44 +3552,44 @@
  },
  "npByRegion": {
   "india": {
-   "(not reported)": 25760,
-   "g": 23126,
-   "d": 19680,
-   "u": 795
+   "(not reported)": 25759,
+   "g": 23134,
+   "d": 19701,
+   "u": 794
   },
   "nri": {
-   "g": 2334,
-   "d": 2312,
+   "g": 2336,
+   "d": 2311,
    "(not reported)": 874,
-   "u": 779
+   "u": 777
   }
  },
  "byNotifPerm": {
-  "(not reported)": 26634,
-  "g": 25460,
-  "d": 21992,
-  "u": 1574
+  "(not reported)": 26633,
+  "g": 25470,
+  "d": 22012,
+  "u": 1571
  },
  "byNotifVolume": {
-  "o:set+t": 7071,
-  "o:set": 2684,
-  "o:x+t": 2678,
-  "seen": 1492,
-  "o:x": 1296,
-  "x+t": 719,
+  "o:set+t": 7087,
+  "o:set": 2680,
+  "o:x+t": 2672,
+  "seen": 1486,
+  "o:x": 1297,
+  "x+t": 727,
   "x": 688,
-  "set+t": 434,
-  "set": 406,
+  "set+t": 442,
+  "set": 408,
   "p:set+t": 108,
-  "p:x+t": 76,
-  "ign": 37,
+  "p:x+t": 75,
+  "ign": 35,
   "p:set": 6,
   "p:x": 4
  },
  "notifPrefs": {
   "streams": {
-   "vtrzf": 26854,
-   "vtrzfb": 2288,
+   "vtrzf": 26868,
+   "vtrzfb": 2293,
    "f": 90,
    "vtzf": 65,
    "-": 62,
@@ -3596,8 +3599,8 @@
    "zf": 26,
    "vf": 25,
    "vtrfb": 17,
+   "rf": 16,
    "vrzf": 15,
-   "rf": 15,
    "tf": 14,
    "vtzfb": 14,
    "tzf": 10,
@@ -3638,8 +3641,8 @@
    "b": 8
   },
   "changes": {
-   "o": 9572,
-   "c": 833,
+   "o": 9583,
+   "c": 843,
    "s": 354,
    "p": 141
   },
@@ -3647,7 +3650,7 @@
    "os@20260901": 1446,
    "os@20260902": 861,
    "os@20260903": 842,
-   "os@20260913": 598,
+   "os@20260913": 599,
    "os@20260904": 511,
    "os@20260914": 494,
    "os@20261010": 349,
@@ -3664,11 +3667,11 @@
    "os@20261012": 156,
    "ps@20260831": 107,
    "os@20261015": 97,
-   "os@20261009": 94,
+   "os@20261009": 95,
    "os@20261013": 89,
    "os@20260915": 87,
    "os@20260922": 65,
-   "os@20260921": 63,
+   "os@20260921": 64,
    "os@20260924": 60,
    "os@20260926": 59,
    "os@20261016": 54,
@@ -3681,11 +3684,11 @@
    "os@20260928": 47,
    "os@20260923": 46,
    "cs@20261010": 45,
+   "os@20261019": 45,
    "os@20261018": 45,
-   "os@20261019": 44,
    "os@20260919": 41,
+   "os@20261017": 41,
    "os@20260929": 38,
-   "os@20261017": 38,
    "os@20260925": 38,
    "os@20261020": 37,
    "cs@20261011": 37,
@@ -3710,25 +3713,25 @@
    "cs@20260918": 27,
    "os@20261002": 26,
    "os@20261021": 26,
-   "os@20261001": 24,
+   "os@20261001": 25,
    "os@20261007": 23,
    "cs@20261005": 23,
+   "cs@20261013": 23,
+   "cs@20260927": 22,
    "cs@20261007": 22,
-   "cs@20261013": 22,
    "cs@20260916": 21,
    "cs@20260930": 21,
-   "cs@20260927": 21,
+   "cs@20261008": 21,
    "cs@20261001": 20,
    "cs@20260919": 20,
-   "cs@20261008": 20,
    "cs@20260921": 19,
    "cs@20261002": 19,
    "cs@20260920": 18,
    "s@20260913": 18,
+   "cs@20261006": 18,
    "s@20260912": 18,
-   "cs@20261006": 17,
+   "cs@20261016": 17,
    "cs@20261004": 16,
-   "cs@20261016": 16,
    "cs@20261015": 16,
    "s@20260914": 16,
    "os@20261006": 15,
@@ -3736,8 +3739,8 @@
    "s@20260903": 14,
    "cs@20261014": 14,
    "cs@20261019": 13,
+   "os@20261023": 13,
    "os@20261024": 13,
-   "os@20261023": 12,
    "s@20260902": 11,
    "cs@20260915": 11,
    "s@20261011": 11,
@@ -3763,22 +3766,23 @@
    "s@20260916": 7,
    "s@20261013": 7,
    "s@20260926": 7,
+   "cs@20261021": 6,
    "s@20260918": 6,
    "s@20260927": 6,
    "s@20260924": 6,
+   "cs@20261024": 6,
    "s@20260905": 6,
-   "cs@20261021": 5,
    "s@20260922": 5,
+   "s@20261020": 5,
    "s@20260910": 5,
    "cs@20261022": 4,
+   "cs@20261023": 4,
+   "os@20261025": 4,
    "s@20261008": 4,
-   "s@20261020": 4,
    "s@20261001": 4,
    "s@20260909": 3,
    "s@20261019": 3,
    "s@20261007": 3,
-   "cs@20261023": 3,
-   "cs@20261024": 3,
    "s@20260917": 3,
    "s@20261006": 3,
    "s@20260928": 3,
@@ -3792,32 +3796,30 @@
    "s@20261009": 3,
    "ps@20260902": 2,
    "s@20260929": 2,
-   "os@20261025": 2,
    "s@20261024": 2,
    "s@20260831": 1,
    "s@20260919": 1,
    "cs@20261025": 1,
    "s@20261022": 1,
    "ps@20260906": 1,
-   "s@20261021": 1,
-   "s@20261025": 1
+   "s@20261021": 1
   },
-  "changedIndia": 9389,
-  "changedNri": 1511
+  "changedIndia": 9406,
+  "changedNri": 1515
  },
  "interest": {
   "ponthana": {
-   "phones": 681,
-   "made": 1714,
-   "sent": 295,
-   "sendRate": 22,
-   "sharers": 153,
-   "india": 580,
+   "phones": 682,
+   "made": 1727,
+   "sent": 296,
+   "sendRate": 23,
+   "sharers": 154,
+   "india": 581,
    "nri": 101
   },
   "birthday": {
    "phones": 437,
-   "revealed": 685,
+   "revealed": 686,
    "sent": 160,
    "sendRate": 21,
    "sharers": 93,
@@ -3826,52 +3828,52 @@
   },
   "nitya": {
    "note": "starts = సులువు + వివరమైన (each start bumps exactly one); opened under-counts on phones that ran the pre-2026-09-26 pulseCounts race",
-   "phones": 13560,
-   "opened": 2419,
-   "starts": 2424,
-   "simple": 1733,
-   "detailed": 691,
-   "preferDetailed": 276,
-   "preferSimple": 969,
-   "finished": 747,
+   "phones": 13593,
+   "opened": 2457,
+   "starts": 2462,
+   "simple": 1759,
+   "detailed": 703,
+   "preferDetailed": 277,
+   "preferSimple": 976,
+   "finished": 761,
    "finishRate": 4,
    "finishPerStart": 31,
-   "lampsEver": 687,
-   "lamps30": 683,
+   "lampsEver": 699,
+   "lamps30": 695,
    "heldThisMonth": 0,
    "medianLamps30": 0,
    "shares": 16,
    "sharers": 14,
-   "obsDaysShown": 30645,
-   "obsDayStarts": 847,
+   "obsDaysShown": 30813,
+   "obsDayStarts": 851,
    "obsStartRate": 3,
    "litRun": {
-    "finishers": 559,
-    "litToday": 25,
+    "finishers": 567,
+    "litToday": 27,
     "ge3": 0,
     "ge7": 0,
     "median": 0
    }
   },
   "japa": {
-   "phones": 3791,
-   "opened": 9647,
-   "japas": 810691,
+   "phones": 3804,
+   "opened": 9675,
+   "japas": 817008,
    "medianJapas": 0,
-   "repeatDays": 471,
+   "repeatDays": 473,
    "medianDays": 0,
-   "vows": 219,
+   "vows": 221,
    "byVow": {
-    "1008": 94,
+    "1008": 95,
     "10008": 19,
-    "100000": 106
+    "100000": 107
    },
    "byBeads": {
-    "11": 329,
+    "11": 330,
     "21": 88,
     "27": 22,
     "54": 39,
-    "108": 1738
+    "108": 1746
    }
   }
  },
@@ -3882,17 +3884,17 @@
   "daysToChavithi": 0,
   "festival": {
    "size": 48053,
-   "active7": 6752,
-   "active7Pct": 14.1,
-   "runupReturn": 17133,
+   "active7": 6891,
+   "active7Pct": 14.3,
+   "runupReturn": 17140,
    "runupPct": 35.7,
-   "chavithiReturn": 15695,
+   "chavithiReturn": 15711,
    "chavithiPct": 32.7
   },
   "organic": {
    "size": 4535,
-   "active7": 966,
-   "active7Pct": 21.3,
+   "active7": 981,
+   "active7Pct": 21.6,
    "runupReturn": 1811,
    "runupPct": 39.9,
    "chavithiReturn": 1728,
@@ -3900,10 +3902,10 @@
   }
  },
  "byTopicSet": {
-  "(not reported)": 42564,
-  "all,android,lang-te,tzb,tzb-p330": 6664,
+  "(not reported)": 42574,
+  "all,android,lang-te,tzb,tzb-p330": 6656,
   "all,android,lang-en,tzb,tzb-p330": 1060,
-  "all,ios,lang-te,tzb,tzb-p330": 364,
+  "all,ios,lang-te,tzb,tzb-p330": 362,
   "all,ios,lang-en,tzb,tzb-p330": 116,
   "all,ios,lang-te,tzb,tzb-n240": 50,
   "all,android,lang-te,tzb,tzb-p240": 45,
@@ -4195,7 +4197,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msan4edyzdxqdqhehw": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-msan9grjn6uq83lpma": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-msan9ouowvy14fbwvs": 1,
-  "all,ios,lang-te,tzb,tzb-p330,dvc-msanbrcpra9esewp51": 1,
+  "all,ios,lang-en,tzb,tzb-p330,dvc-msanbrcpra9esewp51": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msandcvcrkp9uoksc9": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msanf0sae058avf32o": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msanf7fqmd2c2ud0hg": 1,
@@ -4273,7 +4275,7 @@
   "all,ios,lang-te,tzb,tzb-p120,dvc-msavd2yyuqsv5der7f": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msavkwkr0j3azbuj6l": 1,
   "all,ios,lang-te,tzb,tzb-p120,dvc-msavn7u3ffaucjqx3h": 1,
-  "all,android,lang-en,tzb,tzb-p60,dvc-msavolp90756zkunzz": 1,
+  "all,android,lang-te,tzb,tzb-p60,dvc-msavolp90756zkunzz": 1,
   "all,ios,lang-te,tzb,tzb-p600,dvc-msaw0pzy6w9yvpzph8": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-msawg7zv800wezc78e": 1,
   "all,ios,lang-te,tzb,tzb-p660,dvc-msawlxz3uvbupb3amb": 1,
@@ -4283,7 +4285,7 @@
   "all,android,lang-te,tzb,tzb-n300,dvc-msax1ghqsu2d08f6zb": 1,
   "all,ios,lang-en,tzb,tzb-n420,dvc-msax4w35zq4i86hzkq": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msaxqhhtfht5gov7vd": 1,
-  "all,android,lang-te,tzb,tzb-p330,dvc-msaxvmwq7gycr1cq0k": 1,
+  "all,android,lang-en,tzb,tzb-p330,dvc-msaxvmwq7gycr1cq0k": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msaxxsgukd4h90jd1x": 1,
   "all,ios,lang-en,tzb,tzb-n240,dvc-msaybaexxzpxn3hao7": 1,
   "all,android,lang-en,tzb,tzb-n420,dvc-msayc2gq6fjy1pbi5s": 1,
@@ -4379,7 +4381,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msb6xt5i4uc8szqz9n": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msb6yvbu5be63gu5jq": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msb70sex6bijftnpu1": 1,
-  "all,ios,lang-en,tzb,tzb-p330,dvc-msb70ut6kj5z25k8x7": 1,
+  "all,ios,lang-te,tzb,tzb-p330,dvc-msb70ut6kj5z25k8x7": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msb70wgs5dhrsy46gi": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msb71eww3j9ibp3wq3": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-msb73wopbrl14gye76": 1,
@@ -4463,7 +4465,7 @@
   "all,ios,lang-te,tzb,tzb-p330,dvc-msbbpfwi59sskz3b6z": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msbbqn23bpqrihnilq": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msbbsc09xotcy2hmpw": 1,
-  "all,ios,lang-te,tzb,tzb-n300,dvc-msbbxzrf8vv7mu5wfs": 1,
+  "all,ios,lang-en,tzb,tzb-n300,dvc-msbbxzrf8vv7mu5wfs": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msbbyqp9yenq80li3y": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msbc38xbhlhk5im869": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-msbc4v05djh30x7l2b": 1,
@@ -4671,7 +4673,9 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msc69kvrxz7nq38c3g": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msc6li1k46gem5mbon": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msc6tpjw65z2ghnnyk": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msc768xox64r0i3xtk": 1,
   "all,android,lang-te,tzb,tzb-p180,dvc-msc76vqzqr0ent3qck": 1,
+  "all,ios,lang-en,tzb,tzb-p330,dvc-msc7n76oqmi11bmuyu": 1,
   "all,android,lang-te,tzb,tzb-p240,dvc-msc8k6p9txca1k88kj": 1,
   "all,ios,lang-en,tzb,tzb-n300,dvc-msc8sfitr1odjc004d": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-msc9i6x5ikmnv8xktc": 1,
@@ -4955,11 +4959,11 @@
   "all,android,lang-te,tzb,tzb-p180,dvc-msgctpnzqoyruolmjr": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-msgdp0ghb70ksklhgw": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msgedymt28n37j8c0m": 1,
-  "all,ios,lang-te,tzb,tzb-n300,dvc-msgf5nmycpgcd7a0jy": 1,
+  "all,ios,lang-en,tzb,tzb-n300,dvc-msgf5nmycpgcd7a0jy": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msgfatzljeo8iy5w5w": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-msgfds3l7aoi6ttzrf": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msgg9prmbf8l4l505j": 1,
-  "all,android,lang-te,tzb,tzb-p240,dvc-msgigiubilw0hxz17t": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msgigiubilw0hxz17t": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msgkw7qxf87osd3lg8": 1,
   "all,ios,lang-en,tzb,tzb-n240,dvc-msgmkmxpwuseq5o2n2": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msgn3897wihbon058z": 1,
@@ -5356,7 +5360,7 @@
   "all,ios,lang-te,tzb,tzb-p330,dvc-msrcv722bt13jgo07f": 1,
   "all,android,lang-te,tzb,tzb-p240,dvc-msrdfwrmcaef0flkn1": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-msrfe0yeyuty3s7lwc": 1,
-  "all,ios,lang-te,tzb,tzb-p180,dvc-msrj5og9ona2gxtvza": 1,
+  "all,ios,lang-te,tzb,tzb-p120,dvc-msrj5og9ona2gxtvza": 1,
   "all,ios,lang-en,tzb,tzb-p330,dvc-msrjjn97uor7lzsdw7": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-msrjymlx0rs14gresq": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msrkfggpsk9db854oc": 1,
@@ -5416,7 +5420,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mstr911nbon9h8j67v": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mstrdn8zus78ydysjr": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msttgk31vvieydryi8": 1,
-  "all,android,lang-te,tzb,tzb-n420,dvc-msttn1fsxm6s68k5n2": 1,
+  "all,android,lang-en,tzb,tzb-n420,dvc-msttn1fsxm6s68k5n2": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mstvqcm6r2mn2088mu": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mstw32rrmvrn1j6lt8": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mstwavq8q84xp4e9hy": 1,
@@ -5484,7 +5488,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msv7q8ce6w7pfccuvz": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msv88xjnavfmnkiog9": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msv8btkwh3hmd2rv3m": 1,
-  "all,android,lang-te,tzb,tzb-p330,dvc-msv8duuu2t67c1758i": 1,
+  "all,android,lang-en,tzb,tzb-p330,dvc-msv8duuu2t67c1758i": 1,
   "all,android,lang-en,tzb,tzb-n300,dvc-msv8mh61pvef6udtfa": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-msv8u5syvjrnt37v0m": 1,
   "all,android,lang-te,tzb,tzb-n300,dvc-msv8wwlthdwtog324v": 1,
@@ -5595,7 +5599,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msw2njbcfb0a3xy0vy": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msw2pkn9q75v15wzxc": 1,
   "all,ios,lang-en,tzb,tzb-p330,dvc-msw2xcko9ed9lkgmtz": 1,
-  "all,ios,lang-en,tzb,tzb-n240,dvc-msw30wl5egj3501lr9": 1,
+  "all,ios,lang-te,tzb,tzb-n240,dvc-msw30wl5egj3501lr9": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msw31e8ai0451uwngy": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msw3dbde9x5i5nugbq": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msw3rvehnalr9i0n4y": 1,
@@ -5812,6 +5816,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msx8wxa323pj4gujzi": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msx8x0wu60mqnudjmv": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msx8yd64uz3xc7rlof": 1,
+  "all,ios,lang-te,tzb,tzb-p330,dvc-msx8z8xyoiav79il04": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msx8zevxm2svp8eakb": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msx904jugp9404anzg": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-msx90hoa1xfptwtag6": 1,
@@ -5882,6 +5887,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msxaha4z2p3pt80zmb": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxahli87po1q69kxm": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxajuwtpl2oaror7k": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msxakviym2n0zgaejr": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxamxt8vhtepll8ju": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxaot94wkq9nzqnmq": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxapsj7ml3zrtsc6p": 1,
@@ -6446,6 +6452,7 @@
   "all,ios,lang-te,tzb,tzb-p330,dvc-msxkdspa1egy5bq1pg": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxkdubtcveqs5h9r1": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxkdzfc1xr4ufwpih": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msxke5zpgw3fjobdo6": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-msxkee7pfgmcqgcn0q": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-msxkeevfrgwx16vnnp": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxkfpxrojdqa5y0ea": 1,
@@ -6496,6 +6503,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msxl6vwvm79vuvd9z": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxl8cc2jqqxj8vhyl": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxlb78f9xuovtwo8w": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msxlbybv7j0wfdwwad": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-msxlc52051v5jrolrq": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxlcqk2p6mkqrtia5": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msxlcuvqjg6yk68wpv": 1,
@@ -6621,7 +6629,7 @@
   "all,android,lang-te,tzb,tzb-p240,dvc-msxqm6rhq71rzfv3ua": 1,
   "all,ios,lang-te,tzb,tzb-n420,dvc-msxqme3doox33mf6vt": 1,
   "all,android,lang-te,tzb,tzb-p180,dvc-msxqp93mp2f8t16hvw": 1,
-  "all,ios,lang-te,tzb,tzb-n240,dvc-msxqrbanb1pdzlady9": 1,
+  "all,ios,lang-en,tzb,tzb-n240,dvc-msxqrbanb1pdzlady9": 1,
   "all,ios,lang-te,tzb,tzb-n420,dvc-msxqxu396jl1doinzv": 1,
   "all,ios,lang-en,tzb,tzb-p600,dvc-msxqxznizfqodzdxy4": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-msxqzz40qr63xuf4wz": 1,
@@ -7018,6 +7026,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msy0x7rbmhqrhitre1": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msy0xf8ebhjtsty9ha": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msy0xjjd881txnlh8d": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msy0yc2eowwye4xjpp": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msy0yh9d65x6hvqouj": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msy0yipcczj4u7ce52": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msy0yulgirt5u2wxdb": 1,
@@ -7056,7 +7065,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msy19mkl5dodgvk9ab": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msy1a18bfzxn2lh0fl": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-msy1a8yz9g9r13v4jb": 1,
-  "all,android,lang-en,tzb,tzb-p330,dvc-msy1aea2svnfb3x7oy": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msy1aea2svnfb3x7oy": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msy1aln4cqz53q0qpk": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msy1aq5pewupp1p7y2": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msy1btlq69die2804y": 1,
@@ -8518,7 +8527,7 @@
   "all,ios,lang-te,tzb,tzb-p330,dvc-msy9l4q4i8joentiva": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msy9larun76vy8ymw6": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-msy9lzqexeljbx6vfb": 1,
-  "all,ios,lang-en,tzb,tzb-p330,dvc-msy9m1h1acvnmy8arh": 1,
+  "all,ios,lang-te,tzb,tzb-p330,dvc-msy9m1h1acvnmy8arh": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-msy9m8dkk5co6tgf14": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msy9mh7e80g3cpi0v0": 1,
   "all,android,lang-te,tzb,tzb-n420,dvc-msy9mk6bazmhbzqgul": 1,
@@ -9304,6 +9313,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msydjxndrosdw84gy7": 1,
   "all,ios,lang-te,tzb,tzb-p660,dvc-msydjyhi48e37apq5j": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msydkgf6qd481n123q": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msydklod9gcs16to57": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msydkogeohey53ial0": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msydkpjl32cd0hoz69": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msydkr7o4cz1gi30px": 1,
@@ -9462,6 +9472,7 @@
   "all,android,lang-te,tzb,tzb-p120,dvc-msyecq9jspraoiijt3": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyecwf6rbnrzknr0g": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-msyed30keyn0ow9wkb": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msyed48sa84ph8eate": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyed7svycuq5iwb5w": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyedapr05zea5u9xm": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyedcv4zznrgx9ud7": 1,
@@ -9766,6 +9777,7 @@
   "all,ios,lang-te,tzb,tzb-p330,dvc-msyfs8gimzrk567c4k": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-msyfsar42h0bhaax61": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyfsatop1pin5cvua": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msyfsay9iy3chvvztr": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyfsk6ovf0nlnckxs": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyfsmdefgfl6n7e5v": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyfsml17ptyt22ept": 1,
@@ -10674,7 +10686,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msyjq3cgp83lb6qy82": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-msyjqbdtxcav540jf9": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyjqua3q6htaumdf3": 1,
-  "all,android,lang-en,tzb,tzb-p330,dvc-msyjr2hjf9czfmqwi2": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msyjr2hjf9czfmqwi2": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyjrcsv87oy88uibv": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyjrk53xyp7y14rlr": 1,
   "all,android,lang-te,tzb,tzb-p240,dvc-msyjrm8b5vpwpmy6kx": 1,
@@ -11214,7 +11226,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-msyniiig2jh5s69c0j": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyninfel9a7v2t27e": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msynj34ajeiw8atbs6": 1,
-  "all,android,lang-en,tzb,tzb-p330,dvc-msynj4x1slo6mdiaz3": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-msynj4x1slo6mdiaz3": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msynjac52ny2v53ms2": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msynjmv8nwehrz07ko": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msynjod9wznjj9ur63": 1,
@@ -12746,7 +12758,7 @@
   "all,ios,lang-te,tzb,tzb-p330,dvc-msyxzkd9m8gtw7kdje": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyxzra3y8w3gyi7j9": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-msyxzxbkrba5qwmma8": 1,
-  "all,ios,lang-te,tzb,tzb-n300,dvc-msyy02nqxzisalzq0p": 1,
+  "all,ios,lang-en,tzb,tzb-n300,dvc-msyy02nqxzisalzq0p": 1,
   "all,android,lang-te,tzb,tzb-n420,dvc-msyy04lp8bp3r2gqyv": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-msyy0b38jaibjpanct": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-msyy0dyy477dt7uf34": 1,
@@ -13351,6 +13363,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mszf6nov5btbkf6wd2": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszf773r1iz1v8d3sc": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszf7pv7s1fmv0jrhp": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mszf8dyvg2ap23hhyi": 1,
   "all,ios,lang-te,tzb,tzb-p240,dvc-mszf8kubvq9idvqvqs": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszf8ws55w7u6h1pt5": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszf9uy8954yct610a": 1,
@@ -14152,6 +14165,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mszmbe3ckeyyfim30a": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mszmbocz9dhqjmit4w": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszmc3fuxeqark71h0": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mszmcwycm1uzhvezcx": 1,
   "all,android,lang-te,tzb,tzb-p60,dvc-mszmd395nolj9l2ecm": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mszmd7b7qvdkdvfs4r": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mszme49g0ax57o3xih": 1,
@@ -14591,7 +14605,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mszq06d3taszxarcs2": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszq0h8lcsltdikxne": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mszq0trnj9h43luss9": 1,
-  "all,ios,lang-te,tzb,tzb-p60,dvc-mszq0yq4ejbam2egg3": 1,
+  "all,ios,lang-te,tzb,tzb-p0,dvc-mszq0yq4ejbam2egg3": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszq2cest8c4a09jxa": 1,
   "all,android,lang-te,tzb,tzb-p240,dvc-mszq2it2v88suqvyla": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszq2xs3bmu8f0jbo0": 1,
@@ -14708,6 +14722,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mszqyajjtbbnqqskrk": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mszqyg6bii53v95kzs": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszqyjmfc8yevad305": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mszqyl723g1ylofl6u": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszqyvelfm6cfu8bjc": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszqz3v9fn85nbxdip": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszqz5ffrialge4yso": 1,
@@ -15442,6 +15457,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mszwpikqw2wtrv6kfe": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszwpqtiippqcm5rba": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mszwpuzbg9if38k892": 1,
+  "all,android,lang-en,tzb,tzb-p330,dvc-mszwpvb96wifafe2qp": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszwpwa54ihd4v7ig9": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszwqbi713pdpelp4r": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mszwqe47i9c62i6jvo": 1,
@@ -16993,7 +17009,7 @@
   "all,ios,lang-te,tzb,tzb-p330,dvc-mt0vqr8rx8830jtb6z": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt0vrs3d51ivc1ky8u": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mt0vs7950j3c33v7o9": 1,
-  "all,android,lang-te,tzb,tzb-p330,dvc-mt0vvdd96qyvy9ouqv": 1,
+  "all,android,lang-en,tzb,tzb-p330,dvc-mt0vvdd96qyvy9ouqv": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-mt0vyb04sw3ae53ueg": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-mt0vzpwlopy0f64rld": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt0vztyg5sgwrvlygq": 1,
@@ -18715,7 +18731,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mt1roiph7t8j2a4lth": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt1ronsaepbi7yfqbq": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt1rpk21pa2prz260v": 1,
-  "all,ios,lang-en,tzb,tzb-n300,dvc-mt1rplktfe5h3c2pgv": 1,
+  "all,ios,lang-te,tzb,tzb-n300,dvc-mt1rplktfe5h3c2pgv": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt1rpqsdhjcfnq93r6": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mt1rqjfuhaxmmzkkj9": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mt1rqnd7h8pwhblyj8": 1,
@@ -18861,7 +18877,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mt1vffkfx6crvuueky": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt1vfjxnjpcuzhjz27": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt1vgdpo65z6c5bgsk": 1,
-  "all,ios,lang-en,tzb,tzb-p330,dvc-mt1vgt9glztz5v4ztu": 1,
+  "all,ios,lang-te,tzb,tzb-p330,dvc-mt1vgt9glztz5v4ztu": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mt1vh255suenqb2im6": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt1vmsn6zsn37hi5qb": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt1vmtg8ydj04arf7d": 1,
@@ -19014,7 +19030,7 @@
   "all,ios,lang-te,tzb,tzb-n420,dvc-mt298abl3q9eo7r0ca": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt298emjmsokgmd3fl": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt29c42szchwdvk35b": 1,
-  "all,ios,lang-te,tzb,tzb-n240,dvc-mt29d3kucjn4sexic9": 1,
+  "all,ios,lang-en,tzb,tzb-n240,dvc-mt29d3kucjn4sexic9": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mt29ev0u3gzj7oi8zw": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt29g20jf3w1m4z65s": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt29h6br58c5hzdjeg": 1,
@@ -19636,7 +19652,7 @@
   "all,ios,lang-te,tzb,tzb-n300,dvc-mt2zqmigo8wvbaryz6": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mt2zulj6h3130n4r7j": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt2zzgrln5s28ugmk8": 1,
-  "all,ios,lang-te,tzb,tzb-n420,dvc-mt30099cjfnz5lcoxx": 1,
+  "all,ios,lang-te,tzb,tzb-n240,dvc-mt30099cjfnz5lcoxx": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt302ioqyfee4fqsxr": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt309x09ihwztjaguc": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt30dc7koyjmxlkmd4": 1,
@@ -20231,7 +20247,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mt683zdftbmekpaonb": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt68mf50q715mdn1fd": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-mt69ye4w4c6cwxajty": 1,
-  "all,ios,lang-en,tzb,tzb-n300,dvc-mt6arvwbnqkleilewv": 1,
+  "all,ios,lang-te,tzb,tzb-n300,dvc-mt6arvwbnqkleilewv": 1,
   "all,android,lang-te,tzb,tzb-p660,dvc-mt6d6m0vpz0f1i0l0h": 1,
   "all,android,lang-te,tzb,tzb-p240,dvc-mt6dsf68zsqmskpj9o": 1,
   "all,android,lang-te,tzb,tzb-n240,dvc-mt6ewlpx81zexthuzm": 1,
@@ -20377,12 +20393,12 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mt780xscahp86jqkee": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt782a8e5l54ss38wh": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt7830vl00fjlrcdoj": 1,
-  "all,ios,lang-te,tzb,tzb-p330,dvc-mt7877i2u5am655e71": 1,
+  "all,ios,lang-en,tzb,tzb-p330,dvc-mt7877i2u5am655e71": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt7897plzv4fnqo440": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt78ctmyvgy47q35me": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt78l67sruiqmy2e8h": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt78sffto7cpo4gmi5": 1,
-  "all,android,lang-te,tzb,tzb-p330,dvc-mt78sxi27jtrqfi7t7": 1,
+  "all,android,lang-en,tzb,tzb-p330,dvc-mt78sxi27jtrqfi7t7": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt78u0d669w3i6hdib": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt78vkcil34zyaj66l": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt791bpcvs90174qrx": 1,
@@ -20636,7 +20652,6 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mt9wlp2qykq6teu1ps": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mt9wvbj0wfqo5dy013": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt9x0ht0u06144eyos": 1,
-  "all,android,lang-en,tzb,tzb-p330,dvc-mt9x3oukz2hyp7kgl4": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt9x9hobhnbm49e5w1": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt9x9ve2kx7femin5j": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mt9xdkjuq52v2moo5q": 1,
@@ -21324,7 +21339,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mthb90hwe78is7rww9": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mthbtje33jzisvhmf": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mthc1i29qbo6wc4nlm": 1,
-  "all,ios,lang-en,tzb,tzb-n360,dvc-mthce4zrrjf0t0fn59": 1,
+  "all,ios,lang-te,tzb,tzb-n360,dvc-mthce4zrrjf0t0fn59": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mthcs2hxuuan5fhefr": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mthcwrl9uvrri4qp7u": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mthd0wkluna6h5xx9k": 1,
@@ -21918,7 +21933,7 @@
   "all,android,lang-te,tzb,tzb-p60,dvc-mtmiy2ytgxjd2tuevz": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtmjbn0f5mpx5vdv7a": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtmjs0xpzqca8q0nww": 1,
-  "all,android,lang-en,tzb,tzb-p330,dvc-mtmkld8nnxk72olc04": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mtmkld8nnxk72olc04": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtmkxv1pnxd7zuc98g": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtmla55z8df8tt1m04": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtmlq5us1j2r8bkts6": 1,
@@ -22113,7 +22128,7 @@
   "all,android,lang-en,tzb,tzb-p330,dvc-mtomdbv5qgvdyczqsj": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtome8spxl6ihlct9h": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mtomgh05b0udodu4c8": 1,
-  "all,ios,lang-en,tzb,tzb-p330,dvc-mtomhv742r08qfzq6i": 1,
+  "all,ios,lang-te,tzb,tzb-p330,dvc-mtomhv742r08qfzq6i": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtomm0uf2gp8bumwqn": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mtomo2h0ppuwl2egds": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mtomqmp1ppkbgs3rsu": 1,
@@ -22197,7 +22212,7 @@
   "all,android,lang-en,tzb,tzb-p330,dvc-mtpgr9dx0wtg71lryi": 1,
   "all,ios,lang-te,tzb,tzb-p120,dvc-mtpgs1vgx3s3rhkjvo": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtph5xna8kntbyfwvw": 1,
-  "all,ios,lang-en,tzb,tzb-p330,dvc-mtphhl6pdhcs3o3fco": 1,
+  "all,ios,lang-te,tzb,tzb-p330,dvc-mtphhl6pdhcs3o3fco": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mtphx45mlt0haccjtz": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mtpizvqbgncnwmhlbs": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mtpj06kfxv7a9pu0v3": 1,
@@ -23057,7 +23072,7 @@
   "all,android,lang-en,tzb,tzb-p330,dvc-mtylx3qeencvdwxp2d": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtym0evxsxbi6on7yj": 1,
   "all,ios,lang-en,tzb,tzb-n300,dvc-mtym0fmm0xu5dzkg5q": 1,
-  "all,ios,lang-en,tzb,tzb-n240,dvc-mtym7tnzj0j9dky88o": 1,
+  "all,ios,lang-te,tzb,tzb-n240,dvc-mtym7tnzj0j9dky88o": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mtym816k3wia8jsykx": 1,
   "all,android,lang-en,tzb,tzb-n420,dvc-mtym9j3jkq0v5dqick": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtym9moztv0wxr6v28": 1,
@@ -23380,7 +23395,7 @@
   "all,android,lang-en,tzb,tzb-p330,dvc-mtzfjpbsmyd7r7d3c4": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtzfk0pg6p10waxjy2": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtzfk0s5fls1hei32s": 1,
-  "all,android,lang-en,tzb,tzb-p330,dvc-mtzfpkvkgaait79ws9": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mtzfpkvkgaait79ws9": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mtzfqcp23nkg2i9xqu": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mtzfs9t9rbax4tsd8j": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mtzftc2fczdya9nrtd": 1,
@@ -23931,7 +23946,7 @@
   "all,ios,lang-en,tzb,tzb-p330,dvc-mu09qot9zcwvinj7kj": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu09rk1fnh8g66p5p8": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu09xy506b83t21qpe": 1,
-  "all,android,lang-en,tzb,tzb-p60,dvc-mu0akghq7e5jbu50mx": 1,
+  "all,android,lang-te,tzb,tzb-p0,dvc-mu0akghq7e5jbu50mx": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mu0amw00c75k1xa89p": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mu0anje44oged3nyg8": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mu0bav0ria2ra70onx": 1,
@@ -24429,7 +24444,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mu2m58536g76f0ck6k": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mu2m7euz67v9dtpvhr": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mu2mh51haph3jjc9my": 1,
-  "all,ios,lang-en,tzb,tzb-n240,dvc-mu2mhzefdy9533c7o3": 1,
+  "all,ios,lang-te,tzb,tzb-n240,dvc-mu2mhzefdy9533c7o3": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu2mpz8h6tlb98rv41": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu2mwvwvc4stjcr23e": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mu2n1eajdqpw89zwcl": 1,
@@ -24454,7 +24469,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mu2wr2jtgay7pkju9e": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu2xknwxqn7x0ealzg": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mu2xln3ynw0sq14eir": 1,
-  "all,android,lang-te,tzb,tzb-p330,dvc-mu2z0e4k6bv6qf7esi": 1,
+  "all,android,lang-en,tzb,tzb-p330,dvc-mu2z0e4k6bv6qf7esi": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mu2zb52zg7x4ozj25f": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu325fyi63wd8369bp": 1,
   "all,ios,lang-en,tzb,tzb-p330,dvc-mu33dm7agjwa4vu3tq": 1,
@@ -24467,7 +24482,7 @@
   "all,ios,lang-te,tzb,tzb-n240,dvc-mu3g2s9k6xx4a14kmu": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu3g5m38ab4qfpa4or": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu3gug89ne51s9ctil": 1,
-  "all,ios,lang-te,tzb,tzb-n300,dvc-mu3hq2rl1piixfcu0h": 1,
+  "all,ios,lang-en,tzb,tzb-n300,dvc-mu3hq2rl1piixfcu0h": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu3ids92o8ie6dl378": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu3jfw5cmmcpopauuk": 1,
   "all,ios,lang-en,tzb,tzb-n240,dvc-mu3k9ol6m8ztxr4hza": 1,
@@ -24517,7 +24532,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mu4c8p79th4ph0pfx7": 1,
   "all,android,lang-te,tzb,tzb-p180,dvc-mu4hirscyhg4ngx9er": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mu4jlqwcyp62ugw6ye": 1,
-  "all,android,lang-en,tzb,tzb-p330,dvc-mu4kg9yskbgvk61e5f": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mu4kg9yskbgvk61e5f": 1,
   "all,ios,lang-te,tzb,tzb-n420,dvc-mu4n5fb9kyh6289f8l": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu4v5moh9zhd5l1lva": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mu4wqeekqlsiautjcs": 1,
@@ -25030,7 +25045,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-muhvyg3mybwpi5tvsx": 1,
   "all,android,lang-te,tzb,tzb-p180,dvc-muhwhlrkmn9a2j9y92": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-muhwq9qytj29lauzjh": 1,
-  "all,ios,lang-te,tzb,tzb-p330,dvc-muhx18rix0yhg3v0de": 1,
+  "all,ios,lang-en,tzb,tzb-p330,dvc-muhx18rix0yhg3v0de": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-muhx2puq4pcu3cqei2": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-muhxyl3ugpibsogcfq": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-muhy2by3lqku2s0kyx": 1,
@@ -25071,7 +25086,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-muioala62q1cokh4jh": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-muiq8r5t7wnsze2n68": 1,
   "all,android,lang-en,tzb,tzb-n240,dvc-muitsodtym2wdtxh5d": 1,
-  "all,android,lang-en,tzb,tzb-n240,dvc-muiyypwo25pezeoc82": 1,
+  "all,android,lang-te,tzb,tzb-n240,dvc-muiyypwo25pezeoc82": 1,
   "all,ios,lang-en,tzb,tzb-p120,dvc-muizxzue64y1r6lyzu": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-muj3ib2jx1vwtgb8ak": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-muj50xr5yvbi1hsvj8": 1,
@@ -25100,6 +25115,8 @@
   "all,android,lang-te,tzb,tzb-p180,dvc-muju8kj02p5kmxv2bu": 1,
   "all,ios,lang-te,tzb,tzb-n300,dvc-mujvt1jv6789nhgq6f": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mujz2nfxmpo1fs6qv9": 1,
+  "all,android,lang-en,tzb,tzb-p330,dvc-mujz837qcubzlng5be": 1,
+  "all,ios,lang-te,tzb,tzb-n240,dvc-muk0cv792ip20e9lv2": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-muk0zcq2ojzscy085p": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-muk1flwo3sinizl4cv": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-muk1fwnrkeghgl47bg": 1,
@@ -25157,7 +25174,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-muliebmc2a7sz7kihb": 1,
   "all,android,lang-te,tzb,tzb-n240,dvc-muljrfzhbieszponij": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-mulsp6n52pvuk07dqy": 1,
-  "all,ios,lang-en,tzb,tzb-n300,dvc-mulu16rkumqun4oza2": 1,
+  "all,ios,lang-te,tzb,tzb-n300,dvc-mulu16rkumqun4oza2": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mulxh19nve7zd88n1e": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-muly6maam2uhnlx6wy": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mum04mlrbbqsvq655s": 1,
@@ -25252,6 +25269,7 @@
   "all,ios,lang-te,tzb,tzb-p330,dvc-mup07svq3fzftgg8l6": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mup1kvjospcujgla6s": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mup2rwjk1lla9wsv0e": 1,
+  "all,android,lang-en,tzb,tzb-p330,dvc-mup4ra82cpzfsslwik": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mup4uxzhbk46jeccen": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mup53iuhiu2pia659r": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mup8caxznvlolhkkc6": 1,
@@ -25336,7 +25354,7 @@
   "all,ios,lang-en,tzb,tzb-n300,dvc-musr3yqrp3uktc2uaw": 1,
   "all,ios,lang-te,tzb,tzb-p60,dvc-mut0hovut8r2wzkkuc": 1,
   "all,ios,lang-te,tzb,tzb-p60,dvc-mut0qd7742a2ftnf49": 1,
-  "all,ios,lang-en,tzb,tzb-p60,dvc-mut0wzewz39gdlo2o5": 1,
+  "all,ios,lang-en,tzb,tzb-p0,dvc-mut0wzewz39gdlo2o5": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mut2ign42s4ghic85a": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mut5dlwsce98f0i96g": 1,
   "all,ios,lang-en,tzb,tzb-n300,dvc-mut6fa9apu4rfh0bdv": 1,
@@ -25389,6 +25407,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-muv9ewlhjx1l1qj6db": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-muveff1frp6mblz84p": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-muvha8ou126mrvhxwd": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-muvk36tzrwc8wk5qss": 1,
   "all,android,lang-te,tzb,tzb-p120,dvc-muvl6toopq2ps8b332": 1,
   "all,ios,lang-te,tzb,tzb-n300,dvc-muvst3ow5gk1rgu5tx": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-muvw5i00pw67ikxxg0": 1,
@@ -25652,7 +25671,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mv18kxl6elh9lgui4j": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv18lpsw3khpl1rj82": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv18phvxg3rfgn5mog": 1,
-  "all,android,lang-en,tzb,tzb-p330,dvc-mv18pi23oom1kds492": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mv18pi23oom1kds492": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv18q0h4rhku0p7aw9": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv18qv9333uoxzzdbi": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv18ure1hg6ec64ipc": 1,
@@ -25737,7 +25756,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mv1szkqxxcd15bttuv": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv1t0venkb8n12945m": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv1t651pe79gyuczjr": 1,
-  "all,ios,lang-te,tzb,tzb-n240,dvc-mv1t72gte10xfipqdk": 1,
+  "all,ios,lang-en,tzb,tzb-n240,dvc-mv1t72gte10xfipqdk": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv1t9kumseluvi5rtd": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mv1tbtf8io090uz8nk": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv1tldyg03ek60rrbg": 1,
@@ -26358,7 +26377,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mv2obm6rxjewd638do": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv2oeh134kawqc8iyp": 1,
   "all,android,lang-te,tzb,tzb-p180,dvc-mv2ogkrkdqrdq2hqg5": 1,
-  "all,ios,lang-en,tzb,tzb-p330,dvc-mv2ogmxf1l129c8ham": 1,
+  "all,ios,lang-te,tzb,tzb-p330,dvc-mv2ogmxf1l129c8ham": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv2oi035ek552ttnxl": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv2oijerfts7ie0wxe": 1,
   "all,ios,lang-te,tzb,tzb-n300,dvc-mv2oobn0i6nsq9fcb1": 1,
@@ -26446,6 +26465,7 @@
   "all,android,lang-en,tzb,tzb-p330,dvc-mv2rrrzj3gm38z6l26": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv2rs3jf42vxr8lrie": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv2s03sga0z297ujyn": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mv2s2slty0ugvaxx13": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mv2sbgv34yqjon6anj": 1,
   "all,ios,lang-en,tzb,tzb-p330,dvc-mv2sf4vfp9zxbwxtb3": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mv2sf5c9i8l9ey3hry": 1,
@@ -26498,7 +26518,7 @@
   "all,ios,lang-te,tzb,tzb-p60,dvc-mv2yyye3qw35szf53r": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-mv2zjsuve8qm6xde9b": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv307ur4kq47rv93fw": 1,
-  "all,ios,lang-en,tzb,tzb-p330,dvc-mv3086s2lw8i3m9k8k": 1,
+  "all,ios,lang-te,tzb,tzb-p330,dvc-mv3086s2lw8i3m9k8k": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv30gbw0k2b9fm11pi": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv30ofuuzi8xs0f2n7": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv310bl5y35v8zebfu": 1,
@@ -26599,7 +26619,7 @@
   "all,android,lang-en,tzb,tzb-p330,dvc-mv37vnkgzwyeut6o9w": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mv37vq15ppeenzg1xf": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv37yjkcoi2bsqiyoj": 1,
-  "all,ios,lang-en,tzb,tzb-p330,dvc-mv37zfb39is5g9l660": 1,
+  "all,ios,lang-te,tzb,tzb-p330,dvc-mv37zfb39is5g9l660": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mv3821rtqk6x59lt8k": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv382p4idiidw329py": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mv385ap0mcb47la9oh": 1,
@@ -26987,7 +27007,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mv3vnvq3ql4t0ztjv5": 1,
   "all,ios,lang-en,tzb,tzb-p330,dvc-mv3vrbmzzwzpge5ytc": 1,
   "all,ios,lang-en,tzb,tzb-p330,dvc-mv3vsdfttq3dp5tldo": 1,
-  "all,android,lang-en,tzb,tzb-p330,dvc-mv3vxgih52qzmtsmiw": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mv3vxgih52qzmtsmiw": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv3vy3df5zj5v0oqum": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv3vyjtl4n4aayf9bu": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv3w0k4gmdm5jybv69": 1,
@@ -27736,7 +27756,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mv9dpvp388t7vmz788": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mv9dz7pumqbekgnpzh": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv9e0r2cficij4yzoq": 1,
-  "all,ios,lang-en,tzb,tzb-p60,dvc-mv9e7cdx0rocjkauor": 1,
+  "all,ios,lang-te,tzb,tzb-p0,dvc-mv9e7cdx0rocjkauor": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv9ess85vvvcb1225x": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mv9ewq39p0roem4hah": 1,
   "all,ios,lang-te,tzb,tzb-p660,dvc-mv9f9tcg808dzuvi5y": 1,
@@ -27757,6 +27777,7 @@
   "all,ios,lang-te,tzb,tzb-n300,dvc-mv9m7v3z5lzo7tdp0a": 1,
   "all,ios,lang-en,tzb,tzb-p60,dvc-mv9mc6p7vhl9j8egme": 1,
   "all,ios,lang-te,tzb,tzb-n300,dvc-mv9mcjbfvi7lbljpgn": 1,
+  "all,android,lang-en,tzb,tzb-n240,dvc-mv9mm7etfrxp935elx": 1,
   "all,android,lang-te,tzb,tzb-n240,dvc-mv9mqjykkck75w1b7v": 1,
   "all,ios,lang-en,tzb,tzb-n240,dvc-mv9mqlka2tx6z322hf": 1,
   "all,ios,lang-te,tzb,tzb-p60,dvc-mv9mvrdhb99jbqngvb": 1,
@@ -27768,6 +27789,7 @@
   "all,ios,lang-te,tzb,tzb-n240,dvc-mv9n8s04qh326h3iu5": 1,
   "all,ios,lang-en,tzb,tzb-n240,dvc-mv9n9ghgdz2thom0wz": 1,
   "all,ios,lang-te,tzb,tzb-n300,dvc-mv9nielbwobsuk0c46": 1,
+  "all,ios,lang-en,tzb,tzb-n300,dvc-mv9nojkbvmorb0gskg": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv9npgs4j5mj0o58ci": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mv9npn0zxopr308j9t": 1,
   "all,ios,lang-te,tzb,tzb-p60,dvc-mv9nrjorzk8wk6r0dg": 1,
@@ -27775,7 +27797,7 @@
   "all,ios,lang-te,tzb,tzb-n300,dvc-mv9o43l079uehigbw7": 1,
   "all,android,lang-te,tzb,tzb-n300,dvc-mv9o6cknp7nubv4f4a": 1,
   "all,ios,lang-en,tzb,tzb-n300,dvc-mv9o9819b7tl7i4b2a": 1,
-  "all,ios,lang-te,tzb,tzb-p60,dvc-mv9ob21xbswou9ihni": 1,
+  "all,ios,lang-te,tzb,tzb-p0,dvc-mv9ob21xbswou9ihni": 1,
   "all,ios,lang-te,tzb,tzb-n300,dvc-mv9opqpim4j0qtfuhs": 1,
   "all,android,lang-te,tzb,tzb-n300,dvc-mv9oqt2tkga5iwisfr": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mv9oyj428xmtcgixcg": 1,
@@ -27911,6 +27933,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mvb1xbirr5wy5b8kgl": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvb21cnnbi67ro15ch": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvb3feh703g3s93bu5": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mvb40u08r0qiju14x8": 1,
   "all,ios,lang-te,tzb,tzb-p180,dvc-mvb4vhucz9h5fnfs83": 1,
   "all,ios,lang-te,tzb,tzb-n240,dvc-mvb509lhcs6ztugnc5": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvb62ww7mf4ltkep4d": 1,
@@ -27930,7 +27953,7 @@
   "all,ios,lang-en,tzb,tzb-n240,dvc-mvbbtteoxegc5hdtzj": 1,
   "all,ios,lang-te,tzb,tzb-p780,dvc-mvbddlfox6nj2hzso1": 1,
   "all,ios,lang-en,tzb,tzb-n240,dvc-mvbegn5z1wtldpkj7s": 1,
-  "all,android,lang-en,tzb,tzb-n300,dvc-mvbghse0k6bpmkbf5a": 1,
+  "all,android,lang-te,tzb,tzb-n300,dvc-mvbghse0k6bpmkbf5a": 1,
   "all,android,lang-te,tzb,tzb-n240,dvc-mvbh19nkg661riiwch": 1,
   "all,ios,lang-te,tzb,tzb-n420,dvc-mvbhy7fc9i54yoi8xg": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvbk6kdnnz27x72uz7": 1,
@@ -27984,6 +28007,7 @@
   "all,android,lang-te,tzb,tzb-p180,dvc-mvcgfe4wrdsqdhkxta": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvcgg30qemq2pndltq": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvcgxds4ekkg5ood3t": 1,
+  "all,ios,lang-te,tzb,tzb-p330,dvc-mvcipp4h7w8m94ufea": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mvcivl65ib39rar5wb": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvcjgr68ue5mh1q9b1": 1,
   "all,android,lang-te,tzb,tzb-n240,dvc-mvckawk9xr2vrp2xaa": 1,
@@ -27993,6 +28017,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mvcn2q1noz5gw42atj": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvcnh38v6x6vmjkz2x": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvcnw9v2bb35gtf8a9": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mvco8orp26zc17h7s5": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvcqa5q0c49fghwzsv": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mvcqaun4g6ogtu6nwi": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvcrrx97e44nify252": 1,
@@ -28182,6 +28207,7 @@
   "all,android,lang-en,tzb,tzb-p330,dvc-mvi5bx3u62estgs8x3": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvi6gaoy5ojd6y38xn": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvi6zuyzz2i5m0l3fk": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mvi9bu8bw123zopc36": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mvi9epzrds91ewrtv7": 1,
   "all,android,lang-en,tzb,tzb-p330,dvc-mviabatsceagl3jor6": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvic8iar1y2805b5uj": 1,
@@ -28201,6 +28227,7 @@
   "all,ios,lang-te,tzb,tzb-n300,dvc-mviv7wm0co7y7xkw49": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvivvk0fzhc9u53o95": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mviwjayk9ygnm1uidy": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mviwswto5w7290r84e": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvixot5oaxi85ej6ru": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvixue15uugkd58syy": 1,
   "all,ios,lang-en,tzb,tzb-n300,dvc-mviz2u3078mwe2stoa": 1,
@@ -28218,7 +28245,7 @@
   "all,android,lang-te,tzb,tzb-p330,dvc-mvj5teg6z7o85wz773": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvj6yvm05nbl816nke": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvj7m7co3s0iv51txk": 1,
-  "all,android,lang-te,tzb,tzb-p330,dvc-mvj7opemj06z6sl2hl": 1,
+  "all,android,lang-en,tzb,tzb-p330,dvc-mvj7opemj06z6sl2hl": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvj8kd3qo5hl28c0qv": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvj99bwjqfsunjeoak": 1,
   "all,ios,lang-te,tzb,tzb-p330,dvc-mvj9t9vjl0ow79qutm": 1,
@@ -28290,6 +28317,7 @@
   "all,android,lang-en,tzb,tzb-p330,dvc-mvn9d60g959ked11dw": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvnfrxce82gy2ri3y9": 1,
   "all,android,lang-te,tzb,tzb-p330,dvc-mvni56qqip8pivztnp": 1,
+  "all,android,lang-te,tzb,tzb-p330,dvc-mvns3pkvd82doactqc": 1,
   "all,lang-te,tzb-p330": 1
  },
  "topicAnomalies": [
@@ -28310,6 +28338,15 @@
    "tp": "all,android,lang-te,tzb,tzb-p60",
    "lastSeen": "2026-08-31T02:31:32.125Z",
    "topicsSyncedAt": "2026-08-20T00:12:32.633Z"
+  },
+  {
+   "p": "android",
+   "v": "1.4.1",
+   "b": "p0",
+   "c": "US",
+   "tp": "all,android,lang-te,tzb,tzb-p60,dvc-msavolp90756zkunzz",
+   "lastSeen": "2026-10-25T16:10:19.883Z",
+   "topicsSyncedAt": "2026-10-19T14:33:56.653Z"
   },
   {
    "p": "ios",
@@ -28346,6 +28383,15 @@
    "tp": "all,ios,lang-te,tzb,tzb-n420,dvc-msb9888wd1750y60j0",
    "lastSeen": "2026-10-19T14:01:10.904Z",
    "topicsSyncedAt": "2026-09-24T17:27:57.276Z"
+  },
+  {
+   "p": "android",
+   "v": "1.4.1",
+   "b": "p0",
+   "c": "US",
+   "tp": "all,android,lang-te,tzb,tzb-p60,dvc-msbqpy43cgf6iw3se7",
+   "lastSeen": "2026-10-25T12:49:34.146Z",
+   "topicsSyncedAt": "2026-10-21T19:00:30.605Z"
   },
   {
    "p": "android",
@@ -28433,15 +28479,6 @@
    "v": "1.4.1",
    "b": "p330",
    "c": "US",
-   "tp": "all,android,lang-te,tzb,tzb-p240,dvc-msgigiubilw0hxz17t",
-   "lastSeen": "2026-10-07T03:48:04.844Z",
-   "topicsSyncedAt": "2026-09-19T14:35:32.035Z"
-  },
-  {
-   "p": "android",
-   "v": "1.4.1",
-   "b": "p330",
-   "c": "US",
    "tp": "all,android,lang-te,tzb,tzb-p180,dvc-mshwpuipgqmfxjj6st",
    "lastSeen": "2026-10-18T15:06:40.668Z",
    "topicsSyncedAt": "2026-09-12T15:01:48.938Z"
@@ -28490,15 +28527,6 @@
    "tp": "all,ios,lang-te,tzb,tzb-p600,dvc-msraxetvo7pzfqomer",
    "lastSeen": "2026-10-24T12:28:16.677Z",
    "topicsSyncedAt": "2026-09-13T08:36:25.038Z"
-  },
-  {
-   "p": "ios",
-   "v": "1.4.1",
-   "b": "p120",
-   "c": "FI",
-   "tp": "all,ios,lang-te,tzb,tzb-p180,dvc-msrj5og9ona2gxtvza",
-   "lastSeen": "2026-10-25T04:18:31.429Z",
-   "topicsSyncedAt": "2026-10-24T06:06:02.701Z"
   },
   {
    "p": "android",
@@ -28553,6 +28581,15 @@
    "tp": "all,ios,lang-te,tzb,tzb-n300,dvc-msxje88fecss3bvjs0",
    "lastSeen": "2026-09-13T14:00:06.008Z",
    "topicsSyncedAt": "2026-09-09T22:48:41.715Z"
+  },
+  {
+   "p": "android",
+   "v": "1.4.1",
+   "b": "p330",
+   "c": "GB",
+   "tp": "all,android,lang-te,tzb,tzb-p240",
+   "lastSeen": "2026-10-25T15:11:56.602Z",
+   "topicsSyncedAt": "2026-08-22T08:07:32.210Z"
   },
   {
    "p": "ios",
@@ -28627,6 +28664,15 @@
    "topicsSyncedAt": "2026-10-24T12:53:41.127Z"
   },
   {
+   "p": "ios",
+   "v": "1.4.1",
+   "b": "p0",
+   "c": "GB",
+   "tp": "all,ios,lang-te,tzb,tzb-p60,dvc-msyaipspg92ekiy6d6",
+   "lastSeen": "2026-10-25T13:17:34.037Z",
+   "topicsSyncedAt": "2026-10-24T10:49:57.929Z"
+  },
+  {
    "p": "android",
    "v": "1.4.1",
    "b": "p0",
@@ -28690,6 +28736,15 @@
    "topicsSyncedAt": "2026-09-14T23:09:19.935Z"
   },
   {
+   "p": "ios",
+   "v": "1.4.1",
+   "b": "p0",
+   "c": "GB",
+   "tp": "all,ios,lang-te,tzb,tzb-p60,dvc-msykslnsob2uq95t0x",
+   "lastSeen": "2026-10-25T12:01:28.534Z",
+   "topicsSyncedAt": "2026-10-23T11:58:45.003Z"
+  },
+  {
    "p": "android",
    "v": "1.4.1",
    "b": "p660",
@@ -28742,6 +28797,24 @@
    "tp": "all,ios,lang-te,tzb,tzb-n420,dvc-msz1ee4o56w2fm4sl3",
    "lastSeen": "2026-10-14T15:00:02.787Z",
    "topicsSyncedAt": "2026-10-05T17:00:06.146Z"
+  },
+  {
+   "p": "ios",
+   "v": "1.4.1",
+   "b": "p0",
+   "c": "GB",
+   "tp": "all,ios,lang-te,tzb,tzb-p60,dvc-msz2fgshjpywtersio",
+   "lastSeen": "2026-10-25T12:37:29.903Z",
+   "topicsSyncedAt": "2026-10-21T09:00:08.785Z"
+  },
+  {
+   "p": "ios",
+   "v": "1.4.1",
+   "b": "p0",
+   "c": "GB",
+   "tp": "all,ios,lang-te,tzb,tzb-p60,dvc-msz4g0ku512dn2evs5",
+   "lastSeen": "2026-10-25T14:30:47.667Z",
+   "topicsSyncedAt": "2026-10-22T06:59:18.705Z"
   },
   {
    "p": "android",
@@ -28843,15 +28916,6 @@
    "topicsSyncedAt": "2026-09-14T01:58:05.031Z"
   },
   {
-   "p": "ios",
-   "v": "1.4.1",
-   "b": "p0",
-   "c": "GB",
-   "tp": "all,ios,lang-te,tzb,tzb-p60,dvc-mszq0yq4ejbam2egg3",
-   "lastSeen": "2026-10-25T10:14:55.083Z",
-   "topicsSyncedAt": "2026-10-24T06:54:43.131Z"
-  },
-  {
    "p": "android",
    "v": "1.4.1",
    "b": "p330",
@@ -28924,6 +28988,15 @@
    "topicsSyncedAt": "2026-10-06T23:43:32.306Z"
   },
   {
+   "p": "ios",
+   "v": "1.4.1",
+   "b": "p0",
+   "c": "IN",
+   "tp": "all,ios,lang-en,tzb,tzb-p60,dvc-mt0lnsilf2iu71bwtz",
+   "lastSeen": "2026-10-25T15:16:25.994Z",
+   "topicsSyncedAt": "2026-10-23T18:32:54.057Z"
+  },
+  {
    "p": "android",
    "v": "1.4.1",
    "b": "p0",
@@ -28958,6 +29031,15 @@
    "tp": "all,ios,lang-te,tzb,tzb-p330,dvc-mt1hj552a3zwajulo7",
    "lastSeen": "2026-10-20T07:00:47.888Z",
    "topicsSyncedAt": "2026-10-04T04:49:41.574Z"
+  },
+  {
+   "p": "android",
+   "v": "1.4.1",
+   "b": "p60",
+   "c": "IN",
+   "tp": "all,android,lang-te,tzb,tzb-p120,dvc-mt1p7gf0ckahwn4c4z",
+   "lastSeen": "2026-10-25T12:44:51.888Z",
+   "topicsSyncedAt": "2026-10-20T19:11:57.895Z"
   },
   {
    "p": "ios",
@@ -29003,15 +29085,6 @@
    "tp": "all,android,lang-te,tzb,tzb-p330,dvc-mt2xegxkqbnubgsxae",
    "lastSeen": "2026-10-17T10:06:07.671Z",
    "topicsSyncedAt": "2026-09-29T11:20:43.528Z"
-  },
-  {
-   "p": "ios",
-   "v": "1.4.1",
-   "b": "n240",
-   "c": "US",
-   "tp": "all,ios,lang-te,tzb,tzb-n420,dvc-mt30099cjfnz5lcoxx",
-   "lastSeen": "2026-10-24T14:10:02.445Z",
-   "topicsSyncedAt": "2026-10-09T19:08:38.300Z"
   },
   {
    "p": "android",
@@ -29068,6 +29141,15 @@
    "topicsSyncedAt": "2026-08-29T01:03:07.152Z"
   },
   {
+   "p": "ios",
+   "v": "1.4.1",
+   "b": "n240",
+   "c": "US",
+   "tp": "all,ios,lang-te,tzb,tzb-p330,dvc-mtfs2snanzng528bmy",
+   "lastSeen": "2026-10-25T12:31:06.278Z",
+   "topicsSyncedAt": "2026-10-21T14:51:06.156Z"
+  },
+  {
    "p": "android",
    "v": "1.4.1",
    "b": "p330",
@@ -29118,7 +29200,7 @@
    "b": "p0",
    "c": "GB",
    "tp": "all,ios,lang-en,tzb,tzb-p60,dvc-mtx0616pvmkf81b70n",
-   "lastSeen": "2026-10-25T07:34:30.796Z",
+   "lastSeen": "2026-10-25T15:32:52.774Z",
    "topicsSyncedAt": "2026-10-24T14:59:27.677Z"
   },
   {
@@ -29138,60 +29220,6 @@
    "tp": "all,android,lang-en,tzb,tzb-p60,dvc-mtxhcxp7tomb823vd0",
    "lastSeen": "2026-10-25T06:44:17.851Z",
    "topicsSyncedAt": "2026-10-24T13:14:02.213Z"
-  },
-  {
-   "p": "android",
-   "v": "1.4.1",
-   "b": "p330",
-   "c": "GB",
-   "tp": "all,android,lang-te,tzb,tzb-p60,dvc-mtxopt09opuhnsqxe2",
-   "lastSeen": "2026-10-13T12:39:01.417Z",
-   "topicsSyncedAt": "2026-09-30T12:55:53.257Z"
-  },
-  {
-   "p": "ios",
-   "v": "1.4.1",
-   "b": "n420",
-   "c": "US",
-   "tp": "all,ios,lang-te,tzb,tzb-n300,dvc-mtyfqh9q03vk1k0jdu",
-   "lastSeen": "2026-10-24T19:31:04.993Z",
-   "topicsSyncedAt": "2026-10-21T16:24:37.273Z"
-  },
-  {
-   "p": "android",
-   "v": "1.4.1",
-   "b": "p60",
-   "c": "GB",
-   "tp": "all,android,lang-en,tzb,tzb-p330,dvc-mtzatxmuzz21x5up17",
-   "lastSeen": "2026-10-22T13:15:07.752Z",
-   "topicsSyncedAt": "2026-09-13T04:14:04.187Z"
-  },
-  {
-   "p": "android",
-   "v": "1.4.1",
-   "b": "p660",
-   "c": "AU",
-   "tp": "all,android,lang-en,tzb,tzb-p600,dvc-mu07s5n72klmj6n92a",
-   "lastSeen": "2026-10-09T12:07:18.057Z",
-   "topicsSyncedAt": "2026-09-13T19:37:03.624Z"
-  },
-  {
-   "p": "android",
-   "v": "1.4.1",
-   "b": "p0",
-   "c": "IN",
-   "tp": "all,android,lang-en,tzb,tzb-p60,dvc-mu0akghq7e5jbu50mx",
-   "lastSeen": "2026-10-25T06:05:49.288Z",
-   "topicsSyncedAt": "2026-10-19T08:22:22.814Z"
-  },
-  {
-   "p": "ios",
-   "v": "1.4.1",
-   "b": "p660",
-   "c": "AU",
-   "tp": "all,ios,lang-en,tzb,tzb-p600,dvc-mu0cckxqavc7w69lad",
-   "lastSeen": "2026-10-09T10:11:38.561Z",
-   "topicsSyncedAt": "2026-09-14T10:00:27.204Z"
   }
  ],
  "clicksByRef": {
@@ -29211,7 +29239,7 @@
    }
   },
   "21-patri": {
-   "total": 15709,
+   "total": 15710,
    "ios": 1453,
    "android": 14210,
    "byDay": {
@@ -29246,7 +29274,8 @@
     "2026-10-21": 1,
     "2026-10-22": 1,
     "2026-10-23": 1,
-    "2026-10-24": 1
+    "2026-10-24": 1,
+    "2026-10-25": 1
    }
   },
   "_removed_": {
@@ -29526,7 +29555,7 @@
    }
   },
   "day-2-reel": {
-   "total": 7465,
+   "total": 7466,
    "ios": 934,
    "android": 6506,
    "byDay": {
@@ -29543,7 +29572,8 @@
     "2026-10-21": 1,
     "2026-10-22": 1,
     "2026-10-23": 1,
-    "2026-10-24": 1
+    "2026-10-24": 1,
+    "2026-10-25": 1
    }
   },
   "day-3-reel": {
@@ -29781,7 +29811,7 @@
    }
   },
   "ganesh-reel": {
-   "total": 6287,
+   "total": 6289,
    "ios": 410,
    "android": 5830,
    "byDay": {
@@ -29818,7 +29848,8 @@
     "2026-10-21": 1,
     "2026-10-22": 1,
     "2026-10-23": 1,
-    "2026-10-24": 1
+    "2026-10-24": 1,
+    "2026-10-25": 2
    }
   },
   "rules-probe": {
@@ -29874,9 +29905,9 @@
    }
   },
   "hemalatha-dasara": {
-   "total": 108,
-   "ios": 9,
-   "android": 95,
+   "total": 224,
+   "ios": 12,
+   "android": 208,
    "byDay": {
     "2026-10-09": 16,
     "2026-10-10": 15,
@@ -29894,13 +29925,13 @@
     "2026-10-22": 9,
     "2026-10-23": 3,
     "2026-10-24": 9,
-    "2026-10-25": 4
+    "2026-10-25": 120
    }
   },
   "insta": {
-   "total": 85685,
+   "total": 85687,
    "ios": 9868,
-   "android": 75616,
+   "android": 75618,
    "byDay": {
     "2026-07-31": 4,
     "2026-08-01": 19,
@@ -29988,7 +30019,7 @@
     "2026-10-22": 10,
     "2026-10-23": 9,
     "2026-10-24": 4,
-    "2026-10-25": 1
+    "2026-10-25": 3
    }
   },
   "investor": {
@@ -30040,9 +30071,9 @@
    }
   },
   "janu-varma": {
-   "total": 128,
-   "ios": 40,
-   "android": 67,
+   "total": 134,
+   "ios": 41,
+   "android": 72,
    "byDay": {
     "2026-09-12": 30,
     "2026-09-13": 9,
@@ -30079,7 +30110,8 @@
     "2026-10-21": 4,
     "2026-10-22": 4,
     "2026-10-23": 4,
-    "2026-10-24": 12
+    "2026-10-24": 12,
+    "2026-10-25": 6
    }
   },
   "k-reel": {
@@ -30230,7 +30262,7 @@
    }
   },
   "meta-gajanand-dasara": {
-   "total": 219,
+   "total": 220,
    "ios": 182,
    "android": 11,
    "byDay": {
@@ -30242,7 +30274,8 @@
     "2026-10-21": 1,
     "2026-10-22": 2,
     "2026-10-23": 1,
-    "2026-10-24": 1
+    "2026-10-24": 1,
+    "2026-10-25": 1
    }
   },
   "meta-ramadevi-dasara": {
@@ -30263,8 +30296,8 @@
    }
   },
   "sent-panch-sys": {
-   "total": 556,
-   "ios": 556,
+   "total": 558,
+   "ios": 558,
    "android": 0,
    "byDay": {
     "2026-08-07": 2,
@@ -30344,13 +30377,13 @@
     "2026-10-22": 5,
     "2026-10-23": 6,
     "2026-10-24": 2,
-    "2026-10-25": 4
+    "2026-10-25": 6
    }
   },
   "sent-panch-wa": {
-   "total": 2973,
+   "total": 2974,
    "ios": 8,
-   "android": 2965,
+   "android": 2966,
    "byDay": {
     "2026-08-07": 5,
     "2026-08-08": 12,
@@ -30431,13 +30464,13 @@
     "2026-10-22": 11,
     "2026-10-23": 6,
     "2026-10-24": 17,
-    "2026-10-25": 4
+    "2026-10-25": 5
    }
   },
   "sent-story-wa": {
-   "total": 1144,
+   "total": 1153,
    "ios": 1,
-   "android": 1143,
+   "android": 1152,
    "byDay": {
     "2026-08-07": 1,
     "2026-08-08": 28,
@@ -30508,13 +30541,14 @@
     "2026-10-19": 5,
     "2026-10-20": 4,
     "2026-10-21": 1,
-    "2026-10-22": 1
+    "2026-10-22": 1,
+    "2026-10-25": 9
    }
   },
   "sent-gita-wa": {
-   "total": 2608,
+   "total": 2610,
    "ios": 0,
-   "android": 2608,
+   "android": 2610,
    "byDay": {
     "2026-08-07": 3,
     "2026-08-08": 18,
@@ -30595,7 +30629,7 @@
     "2026-10-22": 20,
     "2026-10-23": 21,
     "2026-10-24": 28,
-    "2026-10-25": 18
+    "2026-10-25": 20
    }
   },
   "sent-gita-ig": {
@@ -30794,9 +30828,9 @@
    }
   },
   "sent-story-ig": {
-   "total": 247,
+   "total": 253,
    "ios": 0,
-   "android": 247,
+   "android": 253,
    "byDay": {
     "2026-08-08": 10,
     "2026-08-11": 9,
@@ -30846,7 +30880,8 @@
     "2026-10-16": 6,
     "2026-10-18": 1,
     "2026-10-19": 2,
-    "2026-10-21": 1
+    "2026-10-21": 1,
+    "2026-10-25": 6
    }
   },
   "sent-panch-ig": {
@@ -31194,9 +31229,9 @@
    }
   },
   "sent-greet-wa": {
-   "total": 410,
+   "total": 412,
    "ios": 0,
-   "android": 410,
+   "android": 412,
    "byDay": {
     "2026-08-10": 3,
     "2026-08-11": 1,
@@ -31246,7 +31281,8 @@
     "2026-10-17": 1,
     "2026-10-18": 3,
     "2026-10-19": 3,
-    "2026-10-20": 14
+    "2026-10-20": 14,
+    "2026-10-25": 2
    }
   },
   "sent-periods-ig": {
@@ -31420,9 +31456,9 @@
    }
   },
   "sent-vrat-wa": {
-   "total": 1799,
+   "total": 1800,
    "ios": 2,
-   "android": 1797,
+   "android": 1798,
    "byDay": {
     "2026-08-13": 2,
     "2026-08-14": 2,
@@ -31468,7 +31504,8 @@
     "2026-10-18": 1,
     "2026-10-19": 1,
     "2026-10-20": 1,
-    "2026-10-21": 1
+    "2026-10-21": 1,
+    "2026-10-25": 1
    }
   },
   "sent-vrat-sys": {
@@ -33031,27 +33068,28 @@
    }
   },
   "vapp-nv26-d10": {
-   "total": 518,
+   "total": 521,
    "ios": 127,
-   "android": 391,
+   "android": 394,
    "byDay": {
     "2026-10-20": 465,
     "2026-10-21": 26,
     "2026-10-22": 8,
     "2026-10-23": 14,
     "2026-10-24": 3,
-    "2026-10-25": 2
+    "2026-10-25": 5
    }
   },
   "lk-nv26-d10": {
-   "total": 51,
+   "total": 53,
    "ios": 11,
-   "android": 40,
+   "android": 42,
    "byDay": {
     "2026-10-20": 43,
     "2026-10-21": 2,
     "2026-10-22": 4,
-    "2026-10-23": 2
+    "2026-10-23": 2,
+    "2026-10-25": 2
    }
   },
   "ask-nv26-d10": {
@@ -33065,12 +33103,13 @@
    }
   },
   "cm-nv26-d10": {
-   "total": 20,
+   "total": 21,
    "ios": 5,
-   "android": 15,
+   "android": 16,
    "byDay": {
     "2026-10-20": 19,
-    "2026-10-22": 1
+    "2026-10-22": 1,
+    "2026-10-25": 1
    }
   },
   "vbtn-nv26-d10": {
@@ -33096,12 +33135,13 @@
    }
   },
   "ul-nv26-d10": {
-   "total": 6,
+   "total": 7,
    "ios": 3,
-   "android": 3,
+   "android": 4,
    "byDay": {
     "2026-10-20": 3,
-    "2026-10-22": 3
+    "2026-10-22": 3,
+    "2026-10-25": 1
    }
   },
   "sent-v-nv26-d10-wa": {
@@ -33322,9 +33362,9 @@
    }
   },
   "ramadevi-dasara": {
-   "total": 218,
+   "total": 242,
    "ios": 79,
-   "android": 135,
+   "android": 159,
    "byDay": {
     "2026-10-10": 95,
     "2026-10-11": 91,
@@ -33336,7 +33376,8 @@
     "2026-10-19": 3,
     "2026-10-20": 2,
     "2026-10-21": 1,
-    "2026-10-23": 1
+    "2026-10-23": 1,
+    "2026-10-25": 24
    }
   },
   "share-fest": {
@@ -33990,8 +34031,8 @@
    }
   },
   "share-vrat": {
-   "total": 3214,
-   "ios": 424,
+   "total": 3215,
+   "ios": 425,
    "android": 2741,
    "byDay": {
     "2026-08-13": 2,
@@ -34050,7 +34091,8 @@
     "2026-10-18": 2,
     "2026-10-19": 4,
     "2026-10-20": 1,
-    "2026-10-22": 3
+    "2026-10-22": 3,
+    "2026-10-25": 1
    }
   },
   "share-vrat-telusa": {
@@ -34309,7 +34351,7 @@
    }
   },
   "ugc-anil": {
-   "total": 950,
+   "total": 951,
    "ios": 21,
    "android": 888,
    "byDay": {
@@ -34342,7 +34384,8 @@
     "2026-10-21": 1,
     "2026-10-22": 1,
     "2026-10-23": 1,
-    "2026-10-24": 1
+    "2026-10-24": 1,
+    "2026-10-25": 1
    }
   },
   "vend-nv26-d10": {
@@ -34423,9 +34466,9 @@
    }
   },
   "venkat-sai": {
-   "total": 478,
+   "total": 481,
    "ios": 118,
-   "android": 348,
+   "android": 351,
    "byDay": {
     "2026-08-17": 12,
     "2026-08-18": 16,
@@ -34495,7 +34538,7 @@
     "2026-10-22": 3,
     "2026-10-23": 3,
     "2026-10-24": 6,
-    "2026-10-25": 6
+    "2026-10-25": 9
    }
   },
   "vennela-akansha": {
@@ -34744,34 +34787,58 @@
    ]
   },
   "creator": {
-   "clicks": 140740,
-   "ios": 16683,
-   "android": 123013,
-   "web": 1044,
+   "clicks": 140902,
+   "ios": 16687,
+   "android": 123165,
+   "web": 1050,
    "refs": 156,
    "top": [
     {
-     "ref": "venkat-sai",
-     "clicks": 478,
-     "today": 6,
-     "ios": 118,
-     "android": 348,
+     "ref": "hemalatha-dasara",
+     "clicks": 224,
+     "today": 120,
+     "ios": 12,
+     "android": 208,
      "storeInstalls": null
     },
     {
-     "ref": "hemalatha-dasara",
-     "clicks": 108,
-     "today": 4,
-     "ios": 9,
-     "android": 95,
+     "ref": "ramadevi-dasara",
+     "clicks": 242,
+     "today": 24,
+     "ios": 79,
+     "android": 159,
+     "storeInstalls": null
+    },
+    {
+     "ref": "venkat-sai",
+     "clicks": 481,
+     "today": 9,
+     "ios": 118,
+     "android": 351,
+     "storeInstalls": null
+    },
+    {
+     "ref": "janu-varma",
+     "clicks": 134,
+     "today": 6,
+     "ios": 41,
+     "android": 72,
      "storeInstalls": null
     },
     {
      "ref": "vapp-nv26-d10",
-     "clicks": 518,
-     "today": 2,
+     "clicks": 521,
+     "today": 5,
      "ios": 127,
-     "android": 391,
+     "android": 394,
+     "storeInstalls": null
+    },
+    {
+     "ref": "ganesh-reel",
+     "clicks": 6289,
+     "today": 2,
+     "ios": 410,
+     "android": 5830,
      "storeInstalls": null
     },
     {
@@ -34783,6 +34850,22 @@
      "storeInstalls": null
     },
     {
+     "ref": "lk-nv26-d10",
+     "clicks": 53,
+     "today": 2,
+     "ios": 11,
+     "android": 42,
+     "storeInstalls": null
+    },
+    {
+     "ref": "21-patri",
+     "clicks": 15710,
+     "today": 1,
+     "ios": 1453,
+     "android": 14210,
+     "storeInstalls": null
+    },
+    {
      "ref": "meta-ad-dasara",
      "clicks": 14537,
      "today": 1,
@@ -34791,59 +34874,19 @@
      "storeInstalls": null
     },
     {
+     "ref": "day-2-reel",
+     "clicks": 7466,
+     "today": 1,
+     "ios": 934,
+     "android": 6506,
+     "storeInstalls": null
+    },
+    {
      "ref": "day-6",
      "clicks": 2716,
      "today": 1,
      "ios": 136,
      "android": 2558,
-     "storeInstalls": null
-    },
-    {
-     "ref": "dasara-reel",
-     "clicks": 1306,
-     "today": 1,
-     "ios": 56,
-     "android": 1220,
-     "storeInstalls": null
-    },
-    {
-     "ref": "meta-ramadevi-dasara",
-     "clicks": 1259,
-     "today": 1,
-     "ios": 1067,
-     "android": 9,
-     "storeInstalls": null
-    },
-    {
-     "ref": "vapp-nv26-d9",
-     "clicks": 527,
-     "today": 1,
-     "ios": 98,
-     "android": 429,
-     "storeInstalls": null
-    },
-    {
-     "ref": "puja-memory",
-     "clicks": 89,
-     "today": 1,
-     "ios": 41,
-     "android": 41,
-     "storeInstalls": null
-    },
-    {
-     "ref": "navya-charitha",
-     "clicks": 48,
-     "today": 1,
-     "ios": 20,
-     "android": 24,
-     "storeInstalls": null
-    },
-    {
-     "ref": "anil",
-     "clicks": 22,
-     "today": 1,
-     "ios": 1,
-     "android": 17,
      "storeInstalls": null
     }
    ]
@@ -34866,18 +34909,18 @@
    ]
   },
   "campaign": {
-   "clicks": 86117,
+   "clicks": 86119,
    "ios": 10022,
-   "android": 75862,
+   "android": 75864,
    "web": 233,
    "refs": 2,
    "top": [
     {
      "ref": "insta",
-     "clicks": 85685,
-     "today": 1,
+     "clicks": 85687,
+     "today": 3,
      "ios": 9868,
-     "android": 75616,
+     "android": 75618,
      "storeInstalls": null
     },
     {
@@ -34891,18 +34934,26 @@
    ]
   },
   "share": {
-   "clicks": 22894,
-   "ios": 2959,
-   "android": 19756,
+   "clicks": 22918,
+   "ios": 2962,
+   "android": 19777,
    "web": 179,
    "refs": 90,
    "top": [
     {
      "ref": "sent-gita-wa",
-     "clicks": 2608,
-     "today": 18,
+     "clicks": 2610,
+     "today": 20,
      "ios": 0,
-     "android": 2608,
+     "android": 2610,
+     "storeInstalls": null
+    },
+    {
+     "ref": "sent-story-wa",
+     "clicks": 1153,
+     "today": 9,
+     "ios": 1,
+     "android": 1152,
      "storeInstalls": null
     },
     {
@@ -34914,19 +34965,27 @@
      "storeInstalls": null
     },
     {
-     "ref": "sent-panch-wa",
-     "clicks": 2973,
-     "today": 4,
-     "ios": 8,
-     "android": 2965,
+     "ref": "sent-panch-sys",
+     "clicks": 558,
+     "today": 6,
+     "ios": 558,
+     "android": 0,
      "storeInstalls": null
     },
     {
-     "ref": "sent-panch-sys",
-     "clicks": 556,
-     "today": 4,
-     "ios": 556,
-     "android": 0,
+     "ref": "sent-story-ig",
+     "clicks": 253,
+     "today": 6,
+     "ios": 0,
+     "android": 253,
+     "storeInstalls": null
+    },
+    {
+     "ref": "sent-panch-wa",
+     "clicks": 2974,
+     "today": 5,
+     "ios": 8,
+     "android": 2966,
      "storeInstalls": null
     },
     {
@@ -34970,34 +35029,18 @@
      "storeInstalls": null
     },
     {
-     "ref": "share-panch",
-     "clicks": 1998,
-     "today": 1,
-     "ios": 382,
-     "android": 1594,
-     "storeInstalls": null
-    },
-    {
-     "ref": "sent-rasi-sys",
-     "clicks": 205,
-     "today": 1,
-     "ios": 201,
-     "android": 4,
-     "storeInstalls": null
-    },
-    {
-     "ref": "sent-gita-sys",
-     "clicks": 188,
-     "today": 1,
-     "ios": 188,
-     "android": 0,
+     "ref": "sent-greet-wa",
+     "clicks": 412,
+     "today": 2,
+     "ios": 0,
+     "android": 412,
      "storeInstalls": null
     }
    ]
   }
  },
- "inboundClicks": 249619,
- "outboundShares": 22894,
+ "inboundClicks": 249783,
+ "outboundShares": 22918,
  "vratham": {
   "reached": 27744,
   "voted": 12808,
@@ -35064,7 +35107,7 @@
    "reminderUsers": 2907
   },
   "krishnashtami": {
-   "reached": 4636,
+   "reached": 4639,
    "voted": 0,
    "votes": {
     "f1": 0,
@@ -35090,13 +35133,13 @@
    "checklistUsers": 400,
    "itemsChecked": 4333,
    "kathaReaders": 1952,
-   "vidhanamViewers": 2069,
-   "stationVisitors": 2626,
+   "vidhanamViewers": 2070,
+   "stationVisitors": 2627,
    "sharers": 50,
    "reminderUsers": 190
   },
   "nitya-puja": {
-   "reached": 4934,
+   "reached": 4984,
    "voted": 0,
    "votes": {
     "f1": 0,
@@ -35119,12 +35162,12 @@
     "f4": 0,
     "nd": 0
    },
-   "checklistUsers": 174,
-   "itemsChecked": 1671,
+   "checklistUsers": 175,
+   "itemsChecked": 1689,
    "kathaReaders": 0,
    "vidhanamViewers": 0,
-   "stationVisitors": 3219,
-   "sharers": 22,
+   "stationVisitors": 3251,
+   "sharers": 23,
    "reminderUsers": 0
   },
   "sharannavaratri": {
@@ -35155,12 +35198,12 @@
    "itemsChecked": 3894,
    "kathaReaders": 0,
    "vidhanamViewers": 4364,
-   "stationVisitors": 2729,
+   "stationVisitors": 2730,
    "sharers": 234,
    "reminderUsers": 290
   },
   "vinayaka-chavithi": {
-   "reached": 12645,
+   "reached": 12646,
    "voted": 0,
    "votes": {
     "f1": 0,
@@ -35186,8 +35229,8 @@
    "checklistUsers": 2654,
    "itemsChecked": 34610,
    "kathaReaders": 6523,
-   "vidhanamViewers": 7928,
-   "stationVisitors": 9809,
+   "vidhanamViewers": 7929,
+   "stationVisitors": 9810,
    "sharers": 153,
    "reminderUsers": 884
   },
@@ -35289,78 +35332,78 @@
   }
  },
  "brandCollab": {
-  "reach": 33709,
-  "reachIndia": 29501,
+  "reach": 33728,
+  "reachIndia": 29520,
   "reachNri": 4208,
-  "impressions": 585648,
-  "clicks": 6225,
-  "outbound": 5898,
+  "impressions": 587442,
+  "clicks": 6236,
+  "outbound": 5907,
   "byPlacement": {
    "puja_preparation": {
     "reach": 15996,
     "reachIndia": 13833,
     "reachNri": 2163,
-    "impressions": 41484,
+    "impressions": 41490,
     "clicks": 1463,
     "outbound": 1457,
     "ctr": 3.5,
     "ctrByReach": 9.1
    },
    "featured_discovery": {
-    "reach": 18195,
-    "reachIndia": 15700,
-    "reachNri": 2495,
-    "impressions": 53228,
+    "reach": 18218,
+    "reachIndia": 15720,
+    "reachNri": 2498,
+    "impressions": 53387,
     "clicks": 292,
     "outbound": 289,
     "ctr": 0.5,
     "ctrByReach": 1.6
    },
    "festival_detail": {
-    "reach": 8405,
-    "reachIndia": 7166,
-    "reachNri": 1239,
-    "impressions": 13755,
-    "clicks": 267,
-    "outbound": 265,
-    "ctr": 1.9,
+    "reach": 8420,
+    "reachIndia": 7180,
+    "reachNri": 1240,
+    "impressions": 13793,
+    "clicks": 269,
+    "outbound": 267,
+    "ctr": 2,
     "ctrByReach": 3.2
    },
    "home_daily": {
-    "reach": 33705,
-    "reachIndia": 29497,
+    "reach": 33724,
+    "reachIndia": 29516,
     "reachNri": 4208,
-    "impressions": 465430,
-    "clicks": 3746,
-    "outbound": 3601,
+    "impressions": 467006,
+    "clicks": 3755,
+    "outbound": 3608,
     "ctr": 0.8,
     "ctrByReach": 11.1
    },
    "greeting_send": {
-    "reach": 1836,
-    "reachIndia": 1650,
-    "reachNri": 186,
-    "impressions": 2261,
+    "reach": 1841,
+    "reachIndia": 1653,
+    "reachNri": 188,
+    "impressions": 2267,
     "clicks": 131,
     "outbound": 131,
     "ctr": 5.8,
     "ctrByReach": 7.1
    },
    "puja_sponsor_chip": {
-    "reach": 3396,
+    "reach": 3397,
     "reachIndia": 3058,
-    "reachNri": 338,
-    "impressions": 4990,
+    "reachNri": 339,
+    "impressions": 4989,
     "clicks": 301,
     "outbound": 128,
     "ctr": 6,
     "ctrByReach": 8.9
    },
    "puja_complete": {
-    "reach": 1641,
-    "reachIndia": 1430,
+    "reach": 1652,
+    "reachIndia": 1441,
     "reachNri": 211,
-    "impressions": 4499,
+    "impressions": 4509,
     "clicks": 25,
     "outbound": 27,
     "ctr": 0.6,
@@ -35385,9 +35428,9 @@
   "beta": {
    "ready": false,
    "window": "14d",
-   "answered": 5466,
+   "answered": 5280,
    "efWrong": 2,
-   "wrongRate": 0.1,
+   "wrongRate": 0.2,
    "efRate": 54,
    "verdict": "NO — 2 engine-fact error(s) in 14d. This must be zero."
   },
@@ -35395,10 +35438,10 @@
    {
     "intent": "AI_TAIL",
     "cat": "Other",
-    "users": 3435,
-    "n": 15737,
-    "variants": 8940,
-    "ok": 15737,
+    "users": 3443,
+    "n": 15783,
+    "variants": 8966,
+    "ok": 15783,
     "fbP": 98,
     "fbN": 2,
     "wrong": 22,
@@ -35438,8 +35481,8 @@
     "intent": "PERSONALISED_MUHURTHAM",
     "cat": "Muhurtham",
     "users": 453,
-    "n": 821,
-    "variants": 394,
+    "n": 826,
+    "variants": 399,
     "ok": 0,
     "fbP": 0,
     "fbN": 0,
@@ -35451,10 +35494,10 @@
    {
     "intent": "GITA_ANGER",
     "cat": "Gita",
-    "users": 700,
-    "n": 808,
+    "users": 702,
+    "n": 810,
     "variants": 2,
-    "ok": 808,
+    "ok": 810,
     "fbP": 7,
     "fbN": 0,
     "wrong": 0,
@@ -35493,10 +35536,10 @@
    {
     "intent": "WHEN_BRAHMA",
     "cat": "Panchangam",
-    "users": 537,
-    "n": 599,
+    "users": 538,
+    "n": 601,
     "variants": 3,
-    "ok": 599,
+    "ok": 601,
     "fbP": 8,
     "fbN": 1,
     "wrong": 0,
@@ -35606,9 +35649,9 @@
     "intent": "CRISIS_SUPPORT",
     "cat": "Other",
     "users": 13,
-    "n": 24,
-    "variants": 23,
-    "ok": 24,
+    "n": 25,
+    "variants": 24,
+    "ok": 25,
     "fbP": 0,
     "fbN": 1,
     "wrong": 1,
@@ -35817,9 +35860,9 @@
    "NEEDS_PP_REVIEW": [
     {
      "intent": "AI_TAIL",
-     "users": 3435,
+     "users": 3443,
      "sen": true,
-     "prio": 10.48
+     "prio": 10.47
     },
     {
      "intent": "NAVARATRI_FEW_DAYS",
@@ -35829,7 +35872,7 @@
     },
     {
      "intent": "WHEN_BRAHMA",
-     "users": 537,
+     "users": 538,
      "sen": false,
      "prio": 0.9
     },
@@ -35843,7 +35886,7 @@
      "intent": "CRISIS_SUPPORT",
      "users": 13,
      "sen": true,
-     "prio": 2.17
+     "prio": 2.08
     }
    ],
    "NEEDS_KEERTHI_REVIEW": [],
@@ -35851,21 +35894,21 @@
    "POSSIBLE_WRONG_ANSWER": [
     {
      "intent": "AI_TAIL",
-     "users": 3435,
+     "users": 3443,
      "wrong": 22,
-     "prio": 10.48
+     "prio": 10.47
     },
     {
      "intent": "PERSONALISED_MUHURTHAM",
      "users": 453,
      "wrong": 4,
-     "prio": 910.41
+     "prio": 910.39
     },
     {
      "intent": "CRISIS_SUPPORT",
      "users": 13,
      "wrong": 1,
-     "prio": 2.17
+     "prio": 2.08
     }
    ],
    "TOP_UNANSWERED": [
@@ -36074,7 +36117,7 @@
     {
      "intent": "PERSONALISED_MUHURTHAM",
      "users": 453,
-     "prio": 910.41
+     "prio": 910.39
     },
     {
      "intent": "CLARIFY_GOODTIME",
@@ -36115,10 +36158,10 @@
    {
     "intent": "AI_TAIL",
     "cat": "Other",
-    "users": 3435,
-    "n": 15737,
-    "variants": 8940,
-    "ok": 15737,
+    "users": 3443,
+    "n": 15783,
+    "variants": 8966,
+    "ok": 15783,
     "fbP": 98,
     "fbN": 2,
     "wrong": 22,
@@ -36129,8 +36172,8 @@
     "intent": "PERSONALISED_MUHURTHAM",
     "cat": "Muhurtham",
     "users": 453,
-    "n": 821,
-    "variants": 394,
+    "n": 826,
+    "variants": 399,
     "ok": 0,
     "fbP": 0,
     "fbN": 0,
@@ -36142,9 +36185,9 @@
     "intent": "CRISIS_SUPPORT",
     "cat": "Other",
     "users": 13,
-    "n": 24,
-    "variants": 23,
-    "ok": 24,
+    "n": 25,
+    "variants": 24,
+    "ok": 25,
     "fbP": 0,
     "fbN": 1,
     "wrong": 1,
@@ -36167,10 +36210,10 @@
    {
     "intent": "WHEN_BRAHMA",
     "cat": "Panchangam",
-    "users": 537,
-    "n": 599,
+    "users": 538,
+    "n": 601,
     "variants": 3,
-    "ok": 599,
+    "ok": 601,
     "fbP": 8,
     "fbN": 1,
     "wrong": 0,
@@ -36179,66 +36222,66 @@
    }
   ],
   "notify": {
-   "clicks": 187,
+   "clicks": 188,
    "conversion": null
   },
   "cost30": {
-   "aiCalls": 7126,
-   "tokensIn": 4354126,
-   "tokensOut": 2402457,
-   "costUsd": 7.3124,
+   "aiCalls": 7109,
+   "tokensIn": 4343686,
+   "tokensOut": 2394243,
+   "costUsd": 7.2887,
    "perUser": 0.0028,
    "perAnswer": 0.0008
   },
   "today": {
-   "users": 71,
-   "questions": 208,
-   "conversations": 143,
-   "qPerUser": 2.9,
-   "convosPerUser": 2,
+   "users": 68,
+   "questions": 187,
+   "conversations": 123,
+   "qPerUser": 2.8,
+   "convosPerUser": 1.8,
    "qPerConversation": 1.5,
-   "answered": 195,
+   "answered": 175,
    "answerRate": 94,
    "clarify": 0,
    "rekha": 0,
    "rekhaRate": 0,
-   "noModel": 0,
+   "noModel": 1,
    "offscope": 0,
-   "premium": 13,
-   "engineFacted": 156,
-   "efRate": 80,
-   "wrong": 1,
-   "wrongRate": 0.5,
-   "efWrong": 1,
+   "premium": 11,
+   "engineFacted": 132,
+   "efRate": 75,
+   "wrong": 0,
+   "wrongRate": 0,
+   "efWrong": 0,
    "fbP": 0,
    "fbN": 0,
    "fbRate": 0,
    "posRate": null,
-   "aiCalls": 182,
-   "tokensIn": 111150,
-   "tokensOut": 52928,
-   "costUsd": 0.1657,
-   "wrongFlags": 1,
+   "aiCalls": 161,
+   "tokensIn": 98236,
+   "tokensOut": 46330,
+   "costUsd": 0.1453,
+   "wrongFlags": 0,
    "fufails": 0,
-   "chipTaps": 3
+   "chipTaps": 5
   },
   "d7": {
-   "users": 654,
-   "questions": 2228,
-   "conversations": 1322,
-   "qPerUser": 3.4,
+   "users": 641,
+   "questions": 2212,
+   "conversations": 1308,
+   "qPerUser": 3.5,
    "convosPerUser": 2,
    "qPerConversation": 1.7,
-   "answered": 2108,
-   "answerRate": 95,
+   "answered": 2088,
+   "answerRate": 94,
    "clarify": 5,
    "rekha": 4,
    "rekhaRate": 0,
-   "noModel": 9,
+   "noModel": 10,
    "offscope": 16,
-   "premium": 86,
-   "engineFacted": 1249,
-   "efRate": 59,
+   "premium": 89,
+   "engineFacted": 1259,
+   "efRate": 60,
    "wrong": 2,
    "wrongRate": 0.1,
    "efWrong": 1,
@@ -36246,30 +36289,30 @@
    "fbN": 1,
    "fbRate": 0,
    "posRate": 67,
-   "aiCalls": 1552,
-   "tokensIn": 948821,
-   "tokensOut": 455815,
-   "costUsd": 1.4242,
+   "aiCalls": 1561,
+   "tokensIn": 954248,
+   "tokensOut": 457331,
+   "costUsd": 1.4296,
    "wrongFlags": 1,
    "fufails": 1,
-   "chipTaps": 128
+   "chipTaps": 123
   },
   "d30": {
-   "users": 2600,
-   "questions": 10254,
-   "conversations": 6290,
+   "users": 2598,
+   "questions": 10232,
+   "conversations": 6261,
    "qPerUser": 3.9,
    "convosPerUser": 2.4,
    "qPerConversation": 1.6,
-   "answered": 9709,
+   "answered": 9686,
    "answerRate": 95,
    "clarify": 15,
    "rekha": 7,
    "rekhaRate": 0,
-   "noModel": 93,
+   "noModel": 94,
    "offscope": 49,
    "premium": 381,
-   "engineFacted": 5829,
+   "engineFacted": 5807,
    "efRate": 60,
    "wrong": 13,
    "wrongRate": 0.1,
@@ -36278,13 +36321,13 @@
    "fbN": 3,
    "fbRate": 1,
    "posRate": 94,
-   "aiCalls": 7126,
-   "tokensIn": 4354126,
-   "tokensOut": 2402457,
-   "costUsd": 7.3124,
+   "aiCalls": 7109,
+   "tokensIn": 4343686,
+   "tokensOut": 2394243,
+   "costUsd": 7.2887,
    "wrongFlags": 10,
    "fufails": 22,
-   "chipTaps": 602
+   "chipTaps": 605
   },
   "byDay": {
    "2026-08-27": {
@@ -36701,21 +36744,21 @@
     "cost": 0.1541
    },
    "2026-10-25": {
-    "q": 84,
-    "users": 34,
-    "convos": 58,
-    "ai": 71,
-    "cost": 0.0691
+    "q": 141,
+    "users": 54,
+    "convos": 92,
+    "ai": 117,
+    "cost": 0.11
    }
   },
   "intents": [
    {
     "intent": "AI_TAIL",
     "cat": "Other",
-    "users": 3435,
-    "n": 15737,
-    "variants": 8940,
-    "ok": 15737,
+    "users": 3443,
+    "n": 15783,
+    "variants": 8966,
+    "ok": 15783,
     "fbP": 98,
     "fbN": 2,
     "wrong": 22,
@@ -36752,8 +36795,8 @@
     "intent": "PERSONALISED_MUHURTHAM",
     "cat": "Muhurtham",
     "users": 453,
-    "n": 821,
-    "variants": 394,
+    "n": 826,
+    "variants": 399,
     "ok": 0,
     "fbP": 0,
     "fbN": 0,
@@ -36764,10 +36807,10 @@
    {
     "intent": "GITA_ANGER",
     "cat": "Gita",
-    "users": 700,
-    "n": 808,
+    "users": 702,
+    "n": 810,
     "variants": 2,
-    "ok": 808,
+    "ok": 810,
     "fbP": 7,
     "fbN": 0,
     "wrong": 0,
@@ -36803,10 +36846,10 @@
    {
     "intent": "WHEN_BRAHMA",
     "cat": "Panchangam",
-    "users": 537,
-    "n": 599,
+    "users": 538,
+    "n": 601,
     "variants": 3,
-    "ok": 599,
+    "ok": 601,
     "fbP": 8,
     "fbN": 1,
     "wrong": 0,
@@ -36830,8 +36873,8 @@
     "intent": "UNKNOWN",
     "cat": "Unanswered",
     "users": 151,
-    "n": 306,
-    "variants": 142,
+    "n": 307,
+    "variants": 143,
     "ok": 22,
     "fbP": 0,
     "fbN": 0,
@@ -36934,9 +36977,9 @@
     "intent": "CRISIS_SUPPORT",
     "cat": "Other",
     "users": 13,
-    "n": 24,
-    "variants": 23,
-    "ok": 24,
+    "n": 25,
+    "variants": 24,
+    "ok": 25,
     "fbP": 0,
     "fbN": 1,
     "wrong": 1,
@@ -37231,6 +37274,14 @@
    }
   ],
   "failed": [
+   {
+    "ts": 1792940529473,
+    "intent": "UNKNOWN",
+    "cat": "Unanswered",
+    "sen": false,
+    "example": "నా జాతకం లో బాగాలేని గ్రహాలు చెప్పండి",
+    "reason": "NO_MODEL:to,to,to,to,to,to"
+   },
    {
     "ts": 1792844777297,
     "intent": "AI_TAIL",
@@ -37702,14 +37753,6 @@
     "sen": false,
     "example": "sankastahara chaturthi Pooja vidhanam",
     "reason": "NO_MODEL:402,402,402,402,404,402"
-   },
-   {
-    "ts": 1790670625347,
-    "intent": "UNKNOWN",
-    "cat": "Unanswered",
-    "sen": false,
-    "example": "💭 కర్మ అంటే నిజంగా ఏంటి?",
-    "reason": "NO_MODEL:402,402,402,402,404,402"
    }
   ],
   "failReasons": {
@@ -37719,7 +37762,7 @@
    "NO_MODEL_AVAILABLE": 25,
    "USER_CORRECTED_ANSWER": 27,
    "LIFE_DECISION": 14,
-   "NO_MODEL:to,to,to,to,to,to": 34,
+   "NO_MODEL:to,to,to,to,to,to": 35,
    "HIGH_RISK_RELIGIOUS_VERDICT": 2,
    "NO_MODEL:to,lang,to,to,404,to": 1,
    "NO_MODEL:to,to,to,lang,404,to": 2,
@@ -37732,14 +37775,14 @@
    "NO_MODEL:lang,lang,lang,lang,404,lang": 1
   },
   "muhurtham": {
-   "requests": 821,
+   "requests": 826,
    "users": 453,
    "byPurpose": {
     "OTHER": 368,
     "VEHICLE": 157,
     "PURCHASE": 56,
     "BUSINESS": 32,
-    "MARRIAGE": 155,
+    "MARRIAGE": 160,
     "GRIHAPRAVESAM": 13,
     "ANNAPRASANA": 5,
     "PROPERTY": 11,
@@ -37749,7 +37792,7 @@
     "MEDICAL": 3,
     "EDUCATION": 2
    },
-   "notifyClicks": 187,
+   "notifyClicks": 188,
    "otherBreakdown": {
     "general good-day": 11,
     "travel": 3,
@@ -37807,17 +37850,17 @@
    "festivals": 13
   },
   "srcMix": {
-   "ai": 15759,
-   "gita": 814,
-   "knowledge": 1841,
-   "engine": 5819,
-   "premium": 821,
-   "fallback": 428
+   "ai": 15805,
+   "gita": 816,
+   "knowledge": 1842,
+   "engine": 5821,
+   "premium": 826,
+   "fallback": 429
   },
   "followup": {
    "avgDepth": 1.5,
    "multiTurnRate": 22,
-   "chipTaps": 1255,
+   "chipTaps": 1258,
    "chipFails": 63,
    "suggestedFollowupFailureRate": 5
   },
@@ -37829,6 +37872,12 @@
    "rekha": 7,
    "awaitingAnswer": 80,
    "items": [
+    {
+     "kind": "AWAITING_ANSWER",
+     "intent": "PERSONALISED_MUHURTHAM_NOTIFY",
+     "ts": 1792932229297,
+     "sid": "mvntj63fhmo5"
+    },
     {
      "kind": "AWAITING_ANSWER",
      "intent": "PERSONALISED_MUHURTHAM_NOTIFY",
@@ -38182,64 +38231,58 @@
      "intent": "PERSONALISED_MUHURTHAM_NOTIFY",
      "ts": 1791562520545,
      "sid": "mv1555241w9h"
-    },
-    {
-     "kind": "AWAITING_ANSWER",
-     "intent": "PERSONALISED_MUHURTHAM_NOTIFY",
-     "ts": 1791561861674,
-     "sid": "mv15n0h9qg2t"
     }
    ]
   }
  },
  "pujaWish": {
-  "voters": 3714,
-  "votes": 22534,
-  "votesIndia": 19106,
+  "voters": 3723,
+  "votes": 22593,
+  "votesIndia": 19165,
   "votesNri": 3428,
   "byPuja": {
    "nitya-puja": 1549,
-   "deepavali": 1095,
+   "deepavali": 1100,
    "sharad-navaratri": 990,
    "vijayadashami": 978,
-   "karthika-pournami": 953,
-   "ugadi": 728,
-   "maha-shivaratri": 702,
-   "sri-rama-navami": 681,
-   "nagula-chavithi": 669,
+   "karthika-pournami": 956,
+   "ugadi": 732,
+   "maha-shivaratri": 705,
+   "sri-rama-navami": 684,
+   "nagula-chavithi": 672,
    "deity-ganapathi": 626,
-   "ratha-saptami": 611,
-   "sankranti": 600,
-   "subramanya-shashti": 595,
-   "hanuman-jayanti": 575,
-   "polala-amavasya": 534,
+   "ratha-saptami": 613,
+   "sankranti": 601,
+   "subramanya-shashti": 598,
+   "hanuman-jayanti": 578,
+   "polala-amavasya": 536,
    "deity-venkateswara": 498,
-   "kedareswara-vratham": 487,
-   "guru-pournami": 483,
-   "sapta-shanivara-vratham": 483,
+   "kedareswara-vratham": 492,
+   "guru-pournami": 485,
+   "sapta-shanivara-vratham": 484,
    "deity-devi": 480,
    "deity-shiva": 472,
-   "deity-lakshmi": 468,
+   "deity-lakshmi": 469,
    "vinayaka-chavithi": 467,
-   "akshaya-tritiya": 464,
-   "ksheerabdi-dwadashi": 441,
-   "dhanatrayodashi": 436,
+   "akshaya-tritiya": 466,
+   "ksheerabdi-dwadashi": 443,
+   "dhanatrayodashi": 438,
    "deity-hanuman": 392,
-   "varahi-navaratri": 383,
-   "deity-vishnu": 359,
-   "naga-panchami": 350,
+   "varahi-navaratri": 386,
+   "deity-vishnu": 360,
+   "naga-panchami": 353,
    "deity-subramanya": 349,
-   "satyanarayana-vratham": 329,
+   "satyanarayana-vratham": 330,
    "deity-krishna": 319,
    "sankashtahara-chaturthi": 318,
    "deity-surya": 301,
    "deity-rama": 299,
-   "shyamala-navaratri": 294,
+   "shyamala-navaratri": 295,
    "deity-sai-baba": 284,
-   "ananta-padmanabha-vratham": 276,
-   "chaitra-navaratri": 275,
+   "ananta-padmanabha-vratham": 277,
+   "chaitra-navaratri": 276,
    "ekadashi": 247,
-   "pournami": 186,
+   "pournami": 187,
    "masa-shivaratri": 180,
    "ramadevuni-puja": 152,
    "pradosham": 134,
@@ -38249,26 +38292,26 @@
   "byPujaIndia": {
    "vinayaka-chavithi": 395,
    "vijayadashami": 835,
-   "deepavali": 919,
-   "sankranti": 497,
-   "karthika-pournami": 804,
-   "maha-shivaratri": 585,
-   "ugadi": 598,
-   "sri-rama-navami": 564,
+   "deepavali": 924,
+   "sankranti": 498,
+   "karthika-pournami": 807,
+   "maha-shivaratri": 588,
+   "ugadi": 602,
+   "sri-rama-navami": 567,
    "deity-ganapathi": 545,
    "nitya-puja": 1361,
-   "polala-amavasya": 478,
+   "polala-amavasya": 480,
    "sharad-navaratri": 865,
-   "dhanatrayodashi": 359,
-   "nagula-chavithi": 582,
-   "ksheerabdi-dwadashi": 381,
-   "subramanya-shashti": 510,
-   "ratha-saptami": 519,
-   "varahi-navaratri": 325,
-   "guru-pournami": 400,
+   "dhanatrayodashi": 361,
+   "nagula-chavithi": 585,
+   "ksheerabdi-dwadashi": 383,
+   "subramanya-shashti": 513,
+   "ratha-saptami": 521,
+   "varahi-navaratri": 328,
+   "guru-pournami": 402,
    "deity-shiva": 410,
-   "deity-vishnu": 309,
-   "deity-lakshmi": 399,
+   "deity-vishnu": 310,
+   "deity-lakshmi": 400,
    "deity-devi": 414,
    "deity-rama": 254,
    "deity-krishna": 274,
@@ -38277,20 +38320,20 @@
    "deity-surya": 253,
    "deity-venkateswara": 427,
    "deity-sai-baba": 236,
-   "kedareswara-vratham": 425,
-   "hanuman-jayanti": 473,
-   "akshaya-tritiya": 394,
-   "sapta-shanivara-vratham": 407,
-   "satyanarayana-vratham": 255,
+   "kedareswara-vratham": 430,
+   "hanuman-jayanti": 476,
+   "akshaya-tritiya": 396,
+   "sapta-shanivara-vratham": 408,
+   "satyanarayana-vratham": 256,
    "ekadashi": 191,
    "sankashtahara-chaturthi": 268,
-   "naga-panchami": 295,
-   "ananta-padmanabha-vratham": 241,
-   "shyamala-navaratri": 248,
-   "chaitra-navaratri": 231,
+   "naga-panchami": 298,
+   "ananta-padmanabha-vratham": 242,
+   "shyamala-navaratri": 249,
+   "chaitra-navaratri": 232,
    "masa-shivaratri": 140,
    "pradosham": 113,
-   "pournami": 149,
+   "pournami": 150,
    "ramadevuni-puja": 126,
    "varalakshmi-vratham": 22,
    "krishnashtami": 8
@@ -38345,10 +38388,6 @@
    "krishnashtami": 9
   },
   "requests": [
-   {
-    "text": "Anni pooja lu",
-    "band": "p330"
-   },
    {
     "text": "Sankastahara gamapathi pooja",
     "band": "p330"
@@ -38479,6 +38518,10 @@
    },
    {
     "text": "Fri day pooja",
+    "band": "p330"
+   },
+   {
+    "text": "అట్లతది",
     "band": "p330"
    },
    {
@@ -39148,72 +39191,72 @@
   ]
  },
  "story": {
-  "seen": 23385,
-  "railSeen": 23141,
-  "railImpressions": 144166,
-  "reach": 8852,
-  "opens": 45227,
+  "seen": 23425,
+  "railSeen": 23182,
+  "railImpressions": 144803,
+  "reach": 8910,
+  "opens": 45702,
   "bySource": {
-   "rail": 3612,
-   "push": 5520,
+   "rail": 3621,
+   "push": 5599,
    "next": 1273,
-   "library": 2930,
+   "library": 2937,
    "link": 5,
    "v": 1,
    "other": 2
   },
   "opensBySource": {
-   "rail": 9269,
-   "push": 19939,
+   "rail": 9301,
+   "push": 20349,
    "next": 6297,
-   "library": 9660,
+   "library": 9693,
    "link": 37,
    "v": 5,
    "other": 20
   },
-  "listeners": 977,
-  "listens": 1492,
-  "seekers": 650,
-  "sharers": 584,
-  "shares": 1479,
-  "stuckUsers": 508,
-  "stuckEvents": 897,
-  "openedToday": 38,
-  "dailyHabit": 1931,
-  "railToOpenPct": 38.3,
+  "listeners": 988,
+  "listens": 1508,
+  "seekers": 653,
+  "sharers": 591,
+  "shares": 1500,
+  "stuckUsers": 511,
+  "stuckEvents": 901,
+  "openedToday": 287,
+  "dailyHabit": 1968,
+  "railToOpenPct": 38.4,
   "india": {
-   "reach": 7678,
-   "opens": 40211,
-   "pushOpeners": 4677
+   "reach": 7735,
+   "opens": 40685,
+   "pushOpeners": 4755
   },
   "nri": {
-   "reach": 1174,
-   "opens": 5016,
-   "pushOpeners": 843
+   "reach": 1175,
+   "opens": 5017,
+   "pushOpeners": 844
   },
-  "pushOpeners": 5520,
-  "pushOpens": 19939,
+  "pushOpeners": 5599,
+  "pushOpens": 20349,
   "lastCards": {
-   "m-2026-10-20-0118": 419,
-   "m-2026-09-13-1114": 397,
-   "m-2026-10-18-2227": 290,
-   "m-2026-10-13-2157": 288,
-   "m-2026-09-28-0531": 272,
-   "m-2026-10-12-0329": 258,
-   "m-2026-10-14-2232": 257,
-   "m-2026-10-12-2053": 243,
-   "m-2026-10-15-2340": 236,
-   "m-2026-09-01-0341": 223,
-   "m-2026-10-16-2331": 222,
-   "m-2026-10-18-2346": 202,
-   "m-2026-09-04-1837": 187,
-   "m-2026-09-04-1442": 187,
+   "m-2026-10-20-0118": 396,
+   "m-2026-09-13-1114": 394,
+   "m-2026-10-13-2157": 283,
+   "m-2026-10-18-2227": 282,
+   "m-2026-09-28-0531": 270,
+   "m-2026-10-12-0329": 253,
+   "m-2026-10-14-2232": 250,
+   "m-2026-10-12-2053": 240,
+   "m-2026-10-25-1441": 238,
+   "m-2026-10-15-2340": 233,
+   "m-2026-09-01-0341": 222,
+   "m-2026-10-16-2331": 208,
+   "m-2026-10-18-2346": 196,
+   "m-2026-09-04-1837": 186,
+   "m-2026-09-04-1442": 183,
    "m-2026-09-02-0759": 181,
-   "m-2026-10-10-0735": 177,
-   "m-2026-10-11-0357": 174,
-   "a-2026-09-26-pournami": 166,
-   "m-2026-10-10-0808": 165,
-   "m-2026-10-11-0416": 162
+   "m-2026-10-10-0735": 174,
+   "m-2026-10-11-0357": 173,
+   "m-2026-10-10-0808": 161,
+   "a-2026-09-26-pournami": 157
   }
  },
  "ios": {
@@ -39221,9 +39264,8 @@
   "note": "ONGOING analytics request just created — Apple delivers first data in ~24-48h"
  },
  "android": {
-  "updated": "2026-10-25T11:32:51.161Z",
+  "updated": "2026-10-25T16:21:36.692Z",
   "days": {
-   "2026-09-21": 91,
    "2026-09-22": 68,
    "2026-09-23": 75,
    "2026-09-24": 54,
@@ -39252,15 +39294,16 @@
    "2026-10-17": 63,
    "2026-10-18": 51,
    "2026-10-19": 60,
-   "2026-10-20": 42
+   "2026-10-20": 42,
+   "2026-10-21": 39
   },
   "latest": {
-   "date": "2026-10-20",
-   "installs": 42
+   "date": "2026-10-21",
+   "installs": 39
   },
   "totalUserInstalls": 0,
   "activeDevices": 26876,
-  "windowInstalls": 7798,
+  "windowInstalls": 7837,
   "windowFrom": "2026-09-01",
   "utmNote": "traffic_source export parsed — 212 rows across 2 months · acquisition/ export present (5 files) — retained-installers-by-channel would give D1/D7/D30 per source",
   "bySource": {
