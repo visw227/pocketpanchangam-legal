@@ -262,6 +262,313 @@
       return el;
     });
 
+    // ── NEW HOME · 50/50 (home-1) ──────────────────────────────────────
+    // The one comparison that decides the new Home (founder, 2026-10-28:
+    // "dashboard lo asla new design gurinchi em ledhu enti?"). It reads
+    // stats.experiment["home-1"] (scripts/experiment.ts, master). The rule was
+    // written before any data: go to 100% when the new Home is NOT worse by 2
+    // points or more on «came back within 7 days» — the lower end of the 95%
+    // range above −2 — and no guardrail is breached. Nothing here decides
+    // before the read locks; the live numbers move every run.
+    section(() => {
+      const e = d.experiment && d.experiment["home-1"];
+      if (!e || !e.armed) return null;
+      if (e.error) return $(`<div><h2>New Home · 50/50 test</h2><div class="err">${String(e.error).slice(0, 160)}</div></div>`);
+      const M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const day = (iso) => { if (!iso) return "—"; const t = new Date(Date.parse(iso) + 19800000); return t.getUTCDate() + " " + M[t.getUTCMonth()]; };
+      const at = (iso) => { if (!iso) return "—"; const t = new Date(Date.parse(iso) + 19800000); return day(iso) + ", " + t.toISOString().slice(11, 16) + " IST"; };
+      const pp = (v) => v == null ? "—" : (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(2) + " pts";
+      const pc = (k, nn) => nn ? (Math.round((k / nn) * 1000) / 10).toFixed(1) + "%" : "—";
+      const P = e.primary, R = P.locked || P.live;
+      const C = e.arms.control, T = e.arms.treatment;
+      const lo = R.ci95Pp[0], hi = R.ci95Pp[1], diff = R.diffPp, BAR = -2;
+      const pre = e.phase === "frozen-preactivation";
+
+      // where the test stands
+      let stage;
+      if (pre && e.liveFlag === 0) stage = "A/A — nobody is on the new Home yet; the two groups should read alike";
+      else if (pre && e.smoke && e.liveFlag != null && e.liveFlag <= (e.smoke.pct ?? 0)) stage = `${e.liveFlag}% safety slice since ${at(e.smoke.at)} — safety only, no verdict`;
+      else if (pre) stage = `the flag reads ${e.liveFlag ?? "?"} — the test starts on the first run that reads ${e.pct}`;
+      else if (e.phase === "activated-followup") stage = `Day ${Math.min(P.followUpDays, Math.floor(e.activation.exposureDays || 0) + 1)} of ${P.followUpDays} · started ${at(e.activation.at)} · the verdict locks ${day(P.readAt)}`;
+      else if (e.phase === "primary-locked") stage = `Main read locked ${day(P.locked.at)} · second check ${day(e.secondary.readAt)}`;
+      else stage = "Complete — both reads locked";
+
+      // the verdict line: only a LOCKED read decides
+      let verdict, vc;
+      if (P.locked) {
+        if (lo > BAR) { verdict = "GO — the new Home is not worse by 2 points or more → 100%"; vc = "var(--good)"; }
+        else { verdict = "HOLD — the new Home may cost more than 2 points"; vc = "var(--bad)"; }
+      } else if (pre) {
+        verdict = e.liveFlag === 0 || (e.smoke && e.liveFlag <= (e.smoke.pct ?? 0))
+          ? "Not started — both groups still mostly see the old Home, so any gap here is noise"
+          : "Starting — the next run records the switch";
+        vc = "var(--soft)";
+      } else {
+        const how = lo > BAR ? "on track so far (not worse by 2+ points)" : hi < BAR ? "WORSE by 2+ points so far" : "too close to call so far";
+        verdict = `Too early to call — ${how}. Locks ${day(P.readAt)}.`;
+        vc = lo > BAR ? "var(--good)" : hi < BAR ? "var(--bad)" : "var(--warn)";
+      }
+
+      // the range against the −2 line
+      const minX = Math.min(-4, Math.floor(lo - 0.5)), maxX = Math.max(4, Math.ceil(hi + 0.5));
+      const X = (v) => ((v - minX) / (maxX - minX)) * 100;
+      const range = `
+        <div style="position:relative;height:46px;margin:14px 4px 4px">
+          <div style="position:absolute;left:0;right:${100 - X(BAR)}%;top:14px;height:14px;background:rgba(217,83,79,.13);border-radius:3px 0 0 3px"></div>
+          <div style="position:absolute;left:0;right:0;top:20px;height:2px;background:var(--line)"></div>
+          <div style="position:absolute;left:${X(0)}%;top:8px;width:1px;height:26px;background:var(--faint)"></div>
+          <div style="position:absolute;left:${X(BAR)}%;top:6px;width:2px;height:30px;background:var(--bad)"></div>
+          <div title="95% range" style="position:absolute;left:${X(lo)}%;width:${Math.max(0.5, X(hi) - X(lo))}%;top:15px;height:12px;background:${vc};opacity:.45;border-radius:6px"></div>
+          <div title="the difference" style="position:absolute;left:calc(${X(diff)}% - 5px);top:16px;width:10px;height:10px;border-radius:50%;background:${vc}"></div>
+          <div style="position:absolute;left:${X(BAR)}%;top:36px;transform:translateX(-50%);font-size:10px;color:var(--bad);white-space:nowrap">−2 line</div>
+          <div style="position:absolute;left:${X(0)}%;top:36px;transform:translateX(-50%);font-size:10px;color:var(--faint)">0</div>
+        </div>`;
+
+      const big = (label, val, sub) => `<div style="flex:1;min-width:120px"><div class="k" style="font-size:10.5px;font-weight:800;color:var(--soft);letter-spacing:1px">${label}</div>
+        <div style="font-size:28px;font-weight:800;line-height:1.15">${val}</div><div class="l" style="color:var(--faint);font-size:12px">${sub}</div></div>`;
+      const tr = (label, a, b, hint) => `<tr><td class="k">${label}${hint ? `<div style="font-size:10.5px;color:var(--faint)">${hint}</div>` : ""}</td><td>${a}</td><td>${b}</td></tr>`;
+      const so = (a) => a.story ? (a.story.pctOpened != null ? a.story.pctOpened + "%" : "—") : "—";
+      const ni = (a, k) => a.ni && a.ni.reporting ? n(a.ni[k]) : "—";
+
+      const el = $(`<div><h2>New Home · 50/50 test</h2></div>`);
+      el.appendChild($(`
+        <div class="panel">
+          <div style="font-size:12px;color:var(--soft)">${stage}</div>
+          <div style="margin-top:8px;font-size:14px;font-weight:800;color:${vc}">${verdict}</div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:12px">
+            ${big("OLD HOME", (P.locked ? P.locked.control : P.live.control).active7 != null ? pc((P.locked || P.live).control.active7, (P.locked || P.live).control.n) : "—", n((P.locked || P.live).control.n) + " people · came back within 7 days")}
+            ${big("NEW HOME", pc((P.locked || P.live).treatment.active7, (P.locked || P.live).treatment.n), n((P.locked || P.live).treatment.n) + " people · came back within 7 days")}
+            ${big("DIFFERENCE", pp(diff), "95% range " + pp(lo) + " to " + pp(hi))}
+          </div>
+          ${range}
+          <div class="note">Go to 100% when the whole range sits right of the red −2 line. The range narrows as the days add up
+            (smallest gap this test can see: ±${(P.mdePp ?? 0).toFixed(1)} pts). «Came back within 7 days» looks back a week, so the first
+            7 days after the switch still carry days on the old Home — the gap, if any, builds over the first week.
+            ${e.aa ? `A/A before the switch: ${pp(e.aa.diffPp)} (noise band ±${e.aa.twoSigmaPp} pts) — ${e.aa.pass ? "passed" : "FAILED"}.` : ""}
+            Split ${e.armSizeCheck.controlShare}% / ${(100 - e.armSizeCheck.controlShare).toFixed(2)}% ${e.armSizeCheck.ok ? "(as planned)" : "(OFF — check the bucketing)"}.</div>
+        </div>`));
+      el.appendChild($(`
+        <div class="panel">
+          <table>
+            <tr><th></th><th>Old Home</th><th>New Home</th></tr>
+            ${tr("People in the test", n(C.n), n(T.n), "frozen 27 Oct; every one stays in their group")}
+            ${tr("Came back today", pc(C.active1, C.n), pc(T.active1, T.n))}
+            ${tr("Came back within 7 days", pc(C.active7, C.n), pc(T.active7, T.n), "the deciding number")}
+            ${tr("Opened a story since the switch", so(C), so(T), pre ? "counts from the switch" : "")}
+            ${tr("Story opens since 27 Oct", C.story && C.story.dOp != null ? n(C.story.dOp) : "—", T.story && T.story.dOp != null ? n(T.story.dOp) : "—")}
+            ${tr("Puja hub opens since 27 Oct", C.puja && C.puja.dSn != null ? n(C.puja.dSn) : "—", T.puja && T.puja.dSn != null ? n(T.puja.dSn) : "—")}
+            ${tr("నిత్య పూజ started · finished", ni(C, "starts") + " · " + ni(C, "finished"), ni(T, "starts") + " · " + ni(T, "finished"), "all-time totals on phones that report them — move slowly")}
+            ${tr("<span style='color:var(--warn)'>Guardrail</span> · a story would not open", n(C.storyStuck), n(T.storyStuck), "should stay alike")}
+            ${tr("<span style='color:var(--warn)'>Guardrail</span> · Ask PP had no answer (30 d)", C.askNoModel != null ? n(C.askNoModel) : "—", T.askNoModel != null ? n(T.askNoModel) : "—", "should stay alike")}
+          </table>
+          <details><summary>How this is measured</summary>
+            <div class="note" style="margin-top:0">${(e.notes || []).map((x) => "· " + String(x).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]))).join("<br>")}</div>
+          </details>
+        </div>`));
+      return el;
+    });
+
+    // ── HOME — ఏది వాడుతున్నారు ─────────────────────────────────────
+    // Which Home controls earn their place (founder, 2026-10-27). Its own file,
+    // homeuse.json (scripts/homeUse.ts): stats.json is what every phone
+    // downloads, so this never rides in it. A placeholder now, filled when the
+    // file lands; it removes itself when there is no file or no rows at all.
+    section(() => {
+      const el = $('<div class="panel" style="margin-top:10px"><div class="k">HOME — ఏది వాడుతున్నారు</div><div class="l">loading…</div></div>');
+      const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+      const P = (v) => v == null ? "n<50" : v + "%";
+      const VC = { "DOUBLE DOWN": "var(--good)", "PROMOTE": "var(--good)", "KEEP": "var(--soft)", "KEEP (unstable)": "var(--soft)",
+        "IMPROVE": "var(--warn)", "IMPROVE · MOVE UP": "var(--warn)", "DEMOTE?": "var(--warn)", "REMOVE": "var(--bad)", "REMOVE (duplicate)": "var(--bad)" };
+      const chip = (v, why) => {
+        const c = VC[v];
+        const st = v === "LEARNING" ? "border:1px solid var(--faint);color:var(--soft)"
+          : c ? `background:${c}26;color:${c}` : "background:rgba(255,255,255,.07);color:var(--faint)";
+        return `<span class="pill" title="${esc(why)}" style="${st};white-space:nowrap;cursor:help">${esc(v)}</span>`;
+      };
+      const row = (label, val, sub) =>
+        `<div style="min-width:120px"><div class="k">${label}</div><div style="font-size:26px;font-weight:800">${val}</div>${sub ? `<div class="l">${sub}</div>` : ""}</div>`;
+      const bar = (label, v, right, colour) =>
+        `<div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+           <div style="width:150px;font-size:12px;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${label}</div>
+           <div style="flex:1;height:6px;background:rgba(220,178,92,.14);border-radius:3px;overflow:hidden">
+             <div style="height:6px;width:${Math.max(0, Math.min(100, v || 0))}%;background:${colour || "var(--kumkuma,#DCB25C)"}"></div></div>
+           <div style="width:110px;text-align:right;font-size:12px">${right}</div></div>`;
+      const ago = (ts) => { if (!ts) return "—"; const m = Math.round((Date.now() - ts) / 60000); return m < 60 ? m + " min ago" : Math.round(m / 60) + " h ago"; };
+
+      fetch("homeuse.json?cb=" + Date.now()).then((r) => r.ok ? r.json() : null).then((h) => {
+        const skyD = h && h.sky && h.sky.win ? h.sky.win.d14.D : 0;
+        const canaryAny = h && ((h.canary && (h.canary.rows || h.canary.viewers)) || (h.compare && (h.compare.sky.D || h.compare.legacy.D)));
+        if (!h || (!skyD && !canaryAny)) { el.remove(); return; }
+        const s = h.sky, k = s.kpi;
+        const parts = [];
+        parts.push(`<div class="k">HOME — ఏది వాడుతున్నారు</div>
+          <div class="l" style="margin-bottom:6px">${skyD
+            ? `new sky Home · production · ${h.window.from} → ${h.window.to} (14 phone-local days) · coverage ${h.coverage.pct ?? "—"}% of DAU`
+            : "no production sky rows yet — canary plumbing below"}</div>`);
+
+        if (skyD) {
+          // 1 · KPI strip
+          parts.push(`<div style="display:flex;flex-wrap:wrap;gap:18px;margin-top:6px">
+            ${row("HOME VIEWERS / DAY", n(k.viewersPerDay), k.change == null ? "7-day average" : (k.change >= 0 ? "▲ " : "▼ ") + Math.abs(k.change) + "% vs the week before")}
+            ${row("VIEWS / VIEWER-DAY", k.viewsPerViewerDay ?? "—")}
+            ${row("GLANCE-ONLY", P(k.glance), "the sky answered, nothing tapped")}
+            ${row("REACHED THE BENTO", P(k.bento))}
+            ${row("REACHED THE FOOT", P(k.foot))}
+            ${row("COVERAGE", P(k.coverage), n(h.coverage.D7) + " of " + n(h.coverage.dau7) + " DAU")}
+          </div>`);
+
+          // 2 · section funnel — are they even scrolling?
+          parts.push(`<div class="l" style="margin-top:14px">SECTION FUNNEL — seen % of viewer-days · any-tap CTR once seen</div>
+            ${s.funnel.map((f) => bar(f.label, f.seen, `${P(f.seen)} · ${f.ctr == null ? "—" : f.ctr + "% tap"}`)).join("")}`);
+          // which variant the phones drew: why Ask PP's / పండుగలు's tab, the bento's పండుగలు and the empty stories line have the E they have
+          const vr = s.variants || {};
+          parts.push(`<div class="note" style="margin-top:4px">drawn variants, % of viewer-days: Ask PP in the bar ${P(vr.askbar)} (the rest: పండుగలు) ·
+            stories: cards ${P(vr.storycards)} · empty strip ${P(vr.storyempty)}. tab_ask, tab_fest, b_festivals and every story_* count only the days they were drawn.</div>`);
+
+          // 3 · controls — the core
+          const ctx = (c) => {
+            try {
+              if (c === "puja_card" && d.pujaHubs) {
+                let r = 0, ck = 0; for (const v of Object.values(d.pujaHubs)) { r += v.reached || 0; ck += v.checklistUsers || 0; }
+                return r ? `prep → checked ${Math.round(ck / r * 100)}%` : "";
+              }
+              if (/^ask_/.test(c) && d.ask && d.ask.d7) return `Ask 7d: ${n(d.ask.d7.users)} people · ${n(d.ask.d7.questions)} questions`;
+              if (c === "story_ring" && d.story) return `${n(d.story.listens)} listens · rail → open ${d.story.railToOpenPct ?? "—"}%`;
+            } catch (e) {}
+            return "";
+          };
+          const spark = (w) => {
+            const vals = w.map((v) => v ?? 0), top = Math.max(1, ...vals);
+            const live = w.filter((v) => v != null);
+            const arrow = live.length >= 2 ? (live[live.length - 1] > live[live.length - 2] ? "↑" : live[live.length - 1] < live[live.length - 2] ? "↓" : "→") : "";
+            return `<span style="display:inline-flex;align-items:flex-end;gap:1px;height:14px;vertical-align:middle">${w.map((v) =>
+              `<i style="display:inline-block;width:4px;height:${v == null ? 1 : Math.max(1, Math.round(v / top * 14))}px;background:${v == null ? "var(--line)" : "var(--gold)"}"></i>`).join("")}</span> ${arrow}`;
+          };
+          const SEC_ORDER = s.funnel.map((f) => f.s).concat(["pushed", "—"]);
+          const SEC_LABEL = Object.fromEntries(s.funnel.map((f) => [f.s, f.label]).concat([["pushed", "pushed page"], ["—", "not drawn"]]));
+          let filt = "all", sortBy = "reach";
+          const FILTERS = { all: () => true, dd: (v) => v === "DOUBLE DOWN", improve: (v) => /^IMPROVE/.test(v), remove: (v) => /^REMOVE/.test(v), learning: (v) => v === "LEARNING" };
+          const table = $('<div style="margin-top:14px"></div>');
+          const draw = () => {
+            const rows = s.controls.filter((c) => FILTERS[filt](c.verdict));
+            const by = (a, b) => (b[sortBy] ?? -1) - (a[sortBy] ?? -1);
+            const body = SEC_ORDER.map((sec) => {
+              const g = rows.filter((c) => c.sec === sec).sort(by);
+              if (!g.length) return "";
+              return `<tr><td colspan="10" style="text-align:left;color:var(--gold);font-size:11px;font-weight:800;padding-top:12px">${esc(SEC_LABEL[sec] || sec)}</td></tr>` +
+                g.map((c) => {
+                  // N/A = not drawn on this Home, or never in the variant the phones drew: a dash, never "n<50" or 0%.
+                  // drawn "tap" = no section says it was on screen (E is its own taps): no seen, no CTR.
+                  const nd = c.drawn === "no" || c.verdict === "N/A", tap = c.drawn === "tap";
+                  const none = (why) => `<span style="color:var(--faint)" title="${esc(why)}">—</span>`;
+                  const Q = (v) => nd ? none("not drawn") : P(v);
+                  return `<tr${nd ? ' style="opacity:.55"' : ""}>
+                  <td style="text-align:left">${esc(c.label)} <span style="color:var(--faint);font-size:10.5px">${c.c}</span>${ctx(c.c) ? `<div style="color:var(--faint);font-size:10.5px">${esc(ctx(c.c))}</div>` : ""}</td>
+                  <td>${tap ? none("drawn only on some days or after another tap") : Q(c.seen)}</td>
+                  <td title="taps per impression ${c.E ? (c.T / c.E).toFixed(2) : "—"}">${nd ? none("not drawn") : tap ? none("E is its own taps: no CTR") : c.ctr == null ? "n<50" : `${c.ctr}% <span style="color:var(--faint);font-size:10.5px">${c.lo}–${c.hi}</span>`}</td>
+                  <td>${Q(c.reach)}</td>
+                  <td>${nd ? none("not drawn") : c.per100 ?? "—"}</td>
+                  <td>${nd ? none("not drawn") : c.rep ?? "—"}</td>
+                  <td>${Q(c.first)}</td>
+                  <td style="white-space:nowrap">${c.ios == null ? "—" : c.ios + "%"} / ${c.android == null ? "—" : c.android + "%"}</td>
+                  <td>${spark(c.weeks)}</td>
+                  <td>${chip(c.verdict, c.why)}</td></tr>`;
+                }).join("");
+            }).join("");
+            table.innerHTML = `
+              <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+                ${[["all", "All"], ["dd", "Double down"], ["improve", "Improve"], ["remove", "Remove"], ["learning", "Learning"]].map(([key, t]) =>
+                  `<span class="pill" data-f="${key}" style="cursor:pointer;${filt === key ? "background:var(--gold);color:#14100B" : "background:rgba(255,255,255,.07);color:var(--soft)"}">${t}</span>`).join("")}
+                <span style="flex:1"></span>
+                <span class="l">sort</span>
+                ${[["reach", "reach"], ["ctr", "CTR"], ["per100", "per 100"]].map(([key, t]) =>
+                  `<span class="pill" data-s="${key}" style="cursor:pointer;${sortBy === key ? "background:var(--gold);color:#14100B" : "background:rgba(255,255,255,.07);color:var(--soft)"}">${t}</span>`).join("")}
+              </div>
+              <div style="overflow-x:auto;margin-top:8px"><table style="font-size:12px;min-width:760px">
+                <tr><th>control</th><th>seen</th><th>CTR ± 95%</th><th>reach</th><th>/100 views</th><th>repeat</th><th>first</th><th>iOS / And.</th><th>4 wks</th><th>verdict</th></tr>
+                ${body || `<tr><td colspan="10" class="k">nothing in this filter</td></tr>`}
+              </table></div>`;
+            table.querySelectorAll("[data-f]").forEach((x) => x.onclick = () => { filt = x.dataset.f; draw(); });
+            table.querySelectorAll("[data-s]").forEach((x) => x.onclick = () => { sortBy = x.dataset.s; draw(); });
+          };
+          draw();
+          parts.push(table);
+          if (s.unknown && s.unknown.length) parts.push(`<div class="note" style="color:var(--warn)">registry drift — the app sent controls this dash has no name for: ${s.unknown.map((u) => u.c + " (" + u.T + ")").join(", ")}. Append them to scripts/homeUse.ts.</div>`);
+
+          // 4 · what they came for
+          parts.push(`<div class="l" style="margin-top:16px">WHAT THEY CAME FOR — first tap of the day, % of viewer-days</div>
+            ${s.firstTap.map((f) => bar(esc(f.label), f.pct, P(f.pct), f.c === "none" ? "rgba(255,255,255,.25)" : null)).join("")}`);
+
+          // 5 · day travel
+          const dn = s.dayNav;
+          parts.push(`<div class="l" style="margin-top:16px">DAY TRAVEL — ${n(dn.total)} day changes</div>
+            ${bar("‹ › arrows", dn.arrows, P(dn.arrows))}${bar("swipe", dn.swipe, P(dn.swipe))}
+            ${bar("calendar", dn.calendar, P(dn.calendar))}${bar("«ఈరోజుకి»", dn.today, P(dn.today))}`);
+
+          // 6 · duplicate doors
+          const COLS = ["var(--gold)", "var(--good)", "var(--kum)", "var(--warn)"];
+          parts.push(`<div class="l" style="margin-top:16px">DUPLICATE DOORS — each door's share of its destination's Home opens</div>
+            ${s.dupes.filter((x) => x.total > 0).map((x) => `
+              <div style="margin-top:7px"><div style="font-size:12px;color:var(--soft)">${esc(x.dest)} <span style="color:var(--faint)">· ${n(x.total)} opens</span></div>
+                <div style="display:flex;height:8px;border-radius:3px;overflow:hidden;background:var(--line);margin-top:3px">
+                  ${x.doors.map((dd, i) => `<div title="${esc(dd.label)} ${P(dd.share)}" style="width:${dd.share || 0}%;background:${COLS[i % 4]}"></div>`).join("")}</div>
+                <div style="font-size:11px;color:var(--faint);margin-top:2px">${x.doors.map((dd, i) => `<span style="color:${COLS[i % 4]}">■</span> ${esc(dd.label)} ${P(dd.share)}`).join(" &nbsp; ")}</div>
+              </div>`).join("") || `<div class="note">no duplicate-door opens yet</div>`}`);
+
+          // 7 · trend
+          const top = Math.max(1, ...s.daily.map((x) => x.D));
+          parts.push(`<div class="l" style="margin-top:16px">28 DAYS — Home viewer-days (hover: views, glance-only)</div>
+            <div class="spark">${s.daily.map((x) => `<div class="b" title="${x.d}: ${n(x.D)} viewers · ${n(x.V)} views · ${x.V ? Math.round(x.G / x.V * 100) : 0}% glance"><i style="height:${Math.round(x.D / top * 100)}%"></i></div>`).join("")}</div>
+            <div class="xlab">${s.daily.map((x, i) => `<span>${i % 7 === 0 ? x.d.slice(5) : ""}</span>`).join("")}</div>`);
+        }
+
+        // 8 · UI compare — canary only
+        const cmp = h.compare;
+        if (cmp && (cmp.sky.D || cmp.legacy.D)) {
+          const spread = (a) => (a || []).map((v) => v == null ? "·" : v).join(" / ");
+          parts.push(`<div class="l" style="margin-top:16px">SKY vs LEGACY — ${esc(cmp.label)}</div>
+            <table style="margin-top:4px"><tr><th></th><th>sky</th><th>legacy</th></tr>
+              <tr><td class="k">viewer-days</td><td>${n(cmp.sky.D)}</td><td>${n(cmp.legacy.D)}</td></tr>
+              <tr><td class="k">views / viewer-day</td><td>${cmp.sky.vpd ?? "n<50"}</td><td>${cmp.legacy.vpd ?? "n<50"}</td></tr>
+              <tr><td class="k">glance-only</td><td>${P(cmp.sky.glance)}</td><td>${P(cmp.legacy.glance)}</td></tr>
+              <tr><td class="k">depth 0–4</td><td>${spread(cmp.sky.depth)}</td><td>${spread(cmp.legacy.depth)}</td></tr>
+              <tr><td class="k">Home-days in 7 (1–7)</td><td>${spread(cmp.sky.W)}</td><td>${spread(cmp.legacy.W)}</td></tr>
+            </table>
+            <div class="note">switch-away ${P(cmp.switch.toOld)} of sky viewer-days · switch-back ${P(cmp.switch.toNew)} of legacy viewer-days ·
+              sits on old ${P(cmp.switch.sitsOld)} · ${n(cmp.switch.both)} phone-days saw both</div>`);
+        }
+
+        // 9 · canary plumbing — a founder tap-through, control by control
+        const cn = h.canary;
+        if (cn) {
+          const seen = new Set(cn.seenToday || []);
+          parts.push(`<div class="l" style="margin-top:16px">CANARY PLUMBING — today (${h.asOf}), canary + dev builds</div>
+            <div class="note" style="margin-top:2px">${n(cn.rows)} rows · ${n(cn.viewers)} viewers · last row ${ago(cn.lastTs)} ·
+              <b style="color:${cn.rejects ? "var(--warn)" : "var(--soft)"}">${n(cn.rejects)} rejects</b> · ${n(cn.orphans)} orphans ·
+              sections seen: ${(cn.sectionsToday || []).join(", ") || "—"}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${(s ? s.controls : []).map((c) =>
+              `<span class="pill" title="${c.c}" style="font-weight:600;${seen.has(c.c) ? "background:rgba(95,191,127,.18);color:var(--good)" : "background:rgba(255,255,255,.05);color:var(--faint)"}">${seen.has(c.c) ? "✓" : "·"} ${esc(c.label)}</span>`).join("")}</div>`);
+        }
+
+        parts.push(`<div class="note">
+          <b style="color:var(--soft)">How to read it.</b> D = viewer phone-days (a Home view that day). V = Home views.
+          E = phone-days whose Home drew the control and saw its section, or tapped it (a tap proves it was seen). U = phone-days that tapped it.
+          N/A = not drawn on this Home, or never in the variant the phones drew: no rate, no verdict. A tap-only control
+          (the «preparing» puja card, the TTD/drik and place confirms) has E = its own taps, so no seen and no CTR: INFO.
+          T = taps, each phone-day capped at 35. <b>CTR = U/E</b> with a Wilson 95% interval: the decision metric (tooltip: T/E).
+          Reach = U/D. /100 views = 100·T/V. Repeat = T/U. First = share of viewer-days whose first tap of the day was this.
+          Complete phone-local days only; phones abroad report their own day. No rate is shown under 50 (n&lt;50).
+          Verdicts are suggestions with their numbers (hover a chip): they wait for 14 production days, E ≥ 1,500, rows on 10 of 14
+          days and coverage ≥ 30%; REMOVE also needs E ≥ 3,000, day 21, and both 7-day halves. Utility controls are never removed on
+          numbers; brand card is judged in the brand funnel. Counts only: a random token per phone per day, never an install id.
+        </div>`);
+
+        el.innerHTML = "";
+        for (const p of parts) typeof p === "string" ? el.insertAdjacentHTML("beforeend", p) : el.appendChild(p);
+      }).catch(() => el.remove());
+      return el;
+    });
+
     section(() => d.mauIsDegenerate ? $(`
       <div class="panel" style="margin-top:10px">
         <div class="note" style="margin:0">
